@@ -1,15 +1,14 @@
 package com.beiwangshan.blog.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.Column;
-import java.util.Date;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "tb_categories")
-public class Categories {
+public class Category {
 
   @Id
   private String id;

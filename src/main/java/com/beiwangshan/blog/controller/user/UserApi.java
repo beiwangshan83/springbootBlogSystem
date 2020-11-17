@@ -77,21 +77,60 @@ public class UserApi {
      * @param bwsUser
      * @return
      */
-    @PutMapping("/password")
-    public ResponseResult updatePasssword(@RequestBody BwsUser bwsUser){
+    @PutMapping("/password/{userId}")
+    public ResponseResult updatePasssword(@PathVariable("userId")String userId,@RequestBody BwsUser bwsUser){
 
         return null;
     }
 
+    /**
+     * 获取用户信息
+     * @param userId
+     * @param bwsUser
+     * @return
+     */
     @GetMapping("/{userId}")
     public ResponseResult getUserInfo(@PathVariable("userId")String userId,@RequestBody BwsUser bwsUser){
 
         return null;
     }
 
-    @PutMapping
-    public ResponseResult updateUserInfo(@RequestBody BwsUser bwsUser){
+    /**
+     * 更新用户信息
+     * @param userId
+     * @param bwsUser
+     * @return
+     */
+    @PutMapping("/{userId}")
+    public ResponseResult updateUserInfo(@PathVariable("userId")String userId,@RequestBody BwsUser bwsUser){
 
+        return null;
+    }
+
+    /**
+     * 获取用户列表
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/list")
+    public ResponseResult listUser(@RequestParam("page")int page,@RequestParam("size")int size){
+
+        return null;
+    }
+
+    /**
+     * 删除用户，通过用户的ID
+     * @param userId
+     * @return
+     */
+    @DeleteMapping("/{userId}")
+    public ResponseResult deleteUser(@PathVariable("userId")String userId){
+        return null;
+    }
+
+    @PutMapping("")
+    public ResponseResult updateUser(){
         return null;
     }
 
