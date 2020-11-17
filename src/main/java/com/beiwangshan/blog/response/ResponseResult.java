@@ -20,6 +20,45 @@ public class ResponseResult {
         this.message = responseState.getMessage();
     }
 
+    /**
+     * 成功状态的封装
+     * @return
+     */
+    public static ResponseResult SUCCESS(){
+        return new ResponseResult(ResponseState.SUCCESS);
+    }
+
+    /**
+     * 成功状态的封装，加上重载，可以传入参数
+     * @param message
+     * @return
+     */
+    public static ResponseResult SUCCESS(String message){
+        ResponseResult responseResult = new ResponseResult(ResponseState.SUCCESS);
+        responseResult.setMessage(message);
+        return responseResult;
+    }
+
+    /**
+     *    失败状态的封装
+     * @return
+     */
+    public static ResponseResult FAILD(){
+        return new ResponseResult(ResponseState.FAILD);
+    }
+
+
+    /**
+     * 失败状态的封装，加上重载，可以传入参数
+     * @param message
+     * @return
+     */
+    public static ResponseResult FAILD(String message){
+        ResponseResult responseResult =new ResponseResult(ResponseState.FAILD);;
+        responseResult.setMessage(message);
+        return responseResult;
+    }
+
     public boolean isSuccess() {
         return success;
     }
@@ -48,7 +87,13 @@ public class ResponseResult {
         return data;
     }
 
-    public void setData(Object data) {
+    /**
+     * 修改返回值
+     * @param data
+     * @return
+     */
+    public ResponseResult setData(Object data) {
         this.data = data;
+        return this;
     }
 }

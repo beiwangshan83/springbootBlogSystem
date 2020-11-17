@@ -15,7 +15,11 @@ public enum  ResponseState {
      */
     SUCCESS(true,20000,"操作成功"),
     LOGIN_SUCCESS(true,20001,"登录成功"),
-    FAILED(false,40000,"操作失败");
+    REGISTER_SUCCESS(true,20002,"注册成功"),
+    FAILD(false,40000,"操作失败"),
+    LOGIN_FAILD(false,40001,"登录失败"),
+    REGISTER_FAILD(false,40002,"注册失败"),
+    GET_RESOURCES_FAILD(false,49999,"获取资源失败");
 
     private int code;
     private String message;
