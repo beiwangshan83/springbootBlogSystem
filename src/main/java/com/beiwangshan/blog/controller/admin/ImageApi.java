@@ -31,7 +31,7 @@ public class ImageApi {
      * @return
      */
     @DeleteMapping("/{imageId}")
-    public ResponseResult uploadImage(@PathVariable("imageId")String imageId){
+    public ResponseResult deleteImage(@PathVariable("imageId")String imageId){
 
         return null;
     }

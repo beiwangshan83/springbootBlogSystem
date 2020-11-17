@@ -2,8 +2,12 @@ package com.beiwangshan.blog.controller.user;
 
 import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @className: com.beiwangshan.blog.controller.user-> UserApi
@@ -18,15 +22,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/user")
 public class UserApi {
 
+    @Autowired
+    private IUserService userService;
+
     /**
      * 初始化管理员账号 init-admin
      * @param bwsUser
      * @return
      */
     @PostMapping("/admin_account")
-    public ResponseResult initManagerAccount(@RequestBody BwsUser bwsUser){
-
-        return ResponseResult.SUCCESS();
+    public ResponseResult initManagerAccount(@RequestBody BwsUser bwsUser, HttpServletRequest request){
+        log.info("username ==> "+ bwsUser.getUserName());
+        log.info("password ==> "+ bwsUser.getPassword());
+        log.info("email ==> "+ bwsUser.getEmail());
+        return userService.initManagerAccount(bwsUser,request);
     }
 
     /**

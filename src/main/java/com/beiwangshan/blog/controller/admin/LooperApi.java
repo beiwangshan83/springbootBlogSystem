@@ -21,29 +21,29 @@ public class LooperApi {
      * @return
      */
     @PostMapping
-    public ResponseResult uploadLoop(@RequestBody Looper looper){
+    public ResponseResult addLoop(@RequestBody Looper looper){
 
         return null;
     }
 
     /**
      * 删除轮播图的api
-     * @param looperId
+     * @param loopId
      * @return
      */
-    @DeleteMapping("/{looperId}")
-    public ResponseResult uploadLooper(@PathVariable("looperId")String looperId){
+    @DeleteMapping("/{loopId}")
+    public ResponseResult deleteLooper(@PathVariable("loopId")String loopId){
 
         return null;
     }
 
     /**
      * 更新轮播图的api
-     * @param looperId
+     * @param loopId
      * @return
      */
-    @PutMapping("/{looperId}")
-    public ResponseResult updateLooper(@PathVariable("looperId")String looperId){
+    @PutMapping("/{loopId}")
+    public ResponseResult updateLooper(@PathVariable("loopId")String loopId){
 
         return null;
     }
@@ -51,11 +51,11 @@ public class LooperApi {
 
     /**
      * 获取轮播图的 api
-     * @param looperId
+     * @param loopId
      * @return
      */
     @GetMapping("/{looperId}")
-    public ResponseResult getLooper(@PathVariable("looperId")String looperId){
+    public ResponseResult getLooper(@PathVariable("loopId")String loopId){
 
         return null;
     }

@@ -1,12 +1,20 @@
 package com.beiwangshan.blog;
 
+import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class BlogApplication {
     public static void main(String[] args) {
         SpringApplication.run(BlogApplication.class,args);
+    }
+
+//    注入雪花算法
+    @Bean
+    public SnowflakeIdWorker createIdWoker(){
+        return new SnowflakeIdWorker(0,0);
     }
 }
 

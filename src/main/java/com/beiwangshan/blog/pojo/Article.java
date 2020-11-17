@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.util.Date;
 
 
 @Entity
@@ -31,10 +32,9 @@ public class Article {
   @Column(name= "`view_count`")
   private long view_count;
   @Column(name= "`create_time`")
-  private java.sql.Timestamp create_time;
+  private Date create_time;
   @Column(name= "`update_time`")
-  private java.sql.Timestamp update_time;
-
+  private Date update_time;
 
   public String getId() {
     return id;
@@ -44,7 +44,6 @@ public class Article {
     this.id = id;
   }
 
-
   public String getTitle() {
     return title;
   }
@@ -52,7 +51,6 @@ public class Article {
   public void setTitle(String title) {
     this.title = title;
   }
-
 
   public String getUser_id() {
     return user_id;
@@ -62,7 +60,6 @@ public class Article {
     this.user_id = user_id;
   }
 
-
   public String getCategory_id() {
     return category_id;
   }
@@ -70,7 +67,6 @@ public class Article {
   public void setCategory_id(String category_id) {
     this.category_id = category_id;
   }
-
 
   public String getContent() {
     return content;
@@ -80,7 +76,6 @@ public class Article {
     this.content = content;
   }
 
-
   public String getType() {
     return type;
   }
@@ -88,7 +83,6 @@ public class Article {
   public void setType(String type) {
     this.type = type;
   }
-
 
   public String getState() {
     return state;
@@ -98,7 +92,6 @@ public class Article {
     this.state = state;
   }
 
-
   public String getSummary() {
     return summary;
   }
@@ -106,7 +99,6 @@ public class Article {
   public void setSummary(String summary) {
     this.summary = summary;
   }
-
 
   public String getLabels() {
     return labels;
@@ -116,7 +108,6 @@ public class Article {
     this.labels = labels;
   }
 
-
   public long getView_count() {
     return view_count;
   }
@@ -125,22 +116,19 @@ public class Article {
     this.view_count = view_count;
   }
 
-
-  public java.sql.Timestamp getCreate_time() {
+  public Date getCreate_time() {
     return create_time;
   }
 
-  public void setCreate_time(java.sql.Timestamp create_time) {
+  public void setCreate_time(Date create_time) {
     this.create_time = create_time;
   }
 
-
-  public java.sql.Timestamp getUpdate_time() {
+  public Date getUpdate_time() {
     return update_time;
   }
 
-  public void setUpdate_time(java.sql.Timestamp update_time) {
+  public void setUpdate_time(Date update_time) {
     this.update_time = update_time;
   }
-
 }

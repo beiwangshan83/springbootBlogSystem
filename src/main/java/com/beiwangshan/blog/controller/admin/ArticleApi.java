@@ -21,7 +21,7 @@ public class ArticleApi {
      * @return
      */
     @PostMapping
-    public ResponseResult uploadArticle(@RequestBody Article article){
+    public ResponseResult addArticle(@RequestBody Article article){
 
         return null;
     }
@@ -32,7 +32,7 @@ public class ArticleApi {
      * @return
      */
     @DeleteMapping("/{articleId}")
-    public ResponseResult uploadArticle(@PathVariable("articleId")String articleId){
+    public ResponseResult deleteArticle(@PathVariable("articleId")String articleId){
 
         return null;
     }
@@ -69,6 +69,27 @@ public class ArticleApi {
     @GetMapping("/list")
     public ResponseResult listArticle(@RequestParam("apge")int page, @RequestParam("size")int size){
 
+        return null;
+    }
+
+    /**
+     * 更新文章的状态
+     * @param articleId
+     * @param state
+     * @return
+     */
+    @PutMapping("/state/{articleId}/{state}")
+    public ResponseResult updateArticleState(@PathVariable("articleId")String articleId,@PathVariable("state")String state){
+        return null;
+    }
+
+    /**
+     * 更新文章的置顶状态
+     * @param articleId
+     * @return
+     */
+    @PutMapping("/top/{articleId}")
+    public ResponseResult updateArticleState(@PathVariable("articleId")String articleId){
         return null;
     }
 }

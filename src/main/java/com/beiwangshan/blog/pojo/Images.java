@@ -20,9 +20,9 @@ public class Images {
   @Column(name= "`state`")
   private String state;
   @Column(name= "`create_time`")
-  private java.sql.Timestamp create_time;
+  private Date create_time;
   @Column(name= "`update_time`")
-  private java.sql.Timestamp update_time;
+  private Date update_time;
 
 
   public String getId() {
@@ -33,7 +33,6 @@ public class Images {
     this.id = id;
   }
 
-
   public String getUser_id() {
     return user_id;
   }
@@ -41,7 +40,6 @@ public class Images {
   public void setUser_id(String user_id) {
     this.user_id = user_id;
   }
-
 
   public String getUrl() {
     return url;
@@ -51,7 +49,6 @@ public class Images {
     this.url = url;
   }
 
-
   public String getState() {
     return state;
   }
@@ -60,22 +57,19 @@ public class Images {
     this.state = state;
   }
 
-
-  public java.sql.Timestamp getCreate_time() {
+  public Date getCreate_time() {
     return create_time;
   }
 
-  public void setCreate_time(java.sql.Timestamp create_time) {
+  public void setCreate_time(Date create_time) {
     this.create_time = create_time;
   }
 
-
-  public java.sql.Timestamp getUpdate_time() {
+  public Date getUpdate_time() {
     return update_time;
   }
 
-  public void setUpdate_time(java.sql.Timestamp update_time) {
+  public void setUpdate_time(Date update_time) {
     this.update_time = update_time;
   }
-
 }
