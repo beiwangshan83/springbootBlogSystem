@@ -10,6 +10,9 @@ package com.beiwangshan.blog.utils;
  */
 public interface Contants {
 
+//    页面默认的分页大小
+    int DEFAULT_SIZE = 20;
+
     interface User{
         //管理员默认角色
         String ROLE_ADMIN = "ROLE_ADMIN";
@@ -22,4 +25,6 @@ public interface Contants {
     interface Settings{
         String MANAGER_ACCOUNT_INIT_STATE = "manager_account_init_state";
     }
+
+
 }

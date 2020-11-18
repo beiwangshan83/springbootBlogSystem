@@ -3,9 +3,14 @@ package com.beiwangshan.blog.controller;
 import com.beiwangshan.blog.dao.LabelDao;
 import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.utils.Contants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
@@ -106,6 +111,34 @@ public class TestController {
             return ResponseResult.FAILD("标签不存在");
         }
         return ResponseResult.SUCCESS("查询成功").setData(dblabel);
+    }
+
+//    分页
+
+    /**
+     * label 的分页 加上排序
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/label/list/{page}/{size}")
+    public ResponseResult listLabels(@PathVariable("page")int page,@PathVariable("size")int size){
+//        判断page是否大于0
+        if (page<1){
+            page = 1;
+        }
+//        判断size的大小是否符合规范
+        if (size<=0){
+            size = Contants.DEFAULT_SIZE;
+        }
+//        排序
+//        Sort sort= new Sort(Sort.Direction.DESC,"createTime");
+        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
+
+//        page-1 因为后台是从0 开始计算的，前端是 1 的时候，后台 是 0
+        Pageable pageable = PageRequest.of(page-1,size,sort);
+        Page<Label> result =  labelDao.findAll(pageable);
+        return ResponseResult.SUCCESS("查询成功").setData(result);
     }
 
 }
