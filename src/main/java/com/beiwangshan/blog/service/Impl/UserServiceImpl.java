@@ -72,7 +72,7 @@ public class UserServiceImpl implements IUserService {
         String remoteAddr =  request.getRemoteAddr();//代理ip
         bwsUser.setLogin_ip(remoteAddr);
         bwsUser.setReg_ip(remoteAddr);
-        bwsUser.setCreate_time(new Date());
+        bwsUser.setCreateTime(new Date());
         bwsUser.setUpdate_time(new Date());
 
 //        保存到数据库
@@ -83,8 +83,8 @@ public class UserServiceImpl implements IUserService {
         Setting setting = new Setting();
         setting.setId(String.valueOf(snowflakeIdWorker.nextId()));
         setting.setKey(Contants.Settings.MANAGER_ACCOUNT_INIT_STATE);
-        setting.setCreate_time(new Date());
-        setting.setUpdate_time(new Date());
+        setting.setCreateTime(new Date());
+        setting.setUpdateTime(new Date());
         setting.setValue("1");//1表示存在，0表示删除
         settingsDao.save(setting);
 

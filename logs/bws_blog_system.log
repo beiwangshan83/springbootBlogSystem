@@ -43,3 +43,52 @@
 [2020-11-18 01:37:25] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - username ==> beiwangshan
 [2020-11-18 01:37:25] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - password ==> 123456
 [2020-11-18 01:37:25] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - email ==> beiwangshan@163.com
+[2020-11-18 14:23:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 416 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:23:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:23:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.323 seconds (JVM running for 7.626)
+[2020-11-18 14:27:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 14492 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:27:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:27:27] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 3.792 seconds (JVM running for 4.884)
+[2020-11-18 14:34:01] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - hello world...
+[2020-11-18 14:37:36] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 9664 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:37:36] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:37:39] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 3.87 seconds (JVM running for 5.063)
+[2020-11-18 14:39:50] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 18060 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:39:50] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:39:55] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.341 seconds (JVM running for 7.279)
+[2020-11-18 14:40:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13656 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:40:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:40:56] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 3.928 seconds (JVM running for 5.137)
+[2020-11-18 14:42:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 15584 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:42:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:42:21] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.569 seconds (JVM running for 5.712)
+[2020-11-18 14:49:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 17196 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:49:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:49:11] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.228 seconds (JVM running for 6.333)
+[2020-11-18 14:52:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 14172 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:52:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:52:40] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.176 seconds (JVM running for 6.31)
+[2020-11-18 14:54:55] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13372 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:54:55] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:54:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.001 seconds (JVM running for 5.106)
+[2020-11-18 14:57:55] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 17616 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:57:55] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:57:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.46 seconds (JVM running for 5.571)
+[2020-11-18 14:57:59] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - deleteResult ==>  0
+[2020-11-18 14:58:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 7824 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:58:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:58:56] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.461 seconds (JVM running for 5.52)
+[2020-11-18 14:59:03] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 3512 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 14:59:03] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 14:59:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.67 seconds (JVM running for 5.999)
+[2020-11-18 14:59:08] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - deleteResult ==>  0
+[2020-11-18 14:59:16] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - deleteResult ==>  0
+[2020-11-18 15:05:13] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 14300 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 15:05:13] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 15:05:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.141 seconds (JVM running for 5.201)
+[2020-11-18 15:11:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 528 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 15:11:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 15:11:33] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.452 seconds (JVM running for 5.627)
+[2020-11-18 15:16:14] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 14960 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-18 15:16:14] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-18 15:16:18] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.428 seconds (JVM running for 5.741)

@@ -3,6 +3,7 @@ package com.beiwangshan.blog.dao;
 import com.beiwangshan.blog.pojo.Label;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 
 /**
  * @className: com.beiwangshan.blog.dao-> LabelDao
@@ -13,4 +14,19 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @todo:
  */
 public interface LabelDao extends JpaRepository<Label,String>, JpaSpecificationExecutor<Label> {
+
+    /**
+     * 根据Id删除一个label
+     * @param Id
+     * @return
+     */
+    @Modifying
+    int deleteOneById(String Id);
+
+    /**
+     * 根据Iid查找一个label
+     * @param Id
+     * @return
+     */
+    Label findOneById(String Id);
 }
