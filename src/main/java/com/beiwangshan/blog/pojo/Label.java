@@ -8,22 +8,19 @@ import java.util.Date;
 
 
 @Entity
-@Table(name = "tb_images")
-public class Images {
+@Table(name = "tb_labels")
+public class Label {
 
   @Id
   private String id;
-  @Column(name= "`user_id`")
-  private String user_id;
-  @Column(name= "`url`")
-  private String url;
-  @Column(name= "`state`")
-  private String state;
+  @Column(name= "`name`")
+  private String name;
+  @Column(name= "`count`")
+  private long count;
   @Column(name= "`create_time`")
   private Date create_time;
   @Column(name= "`update_time`")
   private Date update_time;
-
 
   public String getId() {
     return id;
@@ -33,28 +30,20 @@ public class Images {
     this.id = id;
   }
 
-  public String getUser_id() {
-    return user_id;
+  public String getName() {
+    return name;
   }
 
-  public void setUser_id(String user_id) {
-    this.user_id = user_id;
+  public void setName(String name) {
+    this.name = name;
   }
 
-  public String getUrl() {
-    return url;
+  public long getCount() {
+    return count;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
+  public void setCount(long count) {
+    this.count = count;
   }
 
   public Date getCreate_time() {
