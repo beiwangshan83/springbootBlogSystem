@@ -28,9 +28,9 @@ public class Comment {
   @Column(name= "`state`")
   private String state;
   @Column(name= "`create_time`")
-  private Date create_time;
+  private Date createTime;
   @Column(name= "`update_time`")
-  private Date update_time;
+  private Date updateTime;
 
   public String getId() {
     return id;
@@ -96,19 +96,19 @@ public class Comment {
     this.state = state;
   }
 
-  public Date getCreate_time() {
-    return create_time;
+  public Date getCreateTime() {
+    return createTime;
   }
 
-  public void setCreate_time(Date create_time) {
-    this.create_time = create_time;
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
   }
 
-  public Date getUpdate_time() {
-    return update_time;
+  public Date getUpdateTime() {
+    return updateTime;
   }
 
-  public void setUpdate_time(Date update_time) {
-    this.update_time = update_time;
+  public void setUpdateTime(Date updateTime) {
+    this.updateTime = updateTime;
   }
 }
