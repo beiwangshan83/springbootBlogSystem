@@ -45,6 +45,18 @@ public class UserApi {
      */
     @PostMapping
     public ResponseResult register(@RequestBody BwsUser bwsUser){
+//        1.检查当前用户是否已经注册
+//        2.检查邮箱格式是否正确（前端+后端都可以的）
+//        3.检查邮箱是否已经注册
+//        4.检查邮箱验证码是都正确
+//        5.检查图灵验证码是否正确
+
+//        达到注册的条件  ps:前端可以对用户名等进行校验
+//        6.对密码进行加密
+//        7.补全数据 包括ip，角色，创建时间，更新时间
+//        8.保存到数据库
+//        9.返回结果
+
 
         return null;
     }
