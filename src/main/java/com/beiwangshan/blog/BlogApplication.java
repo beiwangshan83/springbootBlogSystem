@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.Random;
+
 @SpringBootApplication
 public class BlogApplication {
     public static void main(String[] args) {
@@ -29,6 +31,12 @@ public class BlogApplication {
     @Bean
     public RedisUtil createRedisUtil() {
         return new RedisUtil();
+    }
+
+//    随机数
+    @Bean
+    public Random createRandom(){
+        return new Random();
     }
 
 }

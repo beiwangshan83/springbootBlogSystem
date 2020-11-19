@@ -6,3 +6,33 @@
 [2020-11-19 11:22:31] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
 [2020-11-19 11:22:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.496 seconds (JVM running for 8.133)
 [2020-11-19 11:22:59] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - hello world...redisCode ===> 74466
+[2020-11-19 16:32:43] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13992 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-19 16:32:43] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-19 16:32:48] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.007 seconds (JVM running for 7.225)
+[2020-11-19 16:34:33] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 2412 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-19 16:34:33] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-19 16:34:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.507 seconds (JVM running for 5.796)
+[2020-11-19 16:38:03] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11592 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-19 16:38:03] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-19 16:38:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.355 seconds (JVM running for 5.407)
+[2020-11-19 16:43:08] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 9904 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-19 16:43:08] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-19 16:43:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.251 seconds (JVM running for 5.827)
+[2020-11-19 16:44:02] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13292 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-19 16:44:02] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-19 16:44:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.785 seconds (JVM running for 5.883)
+[2020-11-19 16:44:43] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-19 16:44:43] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> hx2zb
+[2020-11-19 16:45:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 4088 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-19 16:45:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-19 16:45:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 4.647 seconds (JVM running for 5.691)
+[2020-11-19 16:46:13] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-19 16:46:13] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> qgz6y
+[2020-11-19 16:46:22] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 4
+[2020-11-19 16:46:22] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> -1
+[2020-11-19 16:46:26] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 7
+[2020-11-19 16:46:26] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> -6
+[2020-11-19 16:46:34] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 0
+[2020-11-19 16:46:34] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> tksuu
+[2020-11-19 16:46:35] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 3
+[2020-11-19 16:46:35] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> yxbgc

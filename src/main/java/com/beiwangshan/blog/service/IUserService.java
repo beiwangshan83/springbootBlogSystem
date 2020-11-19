@@ -4,6 +4,7 @@ import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.response.ResponseResult;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @className: com.beiwangshan.blog.service-> IUserService
@@ -20,4 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface IUserService {
 
     ResponseResult initManagerAccount(BwsUser bwsUser, HttpServletRequest request);
+
+    void createCaptcha(HttpServletResponse response, String captchaKey) throws Exception;
 }

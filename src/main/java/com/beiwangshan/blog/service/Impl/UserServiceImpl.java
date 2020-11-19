@@ -7,16 +7,23 @@ import com.beiwangshan.blog.pojo.Setting;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.Contants;
+import com.beiwangshan.blog.utils.RedisUtil;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
+import com.wf.captcha.ArithmeticCaptcha;
+import com.wf.captcha.GifCaptcha;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> UserServiceImpl
@@ -39,6 +46,12 @@ public class UserServiceImpl implements IUserService {
 //    BCryptPasswordEncoder密码验证
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private Random random;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @Autowired
     private UserDao userDao;
@@ -103,5 +116,76 @@ public class UserServiceImpl implements IUserService {
 
 
         return ResponseResult.SUCCESS("初始化成功");
+    }
+
+    /**
+     * 图灵验证码的字体设置 数组形式，保证请求的不一致性
+     * 防止机器攻击注册
+     */
+    public static final int[] captcha_font_types = {
+            Captcha.FONT_1
+            , Captcha.FONT_2
+            , Captcha.FONT_3
+            , Captcha.FONT_4
+            , Captcha.FONT_5
+            , Captcha.FONT_6
+            , Captcha.FONT_7
+            , Captcha.FONT_8
+            , Captcha.FONT_9
+            , Captcha.FONT_10
+    };
+
+    @Override
+    public void createCaptcha(HttpServletResponse response, String captchaKey) throws Exception{
+        //        判断key是否符合规则
+        if (TextUtils.isEmpty(captchaKey) || captchaKey.length() < 13) {
+            return;
+        }
+        long key;
+        try {
+            key = Long.parseLong(captchaKey);
+        } catch (Exception e) {
+            return;
+        }
+
+//        开始图灵验证码
+        // 设置请求头为输出图片类型
+        response.setContentType("image/gif");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+//        生成随机数，完成随机产生验证码的类型
+        int captchaType = random.nextInt(3);
+        Captcha tagetCaptcha;
+        if (captchaType == 0) {
+            // 三个参数分别为宽、高、位数
+            tagetCaptcha = new SpecCaptcha(200, 60, 5);
+        } else if (captchaType == 1) {
+            // gif类型
+            tagetCaptcha = new GifCaptcha(200, 60);
+        } else {
+            // 算术类型
+            tagetCaptcha = new ArithmeticCaptcha(200, 60);
+            tagetCaptcha.setLen(2);  // 几位数运算，默认是两位
+            tagetCaptcha.text();  // 获取运算的结果：
+        }
+
+        // 设置字体
+        int fontTypeIndex = random.nextInt(captcha_font_types.length);
+        log.info("fontTypeIndex ==> " + String.valueOf(fontTypeIndex));
+        tagetCaptcha.setFont(captcha_font_types[fontTypeIndex]);
+        // 设置类型，纯数字、纯字母、字母数字混合
+        tagetCaptcha.setCharType(Captcha.TYPE_DEFAULT);
+
+//        获取内容
+        String content = tagetCaptcha.text().toLowerCase();
+        log.info("图灵验证码 ==> " + content);
+
+//        保存在redis里
+        redisUtil.set(Contants.User.KEY_CAPTCHA_CONTENT + key, content, 60 * 10);
+
+        // 输出图片流
+        tagetCaptcha.out(response.getOutputStream());
     }
 }
