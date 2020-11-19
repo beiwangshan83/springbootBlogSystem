@@ -5,16 +5,27 @@ import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.utils.Contants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
+import com.wf.captcha.SpecCaptcha;
+import com.wf.captcha.base.Captcha;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
+import java.awt.*;
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -141,4 +152,48 @@ public class TestController {
         return ResponseResult.SUCCESS("查询成功").setData(result);
     }
 
+//    模糊查询
+    @GetMapping("/label/search")
+    public ResponseResult doLabelSearch(@RequestParam("keyword")String keyword,@RequestParam("count")String count){
+         List<Label> all =  labelDao.findAll(new Specification<Label>() {
+            @Override
+            public Predicate toPredicate(Root<Label> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                Predicate namePre =  cb.like(root.get("name").as(String.class),"%"+keyword+"%");
+                Predicate countPre= cb.equal(root.get("count").as(Integer.class),count);
+                Predicate and = cb.and(namePre,countPre);
+                return and;
+            }
+        });
+         if (all.size() == 0 || all == null){
+             return ResponseResult.FAILD("结果为空").setData(all);
+         }
+        return ResponseResult.SUCCESS("查找成功").setData(all);
+    }
+
+//    图灵验证码
+
+    @RequestMapping("/captcha")
+    public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // 设置请求头为输出图片类型
+        response.setContentType("image/gif");
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // 三个参数分别为宽、高、位数
+        SpecCaptcha specCaptcha = new SpecCaptcha(130, 48, 5);
+        // 设置字体
+        specCaptcha.setFont(new Font("Verdana", Font.PLAIN, 32));  // 有默认字体，可以不用设置
+        // 设置类型，纯数字、纯字母、字母数字混合
+        specCaptcha.setCharType(Captcha.TYPE_ONLY_NUMBER);
+
+        String content = specCaptcha.text().toLowerCase();
+        log.info("图灵验证码 ==> "+ content);
+
+        // 验证码存入session
+        request.getSession().setAttribute("captcha", content);
+
+        // 输出图片流
+        specCaptcha.out(response.getOutputStream());
+    }
 }

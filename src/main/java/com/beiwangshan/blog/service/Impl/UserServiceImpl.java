@@ -11,6 +11,7 @@ import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,8 +32,13 @@ import java.util.Date;
 @Transactional
 public class UserServiceImpl implements IUserService {
 
+//    引入雪花算法，计算ID
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+
+//    BCryptPasswordEncoder密码验证
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private UserDao userDao;
@@ -74,6 +80,13 @@ public class UserServiceImpl implements IUserService {
         bwsUser.setReg_ip(remoteAddr);
         bwsUser.setCreateTime(new Date());
         bwsUser.setUpdate_time(new Date());
+
+//        对密码进行加密
+//        原密码
+        String password = bwsUser.getPassword();
+//        加密
+        String encode = bCryptPasswordEncoder.encode(password);
+        bwsUser.setPassword(encode);
 
 //        保存到数据库
         userDao.save(bwsUser);

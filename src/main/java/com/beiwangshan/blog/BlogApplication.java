@@ -4,6 +4,7 @@ import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class BlogApplication {
@@ -15,6 +16,13 @@ public class BlogApplication {
     @Bean
     public SnowflakeIdWorker createIdWoker(){
         return new SnowflakeIdWorker(0,0);
+    }
+
+//    注入 BCryptPasswordEncoder密码验证
+
+    @Bean
+    public BCryptPasswordEncoder createPasswordEncode(){
+        return new BCryptPasswordEncoder();
     }
 }
 
