@@ -85,21 +85,18 @@ public class UserApi {
     }
 
 
-
-
-
-
     /**
      * 获取图灵验证码
      * 有效时长是 10 分钟
      * 可以在 redisUtil.set(Contants.User.KEY_CAPTCHA_CONTENT + key, content, 60 * 10); 中更改
+     *
      * @return
      */
     @GetMapping("/captcha")
     public void getCaptcha(HttpServletResponse response, @RequestParam("captcha_key") String captchaKey) throws Exception {
-        try{
-            userService.createCaptcha(response,captchaKey);
-        }catch (Exception e){
+        try {
+            userService.createCaptcha(response, captchaKey);
+        } catch (Exception e) {
             log.error(e.toString());
         }
     }
@@ -112,8 +109,9 @@ public class UserApi {
      * @return
      */
     @GetMapping("/verify_code")
-    public ResponseResult sendVerifyCode(@RequestParam("email") String emailAddress) {
-        return null;
+    public ResponseResult sendVerifyCode(HttpServletRequest request,@RequestParam("email") String emailAddress) {
+        log.info("emailAddress ==> "+ emailAddress);
+        return userService.sendEmail(request,emailAddress);
     }
 
     /**

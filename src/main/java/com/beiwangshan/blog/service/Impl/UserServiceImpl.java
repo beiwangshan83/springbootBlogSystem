@@ -31,19 +31,18 @@ import java.util.Random;
  * @author: 曾豪
  * @createDate: 2020-11-18 0:30
  * @version: 1.0
- * @todo:
- *  Transactional 用来操作数据库
+ * @todo: Transactional 用来操作数据库
  */
 @Service
 @Slf4j
 @Transactional
 public class UserServiceImpl implements IUserService {
 
-//    引入雪花算法，计算ID
+    //    引入雪花算法，计算ID
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
 
-//    BCryptPasswordEncoder密码验证
+    //    BCryptPasswordEncoder密码验证
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -59,11 +58,18 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private SettingsDao settingsDao;
 
+    /**
+     * 新增管理员
+     *
+     * @param bwsUser
+     * @param request
+     * @return
+     */
     @Override
     public ResponseResult initManagerAccount(BwsUser bwsUser, HttpServletRequest request) {
 //        检查是否初始化
         Setting managerAccountState = settingsDao.findOneByKey(Contants.Settings.MANAGER_ACCOUNT_INIT_STATE);
-        if (managerAccountState!=null){
+        if (managerAccountState != null) {
             return ResponseResult.FAILD("管理员账号已经初始化了");
         }
 
@@ -88,7 +94,7 @@ public class UserServiceImpl implements IUserService {
         bwsUser.setState(Contants.User.DEFAULT_STATE);
 //        获取IP
         String localAddr = request.getLocalAddr();//本地ip
-        String remoteAddr =  request.getRemoteAddr();//代理ip
+        String remoteAddr = request.getRemoteAddr();//代理ip
         bwsUser.setLogin_ip(remoteAddr);
         bwsUser.setReg_ip(remoteAddr);
         bwsUser.setCreateTime(new Date());
@@ -135,8 +141,15 @@ public class UserServiceImpl implements IUserService {
             , Captcha.FONT_10
     };
 
+    /**
+     * 图灵验证码
+     *
+     * @param response
+     * @param captchaKey
+     * @throws Exception
+     */
     @Override
-    public void createCaptcha(HttpServletResponse response, String captchaKey) throws Exception{
+    public void createCaptcha(HttpServletResponse response, String captchaKey) throws Exception {
         //        判断key是否符合规则
         if (TextUtils.isEmpty(captchaKey) || captchaKey.length() < 13) {
             return;
@@ -187,5 +200,48 @@ public class UserServiceImpl implements IUserService {
 
         // 输出图片流
         tagetCaptcha.out(response.getOutputStream());
+    }
+
+    /**
+     * 发送邮件
+     *
+     *  // 检查邮箱格式，判空
+     *         let reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
+     *         if (!reg.test(邮箱地址)) {
+     *           consol.log('邮箱地址格式不对..');
+     *           return
+     *         }
+     *
+     * @param request
+     * @param emailAddress
+     * @return
+     */
+    @Override
+    public ResponseResult sendEmail(HttpServletRequest request, String emailAddress) {
+
+        String remoteAdress = request.getRemoteAddr();
+        log.info("sendEmail ==> ip ==> " + remoteAdress);
+
+        //1.防止暴力发送，就是不断的发送，同一个邮箱，间隔需要超过1分钟，一小时内同一个IP，最多只能10次，短信最多是 3 次
+//        获取邮箱发送IP的次数，如果没有 ==> 继续；如果有 ==> 判断次数 ==> 操作
+        Integer ipSendTimes = (Integer) redisUtil.get(Contants.User.KEY_EMAIL_SEND_IP + remoteAdress);
+
+        if (ipSendTimes != null && ipSendTimes > 10) {
+            return ResponseResult.FAILD("发送过于频繁，请稍后再试！");
+        }
+
+//        获取邮箱验证码的发送次数，同理
+        Integer emailAddressSendTimes = (Integer) redisUtil.get(Contants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress);
+        if (emailAddressSendTimes != null) {
+            return ResponseResult.FAILD("发送过于频繁，请稍后再试！");
+        }
+
+//        2.检查邮箱是否正确
+
+//        3.发送验证码
+
+//        4.做记录
+
+        return null;
     }
 }

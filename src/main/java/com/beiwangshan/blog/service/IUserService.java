@@ -20,7 +20,27 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface IUserService {
 
+    /**
+     * 新增管理员
+     * @param bwsUser
+     * @param request
+     * @return
+     */
     ResponseResult initManagerAccount(BwsUser bwsUser, HttpServletRequest request);
 
+    /**
+     * 图灵验证码
+     * @param response
+     * @param captchaKey
+     * @throws Exception
+     */
     void createCaptcha(HttpServletResponse response, String captchaKey) throws Exception;
+
+    /**
+     * 发送邮件
+     * @param request
+     * @param emailAddress
+     * @return
+     */
+    ResponseResult sendEmail(HttpServletRequest request, String emailAddress);
 }
