@@ -20,6 +20,8 @@ public interface Contants {
         String DEFAULT_AVATAR = "https://profile.csdnimg.cn/8/1/1/2_simon_477";
         //默认的状态，是可用的
         String DEFAULT_STATE = "1";
+//        图灵验证码的key
+        String KEY_CAPTCHA_CONTENT = "key_captcha_content_";
     }
 
     interface Settings{

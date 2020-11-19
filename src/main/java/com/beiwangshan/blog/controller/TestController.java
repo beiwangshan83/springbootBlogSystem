@@ -4,6 +4,7 @@ import com.beiwangshan.blog.dao.LabelDao;
 import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.utils.Contants;
+import com.beiwangshan.blog.utils.RedisUtil;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
@@ -42,7 +43,8 @@ public class TestController {
     @ResponseBody
     @RequestMapping(value = "/hello",method = RequestMethod.GET)
     public String helloWorld(){
-        log.info("hello world...");
+        String redisCode = (String) redisUtil.get(Contants.User.KEY_CAPTCHA_CONTENT+"123456");
+        log.info("hello world...redisCode ===> " +redisCode);
         return "hello world";
     }
 
@@ -170,8 +172,16 @@ public class TestController {
         return ResponseResult.SUCCESS("查找成功").setData(all);
     }
 
-//    图灵验证码
+    @Autowired
+    private RedisUtil redisUtil;
 
+    /**
+     * 图灵验证码
+     *
+     * @param request
+     * @param response
+     * @throws Exception
+     */
     @RequestMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // 设置请求头为输出图片类型
@@ -191,7 +201,9 @@ public class TestController {
         log.info("图灵验证码 ==> "+ content);
 
         // 验证码存入session
-        request.getSession().setAttribute("captcha", content);
+//        request.getSession().setAttribute("captcha", content);
+//        保存在redis里
+        redisUtil.set(Contants.User.KEY_CAPTCHA_CONTENT+"123456",content,60*10);
 
         // 输出图片流
         specCaptcha.out(response.getOutputStream());
