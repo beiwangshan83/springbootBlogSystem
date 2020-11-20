@@ -88,3 +88,30 @@
 [2020-11-21 00:48:55] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 拿到的 emailVerifyCode ===> 683883
 [2020-11-21 00:48:55] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 拿到的captchaVerifyCode ==>dwnxm
 [2020-11-21 00:48:55] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 拿到的captchaKey ==>1605775423107
+[2020-11-21 01:03:04] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 7
+[2020-11-21 01:03:04] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> y5ps3
+[2020-11-21 01:04:13] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 19552 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 01:04:13] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 01:04:19] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.803 seconds (JVM running for 7.049)
+[2020-11-21 01:09:13] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 20840 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 01:09:13] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 01:09:19] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.285 seconds (JVM running for 7.439)
+[2020-11-21 01:10:42] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 6376 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 01:10:42] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 01:10:47] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.515 seconds (JVM running for 6.624)
+[2020-11-21 01:11:47] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码y5ps3
+[2020-11-21 01:11:47] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码y5ps3
+[2020-11-21 01:13:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11168 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 01:13:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 01:13:22] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.986 seconds (JVM running for 7.182)
+[2020-11-21 01:13:25] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 4
+[2020-11-21 01:13:25] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> z4uns
+[2020-11-21 01:13:47] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码z4uns
+[2020-11-21 01:13:47] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码z4uns
+[2020-11-21 01:15:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11436 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 01:15:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 01:15:41] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.016 seconds (JVM running for 7.123)
+[2020-11-21 01:15:50] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码z4uns
+[2020-11-21 01:15:50] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码z4uns
+[2020-11-21 01:15:58] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码z4uns
+[2020-11-21 01:15:58] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码z4uns

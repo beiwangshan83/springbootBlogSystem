@@ -447,21 +447,22 @@ public class UserServiceImpl implements IUserService {
         if (captcha == "" || captcha == null) {
             return ResponseResult.FAILD("验证码不能为空");
         }
-        if (TextUtils.isEmpty(bwsUser.getEmail())) {
-            return ResponseResult.FAILD("邮箱不能为空");
+        if (TextUtils.isEmpty(bwsUser.getEmail()) && TextUtils.isEmpty(bwsUser.getUserName())) {
+            return ResponseResult.FAILD("账户名不能为空");
         }
-        if (TextUtils.isEmpty(bwsUser.getUserName())) {
-            return ResponseResult.FAILD("用户名不能为空");
-        }
+
+
         if (TextUtils.isEmpty(bwsUser.getPassword())) {
             return ResponseResult.FAILD("密码不能为空");
         }
 
         //获取redis中保存的 图灵验证码的信息
         String captchaFromRedis = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+        log.info("获取到的人类验证码"+captchaFromRedis );
+        log.info("传入的人类验证码"+captcha );
         //进行判断 是否和携带的图灵验证码是否一致
         if (!captcha.equals(captchaFromRedis)) {
-            return ResponseResult.FAILD("验证码不正确");
+            return ResponseResult.FAILD("人类验证码不正确");
         }
 
         //根据传入的数据进行查询是否存在这个用户 
@@ -480,7 +481,7 @@ public class UserServiceImpl implements IUserService {
         }
         //密码是正确的
         //判断用户状态，如果是非正常状态，则返回结果
-        if ("1".equals(userFromDb.getState())) {
+        if ("0".equals(userFromDb.getState())) {
             return ResponseResult.FAILD("该账户已被禁止");
         }
         createToken(response, userFromDb);
