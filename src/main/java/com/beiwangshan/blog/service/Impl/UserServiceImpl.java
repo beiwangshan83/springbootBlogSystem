@@ -17,11 +17,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -382,6 +386,8 @@ public class UserServiceImpl implements IUserService {
         bwsUser.setUpdate_time(new Date());
         bwsUser.setAvatar(Constants.User.DEFAULT_AVATAR);
         bwsUser.setRoles(Constants.User.ROLE_NORMAL);
+        bwsUser.setId(String.valueOf(snowflakeIdWorker.nextId()));
+        bwsUser.setState("1");
 
 //        8.保存到数据库
         userDao.save(bwsUser);
@@ -416,10 +422,10 @@ public class UserServiceImpl implements IUserService {
          */
 
         //对数据进行判空处理
-        if (captcha=="" || captcha ==null){
+        if (captcha == "" || captcha == null) {
             return ResponseResult.FAILD("验证码不能为空");
         }
-        if (TextUtils.isEmpty(bwsUser.getEmail())){
+        if (TextUtils.isEmpty(bwsUser.getEmail())) {
             return ResponseResult.FAILD("邮箱不能为空");
         }
         if (TextUtils.isEmpty(bwsUser.getUserName())) {
@@ -437,18 +443,57 @@ public class UserServiceImpl implements IUserService {
         }
 
         //根据传入的数据进行查询是否存在这个用户 
-        BwsUser userFromDbByUserName = userDao.findOneByUserName(bwsUser.getUserName());
-        if (userFromDbByUserName == null) {
-            return ResponseResult.FAILD("用户不存在");
-
+        BwsUser userFromDb = userDao.findOneByUserName(bwsUser.getUserName());
+        if (userFromDb == null) {
+            userFromDb = userDao.findOneByEmail(bwsUser.getEmail());
+        }
+        if (userFromDb == null) {
+            return ResponseResult.FAILD("用户名或密码错误");
         }
 
-        BwsUser userFromDbByEmail = userDao.findOneByEmail(bwsUser.getEmail());
-        if (userFromDbByEmail == null) {
-            return ResponseResult.FAILD("用户不存在");
-
+        //用户存在，对比密码
+        boolean matches = bCryptPasswordEncoder.matches(bwsUser.getPassword(), userFromDb.getPassword());
+        if (!matches) {
+            return ResponseResult.FAILD("用户名或密码错误");
         }
-        return null;
+        //密码是正确的
+        //判断用户状态，如果是非正常状态，则返回结果
+        if ("1".equals(userFromDb.getState())) {
+            return ResponseResult.FAILD("该账户已被禁止");
+        }
+        //TODO:生成token
+        Map<String, Object> cliams = new HashMap<>();
+        //放入数据
+        cliams.put("id", userFromDb.getId());
+        cliams.put("userName", userFromDb.getUserName());
+        cliams.put("roles", userFromDb.getRoles());
+        cliams.put("avatar", userFromDb.getAvatar());
+        cliams.put("email", userFromDb.getEmail());
+        cliams.put("sign", userFromDb.getSign());
+
+        //生成 token 默认有效期是两个小时
+        String token = JwtUtil.createToken(cliams);
+
+        // 返回token的md5值，token会保存在redis里面，前端访问的时候，携带token的md5 key
+        //从redis中，获取即可
+        String tokenKey = DigestUtils.md5DigestAsHex(token.getBytes());
+        //保存token 到 redis里，有效期是两个小时，key是tokenKey
+        redisUtil.set(Constants.User.KEY_TOKEN+tokenKey,token,60*60*2);
+        //创建一个cookies
+        Cookie cookie = new Cookie("bws_log_token",tokenKey);
+        //需要动态获取，可以从request里获取
+        //TODO:工具类实现
+        cookie.setDomain("localhost");
+        cookie.setPath("/");
+        //设置时间,这里默认设置的是一个月
+        cookie.setMaxAge(Constants.User.TOKEN_MAX_AGE);
+        // 把 tokenKey 写到 cookies里
+        response.addCookie(cookie);
+
+
+        // TODO:生成refreshToken
+
+        return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
     }
 
 

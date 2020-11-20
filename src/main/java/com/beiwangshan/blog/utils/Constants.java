@@ -28,8 +28,12 @@ public interface Constants {
         String KEY_EMAIL_CODE_CONTENT = "key_email_code_content_";
         //邮箱发送的key
         String KEY_EMAIL_SEND_IP = "key_email_send_ip_";
-//        邮箱发送的地址
+        //邮箱发送的地址
         String KEY_EMAIL_SEND_ADDRESS = "key_email_send_address_";
+        //token秘钥
+        String KEY_TOKEN = "key_token_";
+        //token过期时间 这里默认设置的是一个月
+        int TOKEN_MAX_AGE = 60*60*24*30;
 
     }
 
@@ -37,7 +41,7 @@ public interface Constants {
         String MANAGER_ACCOUNT_INIT_STATE = "manager_account_init_state";
     }
 
-    interface TimeValueInMillions{
+    interface TimeValueInMillions {
         long HOUR_2 = 10000;
     }
 
