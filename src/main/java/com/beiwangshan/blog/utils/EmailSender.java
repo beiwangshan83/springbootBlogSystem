@@ -77,6 +77,7 @@ public class EmailSender {
     public static Properties SMTP_163(Boolean debug) {
         Properties props = defaultConfig(debug);
         props.put("mail.smtp.host", "smtp.163.com");
+        props.put("mail.smtp.ssl.enable", true);
         return props;
     }
 
@@ -309,5 +310,13 @@ public class EmailSender {
         MimeBodyPart bodyPart = new MimeBodyPart();
         bodyPart.setContent(html, "text/html; charset=utf-8");
         return bodyPart;
+    }
+
+    public static void sendRegisterVerifyCode(String code,String emailAddress) throws Exception{
+        EmailSender.subject("空山不见鸟博客系统注册验证码")
+                .from("空山不见鸟博客系统")
+                .text("你的验证码是："+code+" 验证码十分钟内有效。")
+                .to(emailAddress)
+                .send();
     }
 }

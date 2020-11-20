@@ -39,6 +39,10 @@ public class ResponseResult {
         return responseResult;
     }
 
+    public static ResponseResult GET_STATE(ResponseState state){
+        return new ResponseResult(state);
+    }
+
     /**
      *    失败状态的封装
      * @return

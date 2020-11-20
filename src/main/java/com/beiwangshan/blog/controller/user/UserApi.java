@@ -55,33 +55,36 @@ public class UserApi {
      * @return
      */
     @PostMapping
-    public ResponseResult register(@RequestBody BwsUser bwsUser) {
-//        1.检查当前用户是否已经注册
-//        2.检查邮箱格式是否正确（前端+后端都可以的）
-//        3.检查邮箱是否已经注册
-//        4.检查邮箱验证码是都正确
-//        5.检查图灵验证码是否正确
-
-//        达到注册的条件  ps:前端可以对用户名等进行校验
-//        6.对密码进行加密
-//        7.补全数据 包括ip，角色，创建时间，更新时间
-//        8.保存到数据库
-//        9.返回结果
-
-
-        return null;
+    public ResponseResult register(@RequestBody BwsUser bwsUser,
+                                   @RequestParam("email_code") String emailCode,
+                                   @RequestParam("captcha_code") String captchaCode,
+                                   @RequestParam("captcha_key") String captchaKey,
+                                   HttpServletRequest request
+    ) {
+        return userService.register(bwsUser, emailCode, captchaCode, captchaKey, request);
     }
 
     /**
      * 用户登录 captcha 图灵验证码
+     * 需要提交的数据：
+     * 1、用户账号 ==> 用户名+用户邮箱 ==> 做了唯一的处理
+     * 2、用户密码
+     * 3、图灵验证码
+     * 4、图灵验证码的key
      *
-     * @param captcha
-     * @param bwsUser
+     * @param captcha 图灵验证码
+     * @param bwsUser 用户的bean类，封装着账号和密码
      * @return
+     * @Param captchaKey 图灵验证码的key
      */
-    @PostMapping("/{captcha}")
-    public ResponseResult login(@PathVariable("captcha") String captcha, @RequestBody BwsUser bwsUser) {
-        return null;
+    @PostMapping("/{captcha}/{captcha_key}")
+    public ResponseResult login(@PathVariable("captcha") String captcha,
+                                @PathVariable("captcha_key") String captchaKey,
+                                @RequestBody BwsUser bwsUser,
+                                HttpServletRequest request,
+                                HttpServletResponse response
+                                ) {
+        return userService.doLogin(captcha, captchaKey, bwsUser,request,response);
     }
 
 
@@ -104,14 +107,24 @@ public class UserApi {
 
     /**
      * 发送邮件
+     * <p>
+     * 业务场景：
+     * 注册，找回密码，修改邮箱（新的邮箱）
+     * <p>
+     * 注册：如果已经存在，提示该邮箱已经注册
+     * 找回密码：如果没有注册，提示该邮箱没有注册
+     * 修改邮箱：（新的邮箱）如果已经注册了，提示该邮箱已经注册
      *
      * @param emailAddress
      * @return
      */
     @GetMapping("/verify_code")
-    public ResponseResult sendVerifyCode(HttpServletRequest request,@RequestParam("email") String emailAddress) {
-        log.info("emailAddress ==> "+ emailAddress);
-        return userService.sendEmail(request,emailAddress);
+    public ResponseResult sendVerifyCode(HttpServletRequest request,
+                                         @RequestParam("type") String type,
+                                         @RequestParam("email") String emailAddress
+    ) {
+        log.info("emailAddress ==> " + emailAddress);
+        return userService.sendEmail(type, request, emailAddress);
     }
 
     /**

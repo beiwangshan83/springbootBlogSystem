@@ -3,7 +3,7 @@ package com.beiwangshan.blog.controller;
 import com.beiwangshan.blog.dao.LabelDao;
 import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
-import com.beiwangshan.blog.utils.Contants;
+import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.RedisUtil;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.wf.captcha.SpecCaptcha;
@@ -43,7 +43,7 @@ public class TestController {
     @ResponseBody
     @RequestMapping(value = "/hello",method = RequestMethod.GET)
     public String helloWorld(){
-        String redisCode = (String) redisUtil.get(Contants.User.KEY_CAPTCHA_CONTENT+"123456");
+        String redisCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT+"123456");
         log.info("hello world...redisCode ===> " +redisCode);
         return "hello world";
     }
@@ -142,7 +142,7 @@ public class TestController {
         }
 //        判断size的大小是否符合规范
         if (size<=0){
-            size = Contants.DEFAULT_SIZE;
+            size = Constants.DEFAULT_SIZE;
         }
 //        排序
 //        Sort sort= new Sort(Sort.Direction.DESC,"createTime");
@@ -203,7 +203,7 @@ public class TestController {
         // 验证码存入session
 //        request.getSession().setAttribute("captcha", content);
 //        保存在redis里
-        redisUtil.set(Contants.User.KEY_CAPTCHA_CONTENT+"123456",content,60*10);
+        redisUtil.set(Constants.User.KEY_CAPTCHA_CONTENT+"123456",content,60*10);
 
         // 输出图片流
         specCaptcha.out(response.getOutputStream());

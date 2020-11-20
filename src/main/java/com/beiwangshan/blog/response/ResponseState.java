@@ -15,7 +15,7 @@ public enum  ResponseState {
      */
     SUCCESS(true,20000,"操作成功"),
     LOGIN_SUCCESS(true,20001,"登录成功"),
-    REGISTER_SUCCESS(true,20002,"注册成功"),
+    JOIN_IN_SUCCESS(true,20002,"注册成功"),
     FAILD(false,40000,"操作失败"),
     LOGIN_FAILD(false,40001,"登录失败"),
     REGISTER_FAILD(false,40002,"注册失败"),
