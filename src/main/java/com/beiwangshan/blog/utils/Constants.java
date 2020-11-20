@@ -34,17 +34,26 @@ public interface Constants {
         String KEY_TOKEN = "key_token_";
         //token秘钥
         String COOKIE_TOKEN_KEY = "bws_blog_token";
-        //token过期时间 这里默认设置的是一个月
-        int TOKEN_MAX_AGE = 60*60*24*30;
-
     }
 
     interface Settings {
         String MANAGER_ACCOUNT_INIT_STATE = "manager_account_init_state";
     }
 
+    /**
+     * 时间类
+     * 单位是 s
+     */
     interface TimeValueInMillions {
-        long HOUR_2 = 10000;
+        int MIN = 60;//一分钟
+        int MIN_5 = MIN * 5;// 5 分钟
+        int MIN_10 = MIN * 10;// 10 分钟
+        int HOUR_1 = MIN * 60;//一小时
+        int HOUR_2 = HOUR_1 * 2;//两小时
+        int DAY = HOUR_1 * 2;//一天
+        int WEAK = DAY * 7;//一个周
+        int MONTH = DAY * 30;//一个月
+        int YEAR = MONTH * 12;//一年
     }
 
 

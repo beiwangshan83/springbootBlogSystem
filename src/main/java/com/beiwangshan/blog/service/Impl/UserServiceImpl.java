@@ -1,8 +1,10 @@
 package com.beiwangshan.blog.service.Impl;
 
+import com.beiwangshan.blog.dao.RefreshTokenDao;
 import com.beiwangshan.blog.dao.SettingsDao;
 import com.beiwangshan.blog.dao.UserDao;
 import com.beiwangshan.blog.pojo.BwsUser;
+import com.beiwangshan.blog.pojo.RefreshToken;
 import com.beiwangshan.blog.pojo.Setting;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.response.ResponseState;
@@ -24,7 +26,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -60,6 +61,9 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private SettingsDao settingsDao;
+
+    @Autowired
+    private RefreshTokenDao refreshTokenDao;
 
     /**
      * 新增管理员
@@ -199,7 +203,7 @@ public class UserServiceImpl implements IUserService {
         log.info("图灵验证码 ==> " + content);
 
 //        验证码信息 保存在redis里
-        redisUtil.set(Constants.User.KEY_CAPTCHA_CONTENT + key, content, 60 * 10);
+        redisUtil.set(Constants.User.KEY_CAPTCHA_CONTENT + key, content, Constants.TimeValueInMillions.MIN_10);
 
         // 输出图片流
         tagetCaptcha.out(response.getOutputStream());
@@ -300,10 +304,10 @@ public class UserServiceImpl implements IUserService {
         }
 
 //        设置IP 和 邮箱地址 一小时有效期 和 30 秒
-        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress, ipSendTimes, 60 * 60);
+        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress, ipSendTimes, Constants.TimeValueInMillions.HOUR_1);
         redisUtil.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress, "true", 30);
 //        保存code，10分钟内有效
-        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), 60 * 10);
+        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), Constants.TimeValueInMillions.MIN_10);
         return ResponseResult.SUCCESS("验证码发送成功");
     }
 
@@ -462,14 +466,7 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.FAILD("该账户已被禁止");
         }
         //TODO:生成token
-        Map<String, Object> cliams = new HashMap<>();
-        //放入数据
-        cliams.put("id", userFromDb.getId());
-        cliams.put("userName", userFromDb.getUserName());
-        cliams.put("roles", userFromDb.getRoles());
-        cliams.put("avatar", userFromDb.getAvatar());
-        cliams.put("email", userFromDb.getEmail());
-        cliams.put("sign", userFromDb.getSign());
+        Map<String, Object> cliams = ClaimsUtils.bwsUser2Claims(userFromDb);
 
         //生成 token 默认有效期是两个小时
         String token = JwtUtil.createToken(cliams);
@@ -478,21 +475,34 @@ public class UserServiceImpl implements IUserService {
         //从redis中，获取即可
         String tokenKey = DigestUtils.md5DigestAsHex(token.getBytes());
         //保存token 到 redis里，有效期是两个小时，key是tokenKey
-        redisUtil.set(Constants.User.KEY_TOKEN+tokenKey,token,60*60*2);
+        redisUtil.set(Constants.User.KEY_TOKEN+tokenKey,token,Constants.TimeValueInMillions.HOUR_2);
         //创建一个cookies
-        Cookie cookie = new Cookie(Constants.User.COOKIE_TOKEN_KEY,tokenKey);
+        Cookie cookie = new Cookie(Constants.User.COOKIE_TOKEN_KEY, tokenKey);
         //需要动态获取，可以从request里获取
         //TODO:工具类实现
         cookie.setDomain("localhost");
         cookie.setPath("/");
         //设置时间,这里默认设置的是一个月
-        cookie.setMaxAge(Constants.User.TOKEN_MAX_AGE);
+        cookie.setMaxAge(Constants.TimeValueInMillions.MONTH);
         // 把 tokenKey 写到 cookies里
         response.addCookie(cookie);
 
 
         // TODO:生成refreshToken
+       String refreshTokenValue = JwtUtil.createRefreshToken(userFromDb.getId(),Constants.TimeValueInMillions.MONTH);
+        //TODO:保存到数据库
+        /**
+         * refreshToken，tokenKey,用户ID，创建时间，更新时间
+         */
+        RefreshToken refreshToken = new RefreshToken();
+        refreshToken.setId(snowflakeIdWorker.nextId()+"");
+        refreshToken.setRefreshToken(refreshTokenValue);;
+        refreshToken.setUserId(userFromDb.getId());
+        refreshToken.setTokenKey(tokenKey);
+        refreshToken.setCreateTime(new Date());
+        refreshToken.setUpdateTime(new Date());
 
+        refreshTokenDao.save(refreshToken);
         return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
     }
 

@@ -2,13 +2,11 @@ package com.beiwangshan.blog.controller;
 
 import com.beiwangshan.blog.dao.CommentDao;
 import com.beiwangshan.blog.dao.LabelDao;
+import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.pojo.Comment;
 import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
-import com.beiwangshan.blog.utils.Constants;
-import com.beiwangshan.blog.utils.JwtUtil;
-import com.beiwangshan.blog.utils.RedisUtil;
-import com.beiwangshan.blog.utils.SnowflakeIdWorker;
+import com.beiwangshan.blog.utils.*;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import io.jsonwebtoken.Claims;
@@ -224,6 +222,7 @@ public class TestController {
 
     /**
      * 评论的测试
+     *
      * @param comment
      * @param request
      * @return
@@ -233,25 +232,36 @@ public class TestController {
         String content = comment.getContent();
         log.info("comment content ==> " + content);
 //        需要知道是谁的评论，对评论进行身份验证
-        String tokenKey = getCookie(Constants.User.COOKIE_TOKEN_KEY,request);
+        String tokenKey = getCookie(Constants.User.COOKIE_TOKEN_KEY, request);
         if (tokenKey == null) {
             return ResponseResult.FAILD("账号为登录");
         }
-        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
-        if (token == null){
+        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
+        if (token == null) {
             //TODO: 空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
             //如果 refreshToken 不存在，或者已经过期
             // 告诉用户未登录或者重新登录
 
         }
         //已经登录了，解析token
-        Claims claims = JwtUtil.parseJWT(token);
-        String userId = (String) claims.get("id");
-        String avatar = (String) claims.get("avatar");
-        String userName = (String) claims.get("userName");
-        comment.setUserId(userId);
-        comment.setUserAvatar(avatar);
-        comment.setUserName(userName);
+        Claims claims = null;
+        try {
+            claims = JwtUtil.parseJWT(token);
+        } catch (Exception e) {
+            //TODO: 空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
+            //如果 refreshToken 不存在，或者已经过期
+            // 告诉用户未登录或者重新登录
+            log.error(e.toString());
+        }
+        if (claims==null){
+            return  ResponseResult.FAILD("用户未登录");
+        }
+
+        BwsUser bwsUser = ClaimsUtils.cliams2BwsUser(claims);
+
+        comment.setUserId(bwsUser.getId());
+        comment.setUserAvatar(bwsUser.getAvatar());
+        comment.setUserName(bwsUser.getUserName());
         comment.setCreateTime(new Date());
         comment.setId(String.valueOf(snowflakeIdWorker.nextId()));
         commentDao.save(comment);
@@ -260,8 +270,11 @@ public class TestController {
 
     private String getCookie(String cookieTokenKey, HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies){
-            if (cookieTokenKey.equals(cookie.getName())){
+        if (cookies == null) {
+            return null;
+        }
+        for (Cookie cookie : cookies) {
+            if (cookieTokenKey.equals(cookie.getName())) {
                 return cookie.getValue();
             }
         }

@@ -1,24 +1,24 @@
 package com.beiwangshan.blog.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
 
 @Entity
-@Table(name = "tb_images")
-public class Image {
+@Table(name = "tb_refresh_token")
+public class RefreshToken {
 
   @Id
   private String id;
-  @Column(name = "`user_id`")
-  private String user_id;
-  @Column(name = "`url`")
-  private String url;
-  @Column(name = "`state`")
-  private String state;
+  @Column(name= "`refresh_token`")
+  private String refreshToken;
+  @Column(name= "`user_id`")
+  private String userId;
+  @Column(name= "`token_key`")
+  private String tokenKey;
   @Column(name = "`create_time`")
   private Date createTime;
   @Column(name = "`update_time`")
@@ -32,28 +32,28 @@ public class Image {
     this.id = id;
   }
 
-  public String getUser_id() {
-    return user_id;
+  public String getRefreshToken() {
+    return refreshToken;
   }
 
-  public void setUser_id(String user_id) {
-    this.user_id = user_id;
+  public void setRefreshToken(String refreshToken) {
+    this.refreshToken = refreshToken;
   }
 
-  public String getUrl() {
-    return url;
+  public String getUserId() {
+    return userId;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
-  public String getState() {
-    return state;
+  public String getTokenKey() {
+    return tokenKey;
   }
 
-  public void setState(String state) {
-    this.state = state;
+  public void setTokenKey(String tokenKey) {
+    this.tokenKey = tokenKey;
   }
 
   public Date getCreateTime() {
