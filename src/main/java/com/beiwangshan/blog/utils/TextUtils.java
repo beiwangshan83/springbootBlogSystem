@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class TextUtils {
 
     //    邮箱验证正则表达式
-   public static final String regEx = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+([a-z0-9A-Z])?\\.)+[a-zA-Z]{2,}$";
+   public static final String regEx = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
 
     /**
      * 判断文字是否为空

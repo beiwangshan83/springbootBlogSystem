@@ -56,8 +56,10 @@ public interface IUserService {
      * @param request
      * @return
      */
-    ResponseResult register(BwsUser bwsUser, String emailCode,
-                            String captchaCode, String captchaKey,
+    ResponseResult register(BwsUser bwsUser,
+                            String emailCode,
+                            String captchaCode,
+                            String captchaKey,
                             HttpServletRequest request);
 
     /**
@@ -73,4 +75,13 @@ public interface IUserService {
     ResponseResult doLogin(String captcha, String captchaKey,
                            BwsUser bwsUser, HttpServletRequest request,
                            HttpServletResponse response);
+
+    /**
+     * 检查用户登录状态
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    BwsUser checkBwsUser(HttpServletRequest request,HttpServletResponse response);
 }

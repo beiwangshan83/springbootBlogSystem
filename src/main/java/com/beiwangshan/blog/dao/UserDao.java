@@ -38,4 +38,12 @@ public interface UserDao extends JpaRepository<BwsUser,String>, JpaSpecification
      */
     List<BwsUser> findOneByEmailOrUserName(String email, String userName);
 
+    /**
+     * 通过userID查询一个用户对象
+     *
+     * @param userId
+     * @return
+     */
+    BwsUser findOneById(String userId);
+
 }

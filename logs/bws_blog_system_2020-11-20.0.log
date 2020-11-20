@@ -1,0 +1,81 @@
+[2020-11-20 09:05:19] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 1000 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-20 09:05:19] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-20 09:05:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.371 seconds (JVM running for 7.823)
+[2020-11-20 09:06:13] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 5
+[2020-11-20 09:06:13] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> xdx6s
+[2020-11-20 22:33:46] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13828 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-20 22:33:46] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-20 22:33:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 7.587 seconds (JVM running for 8.744)
+[2020-11-20 22:35:59] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 3
+[2020-11-20 22:35:59] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> htkxu
+[2020-11-20 22:39:01] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 22:39:01] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 22:40:19] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-20 22:40:19] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> wdxfy
+[2020-11-20 22:40:20] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 1
+[2020-11-20 22:40:20] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 2qtzq
+[2020-11-20 22:40:24] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 3
+[2020-11-20 22:40:24] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 8
+[2020-11-20 22:55:19] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 6
+[2020-11-20 22:55:19] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> u7fks
+[2020-11-20 22:55:21] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 3
+[2020-11-20 22:55:21] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> zhyrv
+[2020-11-20 22:55:22] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 6
+[2020-11-20 22:55:22] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> p4zxx
+[2020-11-20 22:55:24] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 1
+[2020-11-20 22:55:24] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> aq7gn
+[2020-11-20 22:55:25] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 1
+[2020-11-20 22:55:25] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 4
+[2020-11-20 22:55:44] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 22:55:44] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 22:56:48] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 9
+[2020-11-20 22:56:48] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 13
+[2020-11-20 23:02:25] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 23:02:25] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 23:03:25] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-20 23:03:25] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 18
+[2020-11-20 23:03:38] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 23:03:38] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 23:03:55] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 9
+[2020-11-20 23:03:55] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> cf9qx
+[2020-11-20 23:03:56] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-20 23:03:56] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> wxfgf
+[2020-11-20 23:03:57] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 2
+[2020-11-20 23:03:57] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 69ykw
+[2020-11-20 23:03:59] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 2
+[2020-11-20 23:03:59] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 6dcyr
+[2020-11-20 23:04:00] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-20 23:04:00] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> q3zd5
+[2020-11-20 23:04:01] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 0
+[2020-11-20 23:04:01] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 3
+[2020-11-20 23:06:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 3912 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-20 23:06:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-20 23:06:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.283 seconds (JVM running for 7.474)
+[2020-11-20 23:08:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 2268 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-20 23:08:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-20 23:08:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.827 seconds (JVM running for 6.995)
+[2020-11-20 23:08:28] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 23:08:28] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 23:08:29] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>250501
+[2020-11-20 23:09:04] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 1
+[2020-11-20 23:09:04] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 4jpe9
+[2020-11-20 23:09:59] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 23:09:59] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 23:09:59] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>342899
+[2020-11-20 23:11:31] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 23:11:31] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 23:11:31] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>733898
+[2020-11-20 23:12:21] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 7
+[2020-11-20 23:12:21] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> uuwue
+[2020-11-20 23:18:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 2028 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-20 23:18:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-20 23:19:04] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.553 seconds (JVM running for 7.82)
+[2020-11-20 23:19:16] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-20 23:19:16] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-20 23:19:17] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>750079
+[2020-11-20 23:19:33] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-20 23:19:33] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 0
+[2020-11-20 23:19:37] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 5
+[2020-11-20 23:19:37] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 8
+[2020-11-20 23:20:30] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 6
+[2020-11-20 23:20:30] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 3

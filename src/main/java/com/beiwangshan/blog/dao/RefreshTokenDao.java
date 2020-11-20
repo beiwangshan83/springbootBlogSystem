@@ -14,4 +14,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface RefreshTokenDao extends JpaRepository<RefreshToken,String>, JpaSpecificationExecutor<RefreshToken> {
 
+    /**
+     * 通过 tokenKey 从数据库查询 一个 RefreshToken
+     * @param tokenKey
+     * @return
+     */
+    RefreshToken findOneByTokenKey(String tokenKey);
 }

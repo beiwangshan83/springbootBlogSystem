@@ -15,6 +15,7 @@ import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -304,10 +305,11 @@ public class UserServiceImpl implements IUserService {
         }
 
 //        设置IP 和 邮箱地址 一小时有效期 和 30 秒
-        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress, ipSendTimes, Constants.TimeValueInMillions.HOUR_1);
+        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress, ipSendTimes, 60 * 60);
         redisUtil.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress, "true", 30);
 //        保存code，10分钟内有效
-        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), Constants.TimeValueInMillions.MIN_10);
+        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), 60 * 10);
+        log.info("邮箱验证码===>" + code);
         return ResponseResult.SUCCESS("验证码发送成功");
     }
 
@@ -323,7 +325,11 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public ResponseResult register(BwsUser bwsUser, String emailCode, String captchaCode, String captchaKey, HttpServletRequest request) {
+    public ResponseResult register(BwsUser bwsUser,
+                                   String emailCode,
+                                   String captchaCode,
+                                   String captchaKey,
+                                   HttpServletRequest request) {
 //        1.检查当前用户是否已经注册
         String userName = bwsUser.getUserName();
         if (TextUtils.isEmpty(userName)) {
@@ -352,27 +358,38 @@ public class UserServiceImpl implements IUserService {
 
 //        4.检查邮箱验证码是都正确
         String emailVerifyCode = (String) redisUtil.get(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
+        log.info("拿到的 emailVerifyCode ===> " + emailVerifyCode);
         if (TextUtils.isEmpty(emailVerifyCode)) {
-            return ResponseResult.FAILD("验证码已过期");
+            return ResponseResult.FAILD("邮箱验证码无效");
         }
 
         if (!emailVerifyCode.equals(emailCode)) {
             return ResponseResult.FAILD("邮箱验证码不正确");
         } else {
 //            验证码正确，干掉redis里面的内容
-            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
+//            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         }
 
 //        5.检查图灵验证码是否正确
 //              1.拿到验证码
+//        String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+
+        log.info("拿到的captchaVerifyCode ==>" +captchaVerifyCode);
+        log.info("拿到的captchaKey ==>" +captchaKey);
         if (TextUtils.isEmpty(captchaVerifyCode)) {
             return ResponseResult.FAILD("人类验证码已经过期");
         }
         if (!captchaVerifyCode.equals(captchaCode)) {
             return ResponseResult.FAILD("人类验证码不正确");
         } else {
+//            redisUtil.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+        }
+
+        if (captchaVerifyCode.equals(captchaCode) && emailVerifyCode.equals(emailCode) ){
             redisUtil.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
+
         }
 
 //        达到注册的条件  ps:前端可以对用户名等进行校验
@@ -381,11 +398,12 @@ public class UserServiceImpl implements IUserService {
         if (TextUtils.isEmpty(password)) {
             return ResponseResult.FAILD("密码不能为空");
         }
-        bwsUser.setPassword(bCryptPasswordEncoder.encode(password));
+        bwsUser.setPassword(bCryptPasswordEncoder.encode(bwsUser.getPassword()));
 
 //        7.补全数据 包括ip，角色，创建时间，更新时间
         String ipAddr = request.getRemoteAddr();
         bwsUser.setReg_ip(ipAddr);
+        bwsUser.setLogin_ip(ipAddr);
         bwsUser.setCreateTime(new Date());
         bwsUser.setUpdate_time(new Date());
         bwsUser.setAvatar(Constants.User.DEFAULT_AVATAR);
@@ -465,7 +483,19 @@ public class UserServiceImpl implements IUserService {
         if ("1".equals(userFromDb.getState())) {
             return ResponseResult.FAILD("该账户已被禁止");
         }
-        //TODO:生成token
+        createToken(response, userFromDb);
+        return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
+    }
+
+    /**
+     * 返回token_key
+     *
+     * @param response
+     * @param userFromDb
+     * @return token_key
+     */
+    private String createToken(HttpServletResponse response, BwsUser userFromDb) {
+        //生成token
         Map<String, Object> cliams = ClaimsUtils.bwsUser2Claims(userFromDb);
 
         //生成 token 默认有效期是两个小时
@@ -475,11 +505,11 @@ public class UserServiceImpl implements IUserService {
         //从redis中，获取即可
         String tokenKey = DigestUtils.md5DigestAsHex(token.getBytes());
         //保存token 到 redis里，有效期是两个小时，key是tokenKey
-        redisUtil.set(Constants.User.KEY_TOKEN+tokenKey,token,Constants.TimeValueInMillions.HOUR_2);
+        redisUtil.set(Constants.User.KEY_TOKEN + tokenKey, token, Constants.TimeValueInMillions.HOUR_2);
         //创建一个cookies
         Cookie cookie = new Cookie(Constants.User.COOKIE_TOKEN_KEY, tokenKey);
         //需要动态获取，可以从request里获取
-        //TODO:工具类实现
+        //工具类实现
         cookie.setDomain("localhost");
         cookie.setPath("/");
         //设置时间,这里默认设置的是一个月
@@ -487,24 +517,84 @@ public class UserServiceImpl implements IUserService {
         // 把 tokenKey 写到 cookies里
         response.addCookie(cookie);
 
-
-        // TODO:生成refreshToken
-       String refreshTokenValue = JwtUtil.createRefreshToken(userFromDb.getId(),Constants.TimeValueInMillions.MONTH);
-        //TODO:保存到数据库
+        // 生成refreshToken
+        String refreshTokenValue = JwtUtil.createRefreshToken(userFromDb.getId(), Constants.TimeValueInMillions.MONTH);
+        //保存到数据库
         /**
          * refreshToken，tokenKey,用户ID，创建时间，更新时间
          */
         RefreshToken refreshToken = new RefreshToken();
-        refreshToken.setId(snowflakeIdWorker.nextId()+"");
-        refreshToken.setRefreshToken(refreshTokenValue);;
+        refreshToken.setId(snowflakeIdWorker.nextId() + "");
+        refreshToken.setRefreshToken(refreshTokenValue);
+        ;
         refreshToken.setUserId(userFromDb.getId());
         refreshToken.setTokenKey(tokenKey);
         refreshToken.setCreateTime(new Date());
         refreshToken.setUpdateTime(new Date());
 
         refreshTokenDao.save(refreshToken);
-        return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
+
+        return tokenKey;
     }
 
+    /**
+     * 检查用户登录状态
+     * 本质就是通过携带的 token_key检查用户是否有登录，如果有登录，就返回用户信息，如果没有就提示
+     *
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public BwsUser checkBwsUser(HttpServletRequest request, HttpServletResponse response) {
+        //1.拿到token_key
+        String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
+        // 从redis中取得 token
+        BwsUser bwsUser = parseByTokenKey(tokenKey);
+        if (bwsUser == null) {
+            // 说明解析出错，过期了，
+            // - 去数据库查询，根据 refrToken，
+            RefreshToken refreshToken = refreshTokenDao.findOneByTokenKey(tokenKey);
 
+            // - 如果不存在，就是没登录
+            if (refreshToken == null) {
+                return null;
+            }
+
+            // - 如果存在就解析 refrToken
+            try {
+                JwtUtil.parseJWT(refreshToken.getRefreshToken());
+                // - 如果有效，就创建新的token，并更新 refrToken
+                String userId = refreshToken.getUserId();
+                BwsUser bwsUserById = userDao.findOneById(userId);
+                // 删掉之前的 refreshToken 记录
+                refreshTokenDao.deleteById(refreshToken.getId());
+                // 创建新的，并且存入数据库
+                String newTokenKey = createToken(response, bwsUserById);
+
+                // 返回 token
+                return parseByTokenKey(newTokenKey);
+            } catch (Exception exception) {
+                // - 如果 refrToken 过期了，就返回 当前用户没有登录
+                return null;
+            }
+        }
+        return bwsUser;
+    }
+
+    private BwsUser parseByTokenKey(String tokenKey) {
+        String token = (String) redisUtil.get(tokenKey);
+        if (token != null) {
+            try {
+                //解析token
+                Claims claims = JwtUtil.parseJWT(token);
+                //解析token为 User 实体类
+                BwsUser bwsUser = ClaimsUtils.cliams2BwsUser(claims);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return null;
+
+    }
 }
