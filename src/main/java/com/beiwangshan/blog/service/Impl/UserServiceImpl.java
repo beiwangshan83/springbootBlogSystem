@@ -480,7 +480,7 @@ public class UserServiceImpl implements IUserService {
         //保存token 到 redis里，有效期是两个小时，key是tokenKey
         redisUtil.set(Constants.User.KEY_TOKEN+tokenKey,token,60*60*2);
         //创建一个cookies
-        Cookie cookie = new Cookie("bws_log_token",tokenKey);
+        Cookie cookie = new Cookie(Constants.User.COOKIE_TOKEN_KEY,tokenKey);
         //需要动态获取，可以从request里获取
         //TODO:工具类实现
         cookie.setDomain("localhost");

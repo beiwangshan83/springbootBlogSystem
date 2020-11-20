@@ -32,6 +32,8 @@ public interface Constants {
         String KEY_EMAIL_SEND_ADDRESS = "key_email_send_address_";
         //token秘钥
         String KEY_TOKEN = "key_token_";
+        //token秘钥
+        String COOKIE_TOKEN_KEY = "bws_blog_token";
         //token过期时间 这里默认设置的是一个月
         int TOKEN_MAX_AGE = 60*60*24*30;
 
