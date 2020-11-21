@@ -10,7 +10,9 @@ package com.beiwangshan.blog.utils;
  */
 public interface Constants {
 
-    //    页面默认的分页大小
+    /**
+     * 页面默认的分页大小
+     */
     int DEFAULT_SIZE = 20;
 
     interface User {
@@ -34,6 +36,16 @@ public interface Constants {
         String KEY_TOKEN = "key_token_";
         //token秘钥
         String COOKIE_TOKEN_KEY = "bws_blog_token";
+
+
+        /**
+         *         注册(register)：如果已经存在，提示该邮箱已经注册
+         *         找回密码(forget)：如果没有注册，提示该邮箱没有注册
+         *          修改邮箱(update)：（新的邮箱）如果已经注册了，提示该邮箱已经注册
+         */
+        String LOGIN_TYPE_REGISTER="register";
+        String LOGIN_TYPE_FORGET="forget";
+        String LOGIN_TYPE_UPDATE="update";
     }
 
     interface Settings {

@@ -84,4 +84,17 @@ public interface IUserService {
      * @return
      */
     BwsUser checkBwsUser(HttpServletRequest request,HttpServletResponse response);
+
+        /**
+         * 获取用户的信息
+         *   1.从数据库里获取
+         *   2.判断结果
+         *     - 如果不存在，就返回不存在
+         *     - 如果存在，就复制对象，清空携带的密码，email，注册和登录的IP
+         *   3.返回结果
+     *
+     * @param userId
+     * @return
+     */
+    ResponseResult getUserInfo(String userId);
 }

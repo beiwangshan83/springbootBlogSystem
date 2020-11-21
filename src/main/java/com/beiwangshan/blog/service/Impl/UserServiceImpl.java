@@ -11,6 +11,7 @@ import com.beiwangshan.blog.response.ResponseState;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.service.TaskService;
 import com.beiwangshan.blog.utils.*;
+import com.google.gson.Gson;
 import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.GifCaptcha;
 import com.wf.captcha.SpecCaptcha;
@@ -43,17 +44,27 @@ import java.util.Random;
 @Transactional
 public class UserServiceImpl implements IUserService {
 
-    //    引入雪花算法，计算ID
+    /**
+     * 引入雪花算法，计算ID
+     */
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
 
-    //    BCryptPasswordEncoder密码验证
+    /**
+     * BCryptPasswordEncoder密码验证
+     */
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    /**
+     * 注入随机数
+     */
     @Autowired
     private Random random;
 
+    /**
+     * 注入redis工具类
+     */
     @Autowired
     private RedisUtil redisUtil;
 
@@ -63,8 +74,14 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private SettingsDao settingsDao;
 
+    /**
+     * 注入
+     */
     @Autowired
     private RefreshTokenDao refreshTokenDao;
+
+    @Autowired
+    private Gson gson;
 
     /**
      * 新增管理员
@@ -100,13 +117,14 @@ public class UserServiceImpl implements IUserService {
         bwsUser.setRoles(Constants.User.ROLE_ADMIN);
         bwsUser.setAvatar(Constants.User.DEFAULT_AVATAR);
         bwsUser.setState(Constants.User.DEFAULT_STATE);
-//        获取IP
-        String localAddr = request.getLocalAddr();//本地ip
-        String remoteAddr = request.getRemoteAddr();//代理ip
-        bwsUser.setLogin_ip(remoteAddr);
-        bwsUser.setReg_ip(remoteAddr);
+//        获取IP 本地ip
+        String localAddr = request.getLocalAddr();
+        //代理ip
+        String remoteAddr = request.getRemoteAddr();
+        bwsUser.setLoginIp(remoteAddr);
+        bwsUser.setRegIp(remoteAddr);
         bwsUser.setCreateTime(new Date());
-        bwsUser.setUpdate_time(new Date());
+        bwsUser.setUpdateTime(new Date());
 
 //        对密码进行加密
 //        原密码
@@ -125,7 +143,8 @@ public class UserServiceImpl implements IUserService {
         setting.setKey(Constants.Settings.MANAGER_ACCOUNT_INIT_STATE);
         setting.setCreateTime(new Date());
         setting.setUpdateTime(new Date());
-        setting.setValue("1");//1表示存在，0表示删除
+        //1表示存在，0表示删除
+        setting.setValue("1");
         settingsDao.save(setting);
 
 
@@ -244,12 +263,12 @@ public class UserServiceImpl implements IUserService {
          *        修改邮箱(update)：（新的邮箱）如果已经注册了，提示该邮箱已经注册
          */
 //        根据类型，查询邮箱是否存在
-        if ("register".equals(type) || "update".equals(type)) {
+        if (Constants.User.LOGIN_TYPE_REGISTER.equals(type) || Constants.User.LOGIN_TYPE_UPDATE.equals(type)) {
             BwsUser userByEmail = userDao.findOneByEmail(emailAddress);
             if (userByEmail != null) {
                 return ResponseResult.FAILD("该邮箱已经被注册");
             }
-        } else if ("forget".equals(type)) {
+        } else if (Constants.User.LOGIN_TYPE_FORGET.equals(type)) {
             BwsUser userByEmail = userDao.findOneByEmail(emailAddress);
             if (userByEmail == null) {
                 return ResponseResult.FAILD("该邮箱未注册");
@@ -372,7 +391,6 @@ public class UserServiceImpl implements IUserService {
 
 //        5.检查图灵验证码是否正确
 //              1.拿到验证码
-//        String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
         log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
@@ -383,7 +401,6 @@ public class UserServiceImpl implements IUserService {
         if (!captchaVerifyCode.equals(captchaCode)) {
             return ResponseResult.FAILD("人类验证码不正确");
         } else {
-//            redisUtil.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         }
 
         if (captchaVerifyCode.equals(captchaCode) && emailVerifyCode.equals(emailCode)) {
@@ -402,10 +419,10 @@ public class UserServiceImpl implements IUserService {
 
 //        7.补全数据 包括ip，角色，创建时间，更新时间
         String ipAddr = request.getRemoteAddr();
-        bwsUser.setReg_ip(ipAddr);
-        bwsUser.setLogin_ip(ipAddr);
+        bwsUser.setRegIp(ipAddr);
+        bwsUser.setLoginIp(ipAddr);
         bwsUser.setCreateTime(new Date());
-        bwsUser.setUpdate_time(new Date());
+        bwsUser.setUpdateTime(new Date());
         bwsUser.setAvatar(Constants.User.DEFAULT_AVATAR);
         bwsUser.setRoles(Constants.User.ROLE_NORMAL);
         bwsUser.setId(String.valueOf(snowflakeIdWorker.nextId()));
@@ -586,6 +603,38 @@ public class UserServiceImpl implements IUserService {
             }
         }
         return bwsUser;
+    }
+
+    /**
+     * 获取用户的信息
+     * 1.从数据库里获取
+     * 2.判断结果
+     * - 如果不存在，就返回不存在
+     * - 如果存在，就复制对象，清空携带的密码，email，注册和登录的IP
+     * 3.返回结果
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public ResponseResult getUserInfo(String userId) {
+//        查询用户信息从数据库
+        BwsUser bwsUser = userDao.findOneById(userId);
+//        判断用户是否存在
+        if (bwsUser == null) {
+//            用户不存在，返回查询失败
+            return ResponseResult.FAILD("用户不存在");
+        }
+//        用户存在，清空敏感数据
+        String userJson = gson.toJson(bwsUser);
+        BwsUser newBwsUser = gson.fromJson(userJson, BwsUser.class);
+        newBwsUser.setPassword("");
+        newBwsUser.setLoginIp("");
+        newBwsUser.setRegIp("");
+        newBwsUser.setEmail("");
+
+//        读取用户信息完成，并返回用户的信息
+        return ResponseResult.SUCCESS("读取用户信息成功").setData(newBwsUser);
     }
 
     private BwsUser parseByTokenKey(String tokenKey) {

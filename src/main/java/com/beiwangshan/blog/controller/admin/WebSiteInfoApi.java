@@ -60,8 +60,11 @@ public class WebSiteInfoApi {
         return null;
     }
 
-//    获取统计信息 view_count
 
+    /**
+     * 获取统计信息 view_count
+     * @return
+     */
     @GetMapping("/view_count")
     public ResponseResult getWebSiteViewCount(){
 

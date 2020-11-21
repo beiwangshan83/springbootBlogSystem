@@ -19,10 +19,15 @@ import java.util.concurrent.Executor;
 @EnableAsync
 public class AsynConfiguration {
 
+    /**
+     * 邮箱异步发送
+     * @return
+     */
     @Bean
     public Executor asynExcutor(){
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(2);//配置核心数量
+        //配置核心数量
+        executor.setCorePoolSize(2);
         executor.setMaxPoolSize(10);
         executor.setThreadNamePrefix("bws_blog_task_word-");
         executor.setQueueCapacity(30);

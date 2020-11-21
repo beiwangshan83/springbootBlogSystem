@@ -513,3 +513,18 @@
 [2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser 生成的 user com.beiwangshan.blog.pojo.BwsUser@360f0aca
 [2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>com.beiwangshan.blog.pojo.BwsUser@360f0aca
 [2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> com.beiwangshan.blog.pojo.BwsUser@360f0aca
+[2020-11-21 22:58:08] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 21348 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 22:58:08] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 22:58:15] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.069 seconds (JVM running for 9.456)
+[2020-11-21 22:59:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 19076 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 22:59:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 23:00:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.733 seconds (JVM running for 8.056)
+[2020-11-21 23:35:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 6400 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 23:35:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 23:35:59] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> beiwangshan@yeah.net
+[2020-11-21 23:36:14] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 1797007941@qq.com
+[2020-11-21 23:36:14] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-21 23:36:15] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>542769
+[2020-11-21 23:36:46] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 1797007941@qq.com
+[2020-11-21 23:36:46] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - sendEmail ==> ip ==> 0:0:0:0:0:0:0:1
+[2020-11-21 23:36:46] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>115744

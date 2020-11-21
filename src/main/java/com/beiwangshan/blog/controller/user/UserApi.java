@@ -143,13 +143,12 @@ public class UserApi {
      * 获取用户信息
      *
      * @param userId
-     * @param bwsUser
      * @return
      */
     @GetMapping("/{userId}")
-    public ResponseResult getUserInfo(@PathVariable("userId") String userId, @RequestBody BwsUser bwsUser) {
-
-        return null;
+    public ResponseResult getUserInfo(@PathVariable("userId") String userId) {
+        
+        return userService.getUserInfo(userId);
     }
 
     /**

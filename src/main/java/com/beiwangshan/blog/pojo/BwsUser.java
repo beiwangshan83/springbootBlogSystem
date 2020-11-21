@@ -6,10 +6,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-/**
- * 博客用户表的实体类
- */
 
+/**
+ * @author 曾豪
+ */
 @Entity
 @Table(name = "tb_user")
 public class BwsUser {
@@ -40,10 +40,10 @@ public class BwsUser {
     private String state;
 //  注册ip地址
     @Column(name = "reg_ip")
-    private String reg_ip;
+    private String regIp;
 //  登录ip地址
     @Column(name = "login_ip")
-    private String login_ip;
+    private String loginIp;
 //  用户创建时间
     @Column(name = "create_time")
     private Date createTime;
@@ -115,20 +115,20 @@ public class BwsUser {
         this.state = state;
     }
 
-    public String getReg_ip() {
-        return reg_ip;
+    public String getRegIp() {
+        return regIp;
     }
 
-    public void setReg_ip(String reg_ip) {
-        this.reg_ip = reg_ip;
+    public void setRegIp(String regIp) {
+        this.regIp = regIp;
     }
 
-    public String getLogin_ip() {
-        return login_ip;
+    public String getLoginIp() {
+        return loginIp;
     }
 
-    public void setLogin_ip(String login_ip) {
-        this.login_ip = login_ip;
+    public void setLoginIp(String loginIp) {
+        this.loginIp = loginIp;
     }
 
     public Date getCreateTime() {
@@ -143,7 +143,7 @@ public class BwsUser {
         return updateTime;
     }
 
-    public void setUpdate_time(Date updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 }

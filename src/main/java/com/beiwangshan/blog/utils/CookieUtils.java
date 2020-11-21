@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class CookieUtils {
 
-    //1个月
+    /**
+     * 设置cookie的默认时间
+     */
     public static final int default_age = Constants.TimeValueInMillions.YEAR;
 
     public static final String domain = "localhost";

@@ -6,7 +6,9 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import java.util.Date;
 
-
+/**
+ * @author 曾豪
+ */
 @Entity
 @Table(name = "tb_images")
 public class Image {

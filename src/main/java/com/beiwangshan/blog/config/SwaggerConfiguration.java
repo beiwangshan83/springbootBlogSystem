@@ -28,16 +28,20 @@ public class SwaggerConfiguration {
                 .apiInfo(portalApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.beiwangshan.blog.controller.portal"))
-                .paths(PathSelectors.any()) // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                .paths(PathSelectors.any())
                 .build()
                 .groupName("前端门户");
     }
 
     private ApiInfo portalApiInfo() {
         return new ApiInfoBuilder()
-                .title("阳光沙滩博客系统门户接口文档") //设置文档的标题
-                .description("门户接口文档") // 设置文档的描述
-                .version(VERSION) // 设置文档的版本信息-> 1.0.0 Version information
+                //设置文档的标题
+                .title("阳光沙滩博客系统门户接口文档")
+                // 设置文档的描述
+                .description("门户接口文档")
+                // 设置文档的版本信息-> 1.0.0 Version information
+                .version(VERSION)
                 .build();
     }
 
@@ -53,7 +57,8 @@ public class SwaggerConfiguration {
                 .apiInfo(adminApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.beiwangshan.blog.controller.admin"))
-                .paths(PathSelectors.any()) // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                .paths(PathSelectors.any())
                 .build()
                 .groupName("管理中心");
     }
@@ -61,9 +66,12 @@ public class SwaggerConfiguration {
 
     private ApiInfo adminApiInfo() {
         return new ApiInfoBuilder()
-                .title("阳光沙滩管理中心接口文档") //设置文档的标题
-                .description("管理中心接口") // 设置文档的描述
-                .version(VERSION) // 设置文档的版本信息-> 1.0.0 Version information
+                //设置文档的标题
+                .title("阳光沙滩管理中心接口文档")
+                // 设置文档的描述
+                .description("管理中心接口")
+                // 设置文档的版本信息-> 1.0.0 Version information
+                .version(VERSION)
                 .build();
     }
 
@@ -74,16 +82,20 @@ public class SwaggerConfiguration {
                 .apiInfo(userApiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.beiwangshan.blog.controller.user"))
-                .paths(PathSelectors.any()) // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                // 可以根据url路径设置哪些请求加入文档，忽略哪些请求
+                .paths(PathSelectors.any())
                 .build()
                 .groupName("用户中心");
     }
 
     private ApiInfo userApiInfo() {
         return new ApiInfoBuilder()
-                .title("阳光沙滩博客系统用户接口") //设置文档的标题
-                .description("用户接口的接口") // 设置文档的描述
-                .version(VERSION) // 设置文档的版本信息-> 1.0.0 Version information
+                //设置文档的标题
+                .title("阳光沙滩博客系统用户接口")
+                // 设置文档的描述
+                .description("用户接口的接口")
+                // 设置文档的版本信息-> 1.0.0 Version information
+                .version(VERSION)
                 .build();
     }
 

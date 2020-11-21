@@ -7,6 +7,10 @@ import javax.persistence.Table;
 import java.util.Date;
 
 
+/**
+ * @author 曾豪
+ */
+
 @Entity
 @Table(name = "tb_article")
 public class Article {

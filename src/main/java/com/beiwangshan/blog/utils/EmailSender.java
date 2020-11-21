@@ -99,6 +99,8 @@ public class EmailSender {
         final String password = props.getProperty("password");
         user = username;
         session = Session.getInstance(props, new Authenticator() {
+//            提示修改的地方
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
