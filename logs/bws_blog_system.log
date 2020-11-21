@@ -194,3 +194,322 @@
 [2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>3cbce8b120a0a82802e5aedef9d8a923
 [2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzgwMywiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ._FPwk8cdcDtpgRzEZfYPn7HZYE112lTEzmOLLQW4iIk
 [2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims1===>{roles=role_normal, sign=null, id=382331511250092032, avatar=https://profile.csdnimg.cn/8/1/1/2_simon_477, userName=bws1, exp=1605923803, email=beiwangshan1@yeah.net}
+[2020-11-21 10:04:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 4016 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 10:04:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 10:04:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.609 seconds (JVM running for 6.662)
+[2020-11-21 10:04:28] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评试试论成功
+[2020-11-21 10:04:28] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>3cbce8b120a0a82802e5aedef9d8a923
+[2020-11-21 10:04:29] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzgwMywiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ._FPwk8cdcDtpgRzEZfYPn7HZYE112lTEzmOLLQW4iIk
+[2020-11-21 10:04:29] [http-nio-2020-exec-1] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:56:43+0800. Current time: 2020-11-21T10:04:29+0800
+[2020-11-21 10:04:29] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims2===>null
+[2020-11-21 15:41:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11340 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 15:41:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 15:41:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.189 seconds (JVM running for 7.266)
+[2020-11-21 15:41:46] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评试试论成功
+[2020-11-21 15:41:46] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>3cbce8b120a0a82802e5aedef9d8a923
+[2020-11-21 15:41:46] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>3cbce8b120a0a82802e5aedef9d8a923
+[2020-11-21 15:41:47] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 15:46:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16124 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 15:46:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 15:47:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 9200 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 15:47:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 15:47:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.695 seconds (JVM running for 6.84)
+[2020-11-21 15:48:03] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-21 15:48:03] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> za7vv
+[2020-11-21 15:48:42] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码za7vv
+[2020-11-21 15:48:42] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码za7vv
+[2020-11-21 15:52:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 8196 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 15:52:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 15:52:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.47 seconds (JVM running for 6.53)
+[2020-11-21 15:52:24] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码za7vv
+[2020-11-21 15:52:24] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码za7vv
+[2020-11-21 15:52:24] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 7
+[2020-11-21 15:52:49] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 15:52:49] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>bc99388b20116e6d27d0f8ba0b4ae59e
+[2020-11-21 15:52:49] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>bc99388b20116e6d27d0f8ba0b4ae59e
+[2020-11-21 15:52:49] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 15:52:49] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 9ea7c3544e3d9e233f5f65876afb7798
+[2020-11-21 15:52:49] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 15:54:51] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码za7vv
+[2020-11-21 15:54:51] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码za7vv
+[2020-11-21 15:54:51] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 15:54:54] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 15:54:54] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>504cee9d46efd148612f139cc77f0c08
+[2020-11-21 15:54:54] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>504cee9d46efd148612f139cc77f0c08
+[2020-11-21 15:54:54] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 15:54:54] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 1e2d5259affa1edb2e755045811e10d2
+[2020-11-21 15:54:54] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 15:57:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 4436 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 15:57:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 15:57:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.412 seconds (JVM running for 6.666)
+[2020-11-21 15:58:41] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 15:58:41] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>1e2d5259affa1edb2e755045811e10d2
+[2020-11-21 15:58:41] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>1e2d5259affa1edb2e755045811e10d2
+[2020-11-21 15:59:47] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 18752 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 15:59:47] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 15:59:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.243 seconds (JVM running for 6.263)
+[2020-11-21 16:00:01] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:00:01] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>1e2d5259affa1edb2e755045811e10d2
+[2020-11-21 16:00:01] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>1e2d5259affa1edb2e755045811e10d2
+[2020-11-21 16:00:02] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:00:02] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 16:00:02] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:02:04] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 16:02:04] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码za7vv
+[2020-11-21 16:02:08] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 0
+[2020-11-21 16:02:08] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> xnaay
+[2020-11-21 16:02:38] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码xnaay
+[2020-11-21 16:02:38] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码xnaay
+[2020-11-21 16:02:38] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 0
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>b1bc56284cb8b1cc081647cd076d8a92
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>b1bc56284cb8b1cc081647cd076d8a92
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 6c5f9280ac81b4d7d20dd0dfc368e8b4
+[2020-11-21 16:02:57] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:15:09] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11368 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:15:09] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:15:14] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.568 seconds (JVM running for 6.599)
+[2020-11-21 16:15:51] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 7
+[2020-11-21 16:15:51] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 11
+[2020-11-21 16:16:05] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码11
+[2020-11-21 16:16:05] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码11
+[2020-11-21 16:16:06] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>7e9af114087f2d06a2bf18aeacabef14
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>7e9af114087f2d06a2bf18aeacabef14
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 037a0872b6414634c39ce1f7feef9721
+[2020-11-21 16:16:44] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:24:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 5076 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:24:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:24:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.284 seconds (JVM running for 6.345)
+[2020-11-21 16:25:20] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:25:20] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>037a0872b6414634c39ce1f7feef9721
+[2020-11-21 16:25:20] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>037a0872b6414634c39ce1f7feef9721
+[2020-11-21 16:25:21] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:25:21] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 16:25:21] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:28:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13336 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:28:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:29:04] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.4 seconds (JVM running for 7.597)
+[2020-11-21 16:29:10] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:29:10] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>037a0872b6414634c39ce1f7feef9721
+[2020-11-21 16:29:10] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>037a0872b6414634c39ce1f7feef9721
+[2020-11-21 16:29:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:29:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:29:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 16:29:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:29:54] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 16:29:54] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码11
+[2020-11-21 16:29:57] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 9
+[2020-11-21 16:29:57] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 2vwax
+[2020-11-21 16:30:13] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码2vwax
+[2020-11-21 16:30:13] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码2vwax
+[2020-11-21 16:30:13] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 0
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>856ca7d15213623aa343965864171abb
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>856ca7d15213623aa343965864171abb
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 07cfb9c4b61782d7ee0dd19de63cc335
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:30:36] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:32:01] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 16:32:01] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码2vwax
+[2020-11-21 16:32:07] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 6
+[2020-11-21 16:32:07] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> s3f8z
+[2020-11-21 16:32:30] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 16:32:30] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码s3f8z
+[2020-11-21 16:33:01] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 16:33:01] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码s3f8z
+[2020-11-21 16:33:44] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 2
+[2020-11-21 16:33:44] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 4yefx
+[2020-11-21 16:33:58] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码4yefx
+[2020-11-21 16:33:58] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码4yefx
+[2020-11-21 16:33:58] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>3c6342553c5f18e172182c4f03f22609
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>3c6342553c5f18e172182c4f03f22609
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 796e077d7f51a91046eb9bf570246c99
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:34:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:36:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11824 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:36:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:36:41] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.501 seconds (JVM running for 7.876)
+[2020-11-21 16:37:02] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:37:02] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>796e077d7f51a91046eb9bf570246c99
+[2020-11-21 16:37:02] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>796e077d7f51a91046eb9bf570246c99
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> null
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 7d8b7cfcf87e3a88ff2b000bc42d58d3
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:37:03] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:38:27] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 6184 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:38:27] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:38:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.57 seconds (JVM running for 6.766)
+[2020-11-21 16:39:49] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 0
+[2020-11-21 16:39:49] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> sq2vg
+[2020-11-21 16:40:05] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码sq2vg
+[2020-11-21 16:40:05] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码sq2vg
+[2020-11-21 16:40:05] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>8eb7318a26d02e00c42a0864876fe033
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>8eb7318a26d02e00c42a0864876fe033
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> null
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> ad860be1029c1698f755f5ca6e99192a
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:40:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:42:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 9232 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:42:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:42:11] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.357 seconds (JVM running for 6.428)
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>ad860be1029c1698f755f5ca6e99192a
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>null
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> null
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 为空
+[2020-11-21 16:42:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:50:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16100 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:50:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:50:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.42 seconds (JVM running for 7.598)
+[2020-11-21 16:50:29] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:50:29] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>7d8b7cfcf87e3a88ff2b000bc42d58d3
+[2020-11-21 16:50:29] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>7d8b7cfcf87e3a88ff2b000bc42d58d3
+[2020-11-21 16:50:30] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> null
+[2020-11-21 16:50:30] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:50:30] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:50:30] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 为空
+[2020-11-21 16:50:30] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 16:53:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 4056 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 16:53:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 16:53:21] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.593 seconds (JVM running for 6.805)
+[2020-11-21 16:53:46] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 6
+[2020-11-21 16:53:46] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> m8jjn
+[2020-11-21 16:54:00] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码m8jjn
+[2020-11-21 16:54:00] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码m8jjn
+[2020-11-21 16:54:00] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 0
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>9659aaddee38f304c3d570d9c16f7f03
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>9659aaddee38f304c3d570d9c16f7f03
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> null
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 16:54:50] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 17:01:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 14832 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 17:01:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 17:01:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.06 seconds (JVM running for 7.191)
+[2020-11-21 17:01:52] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 17:01:52] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:01:52] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment == >redisToken ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> null
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>null
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 17:01:53] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 17:05:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11676 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 17:05:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 17:05:30] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.808 seconds (JVM running for 7.006)
+[2020-11-21 17:05:50] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 17:05:50] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:05:50] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment == >redisToken ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey  ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI过期了
+[2020-11-21 17:05:51] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 17:05:52] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 17:05:52] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 17:15:27] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16360 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 17:15:27] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 17:15:34] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.861 seconds (JVM running for 7.956)
+[2020-11-21 17:15:40] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 17:15:40] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:15:40] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment == >redisToken ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey  ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI过期了
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 17:15:41] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 17:24:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 18736 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 17:24:35] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 17:24:40] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.523 seconds (JVM running for 6.769)
+[2020-11-21 17:25:05] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 17:25:05] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:25:05] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment == >redisToken ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>9a231ff2cc6fdda99b9d173b47eb21e8
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey  ==> eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTQ4ODk3LCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.pM---NtmnNmaml4FOpxL183qHIHkIKQBtraSAOA4CbI过期了
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser  refreshToken ==> 过期
+[2020-11-21 17:25:06] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> null
+[2020-11-21 19:24:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13800 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 19:24:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 19:24:53] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 9.448 seconds (JVM running for 11.508)
+[2020-11-21 19:24:58] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 1
+[2020-11-21 19:24:58] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 20
+[2020-11-21 19:25:12] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码20
+[2020-11-21 19:25:12] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码20
+[2020-11-21 19:25:12] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>42d90968c388df55cc45a54563609678
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment == >redisToken ==> eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MiLCJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsImV4cCI6MTYwNTk1NzkxOSwiZW1haWwiOiJiZWl3YW5nc2hhbkB5ZWFoLm5ldCJ9._3ITIdQ8u6z-IUAvcOLAmycuQVOPR_aa7kJQCoLRvFc
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>42d90968c388df55cc45a54563609678
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MiLCJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsImV4cCI6MTYwNTk1NzkxOSwiZW1haWwiOiJiZWl3YW5nc2hhbkB5ZWFoLm5ldCJ9._3ITIdQ8u6z-IUAvcOLAmycuQVOPR_aa7kJQCoLRvFc
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MiLCJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsImV4cCI6MTYwNTk1NzkxOSwiZW1haWwiOiJiZWl3YW5nc2hhbkB5ZWFoLm5ldCJ9._3ITIdQ8u6z-IUAvcOLAmycuQVOPR_aa7kJQCoLRvFc
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey  ==> eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MiLCJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsImV4cCI6MTYwNTk1NzkxOSwiZW1haWwiOiJiZWl3YW5nc2hhbkB5ZWFoLm5ldCJ9._3ITIdQ8u6z-IUAvcOLAmycuQVOPR_aa7kJQCoLRvFc过期了
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>null
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 1
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser 创建新的 refreshToken ==> 15bd0d8e58200ef5c4407d84984c9b6f
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MiLCJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsImV4cCI6MTYwNTk1Nzk0NiwiZW1haWwiOiJiZWl3YW5nc2hhbkB5ZWFoLm5ldCJ9.ZhBW9KP_OO2OuB8TDe8uMA0oV1pT5UopnLowJphanAw
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser 传入的 claims{user_name=bws, roles=role_normal, sign=null, id=382330713233424384, avatar=https://profile.csdnimg.cn/8/1/1/2_simon_477, exp=1605957946, email=beiwangshan@yeah.net}
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser get 的ID 382330713233424384
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser 生成的 user com.beiwangshan.blog.pojo.BwsUser@592a08a8
+[2020-11-21 19:25:39] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> com.beiwangshan.blog.pojo.BwsUser@592a08a8
+[2020-11-21 19:26:29] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码20
+[2020-11-21 19:26:29] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码20
+[2020-11-21 19:26:29] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - deleteResult == > 0
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 2222评试试论成功
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>3c5d1c68ed9f0670356be5d70668aa5b
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment == >redisToken ==> eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MxIiwicm9sZXMiOiJyb2xlX25vcm1hbCIsInNpZ24iOm51bGwsImlkIjoiMzgyMzMxNTExMjUwMDkyMDMyIiwiYXZhdGFyIjoiaHR0cHM6Ly9wcm9maWxlLmNzZG5pbWcuY24vOC8xLzEvMl9zaW1vbl80NzciLCJleHAiOjE2MDU5NTc5OTYsImVtYWlsIjoiYmVpd2FuZ3NoYW4xQHllYWgubmV0In0.4awXwUXjuvlaVPUD53fJ6jcYygWJrhBLdyYjebmAUpg
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookie获取到名字了
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey===>3c5d1c68ed9f0670356be5d70668aa5b
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - checkBwsUser ==> redisToken==> eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MxIiwicm9sZXMiOiJyb2xlX25vcm1hbCIsInNpZ24iOm51bGwsImlkIjoiMzgyMzMxNTExMjUwMDkyMDMyIiwiYXZhdGFyIjoiaHR0cHM6Ly9wcm9maWxlLmNzZG5pbWcuY24vOC8xLzEvMl9zaW1vbl80NzciLCJleHAiOjE2MDU5NTc5OTYsImVtYWlsIjoiYmVpd2FuZ3NoYW4xQHllYWgubmV0In0.4awXwUXjuvlaVPUD53fJ6jcYygWJrhBLdyYjebmAUpg
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - parseByTokenKey ==> token ===>eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX25hbWUiOiJid3MxIiwicm9sZXMiOiJyb2xlX25vcm1hbCIsInNpZ24iOm51bGwsImlkIjoiMzgyMzMxNTExMjUwMDkyMDMyIiwiYXZhdGFyIjoiaHR0cHM6Ly9wcm9maWxlLmNzZG5pbWcuY24vOC8xLzEvMl9zaW1vbl80NzciLCJleHAiOjE2MDU5NTc5OTYsImVtYWlsIjoiYmVpd2FuZ3NoYW4xQHllYWgubmV0In0.4awXwUXjuvlaVPUD53fJ6jcYygWJrhBLdyYjebmAUpg
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser 传入的 claims{user_name=bws1, roles=role_normal, sign=null, id=382331511250092032, avatar=https://profile.csdnimg.cn/8/1/1/2_simon_477, exp=1605957996, email=beiwangshan1@yeah.net}
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser get 的ID 382331511250092032
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.utils.ClaimsUtils] - cliams2BwsUser 生成的 user com.beiwangshan.blog.pojo.BwsUser@360f0aca
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 检查登录时候拿到的tokenKey 解析后的 user===>com.beiwangshan.blog.pojo.BwsUser@360f0aca
+[2020-11-21 19:26:32] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - 检查登录之后的user ===> com.beiwangshan.blog.pojo.BwsUser@360f0aca

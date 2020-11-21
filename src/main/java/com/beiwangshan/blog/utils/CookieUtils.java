@@ -1,5 +1,7 @@
 package com.beiwangshan.blog.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,10 +14,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version: 1.0
  * @todo:
  */
+@Slf4j
 public class CookieUtils {
 
     //1个月
-    public static final int default_age = 60 * 60 * 24 * 30;
+    public static final int default_age = Constants.TimeValueInMillions.YEAR;
 
     public static final String domain = "localhost";
 
@@ -59,6 +62,7 @@ public class CookieUtils {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (key.equals(cookie.getName())) {
+                log.info("cookie获取到名字了");
                 return cookie.getValue();
             }
         }

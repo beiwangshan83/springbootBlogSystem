@@ -375,8 +375,8 @@ public class UserServiceImpl implements IUserService {
 //        String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
-        log.info("拿到的captchaVerifyCode ==>" +captchaVerifyCode);
-        log.info("拿到的captchaKey ==>" +captchaKey);
+        log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
+        log.info("拿到的captchaKey ==>" + captchaKey);
         if (TextUtils.isEmpty(captchaVerifyCode)) {
             return ResponseResult.FAILD("人类验证码已经过期");
         }
@@ -386,7 +386,7 @@ public class UserServiceImpl implements IUserService {
 //            redisUtil.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         }
 
-        if (captchaVerifyCode.equals(captchaCode) && emailVerifyCode.equals(emailCode) ){
+        if (captchaVerifyCode.equals(captchaCode) && emailVerifyCode.equals(emailCode)) {
             redisUtil.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
             redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
 
@@ -458,14 +458,14 @@ public class UserServiceImpl implements IUserService {
 
         //获取redis中保存的 图灵验证码的信息
         String captchaFromRedis = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
-        log.info("获取到的人类验证码"+captchaFromRedis );
-        log.info("传入的人类验证码"+captcha );
+        log.info("获取到的人类验证码" + captchaFromRedis);
+        log.info("传入的人类验证码" + captcha);
         //进行判断 是否和携带的图灵验证码是否一致
         if (!captcha.equals(captchaFromRedis)) {
             return ResponseResult.FAILD("人类验证码不正确");
         }
 
-        //根据传入的数据进行查询是否存在这个用户 
+        //根据传入的数据进行查询是否存在这个用户
         BwsUser userFromDb = userDao.findOneByUserName(bwsUser.getUserName());
         if (userFromDb == null) {
             userFromDb = userDao.findOneByEmail(bwsUser.getEmail());
@@ -496,6 +496,8 @@ public class UserServiceImpl implements IUserService {
      * @return token_key
      */
     private String createToken(HttpServletResponse response, BwsUser userFromDb) {
+        int deleteResult = refreshTokenDao.deleteAllByUserId(userFromDb.getId());
+        log.info("deleteResult == > " + deleteResult);
         //生成token
         Map<String, Object> cliams = ClaimsUtils.bwsUser2Claims(userFromDb);
 
@@ -527,13 +529,12 @@ public class UserServiceImpl implements IUserService {
         RefreshToken refreshToken = new RefreshToken();
         refreshToken.setId(snowflakeIdWorker.nextId() + "");
         refreshToken.setRefreshToken(refreshTokenValue);
-        ;
         refreshToken.setUserId(userFromDb.getId());
         refreshToken.setTokenKey(tokenKey);
         refreshToken.setCreateTime(new Date());
         refreshToken.setUpdateTime(new Date());
 
-        refreshTokenDao.save(refreshToken);
+        this.refreshTokenDao.save(refreshToken);
 
         return tokenKey;
     }
@@ -550,18 +551,21 @@ public class UserServiceImpl implements IUserService {
     public BwsUser checkBwsUser(HttpServletRequest request, HttpServletResponse response) {
         //1.拿到token_key
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
+        log.info("检查登录时候拿到的tokenKey===>" + tokenKey);
         // 从redis中取得 token
+        String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
+        log.info("checkBwsUser ==> redisToken==> "+redisToken);
         BwsUser bwsUser = parseByTokenKey(tokenKey);
+        log.info("检查登录时候拿到的tokenKey 解析后的 user===>" + bwsUser);
         if (bwsUser == null) {
             // 说明解析出错，过期了，
             // - 去数据库查询，根据 refrToken，
             RefreshToken refreshToken = refreshTokenDao.findOneByTokenKey(tokenKey);
-
             // - 如果不存在，就是没登录
             if (refreshToken == null) {
+                log.info("checkBwsUser  refreshToken ==> 为空");
                 return null;
             }
-
             // - 如果存在就解析 refrToken
             try {
                 JwtUtil.parseJWT(refreshToken.getRefreshToken());
@@ -569,14 +573,15 @@ public class UserServiceImpl implements IUserService {
                 String userId = refreshToken.getUserId();
                 BwsUser bwsUserById = userDao.findOneById(userId);
                 // 删掉之前的 refreshToken 记录
-                refreshTokenDao.deleteById(refreshToken.getId());
+
                 // 创建新的，并且存入数据库
                 String newTokenKey = createToken(response, bwsUserById);
-
+                log.info("checkBwsUser 创建新的 refreshToken ==> " + newTokenKey);
                 // 返回 token
                 return parseByTokenKey(newTokenKey);
             } catch (Exception exception) {
                 // - 如果 refrToken 过期了，就返回 当前用户没有登录
+                log.info("checkBwsUser  refreshToken ==> 过期");
                 return null;
             }
         }
@@ -584,14 +589,16 @@ public class UserServiceImpl implements IUserService {
     }
 
     private BwsUser parseByTokenKey(String tokenKey) {
-        String token = (String) redisUtil.get(tokenKey);
+        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
+        log.info("parseByTokenKey ==> token ===>" + token);
         if (token != null) {
             try {
                 //解析token
                 Claims claims = JwtUtil.parseJWT(token);
                 //解析token为 User 实体类
-                BwsUser bwsUser = ClaimsUtils.cliams2BwsUser(claims);
+                return ClaimsUtils.cliams2BwsUser(claims);
             } catch (Exception e) {
+                log.info("parseByTokenKey  ==> " + token + "过期了");
                 return null;
             }
         }

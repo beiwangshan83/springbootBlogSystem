@@ -21,8 +21,10 @@ public class JwtUtil {
     //盐值
     private static String key = "ad128433d8e3356e7024009bf6add2ab";
 
-    //单位是毫秒
-    private static long ttl = Constants.TimeValueInMillions.HOUR_2;//2个小时
+    /**
+     *单位是毫秒
+     */
+    private static long ttl = Constants.TimeValueInMillions.HOUR_2;
 
     public String getKey() {
         return key;
@@ -91,5 +93,6 @@ public class JwtUtil {
                 .parseClaimsJws(jwtStr)
                 .getBody();
     }
+
 
 }

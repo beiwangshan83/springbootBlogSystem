@@ -2,6 +2,7 @@ package com.beiwangshan.blog.utils;
 
 import com.beiwangshan.blog.pojo.BwsUser;
 import io.jsonwebtoken.Claims;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +15,11 @@ import java.util.Map;
  * @version: 1.0
  * @todo:
  */
+@Slf4j
 public class ClaimsUtils {
 
     public static final String ID = "id";
-    public static final String USERNAME = "userName";
+    public static final String USERNAME = "user_name";
     public static final String ROLES = "roles";
     public static final String AVATAR = "avatar";
     public static final String EMAIL = "email";
@@ -37,8 +39,9 @@ public class ClaimsUtils {
 
     public static BwsUser cliams2BwsUser(Claims claims) {
         BwsUser bwsUser = new BwsUser();
-
+        log.info("cliams2BwsUser 传入的 claims" + claims);
         String id = (String) claims.get(ID);
+        log.info("cliams2BwsUser get 的ID " + id);
         bwsUser.setId(id);
         String userName = (String) claims.get(USERNAME);
         bwsUser.setUserName(userName);
@@ -51,6 +54,7 @@ public class ClaimsUtils {
         String sign = (String) claims.get(SIGN);
         bwsUser.setSign(sign);
 
+        log.info("cliams2BwsUser 生成的 user " + bwsUser);
         return bwsUser;
 
     }

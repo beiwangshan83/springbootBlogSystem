@@ -6,10 +6,13 @@ import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.pojo.Comment;
 import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
-import com.beiwangshan.blog.utils.*;
+import com.beiwangshan.blog.service.IUserService;
+import com.beiwangshan.blog.utils.Constants;
+import com.beiwangshan.blog.utils.CookieUtils;
+import com.beiwangshan.blog.utils.RedisUtil;
+import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
-import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -219,6 +222,9 @@ public class TestController {
     @Autowired
     private CommentDao commentDao;
 
+    @Autowired
+    private IUserService userService;
+
     /**
      * 评论的测试
      *
@@ -227,42 +233,25 @@ public class TestController {
      * @return
      */
     @PostMapping("/comment")
-    public ResponseResult testComment(@RequestBody Comment comment, HttpServletRequest request) {
+    public ResponseResult testComment(@RequestBody Comment comment, HttpServletRequest request, HttpServletResponse response) {
         String content = comment.getContent();
         log.info("comment content ==> " + content);
 //        需要知道是谁的评论，对评论进行身份验证
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
         log.info("tokenKey ==>" + tokenKey);
         if (tokenKey == null) {
-            return ResponseResult.FAILD("账号为登录");
-        }
-        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
-        log.info("token ==>" + token);
-        if (token == null) {
-            //空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
-            //如果 refreshToken 不存在，或者已经过期
-            // 告诉用户未登录或者重新登录
-
-        }
-        //已经登录了，解析token
-        Claims claims = null;
-        try {
-            claims = JwtUtil.parseJWT(token);
-            log.info("claims1===>" + claims);
-        } catch (Exception e) {
-            //空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
-            //如果 refreshToken 不存在，或者已经过期
-            // 告诉用户未登录或者重新登录
-            log.error(e.toString());
+            return ResponseResult.FAILD("账号未登录");
         }
 
-        if (claims == null) {
-            log.info("claims2===>" + claims);
-            return ResponseResult.FAILD("用户未登录");
+        String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
+        log.info("comment == >redisToken ==> "+redisToken);
+
+        BwsUser bwsUser =  userService.checkBwsUser(request,response);
+        log.info("检查登录之后的user ===> "+ bwsUser);
+
+        if (bwsUser == null) {
+            return ResponseResult.FAILD("账号未登录");
         }
-
-        BwsUser bwsUser = ClaimsUtils.cliams2BwsUser(claims);
-
         comment.setUserId(bwsUser.getId());
         comment.setUserAvatar(bwsUser.getAvatar());
         comment.setUserName(bwsUser.getUserName());
