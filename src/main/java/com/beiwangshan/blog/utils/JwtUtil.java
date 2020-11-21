@@ -29,7 +29,7 @@ public class JwtUtil {
     }
 
     public void setKey(String key) {
-        this.key = key;
+        JwtUtil.key = key;
     }
 
     public long getTtl() {
@@ -37,7 +37,7 @@ public class JwtUtil {
     }
 
     public void setTtl(long ttl) {
-        this.ttl = ttl;
+        JwtUtil.ttl = ttl;
     }
 
     /**

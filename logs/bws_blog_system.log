@@ -115,3 +115,82 @@
 [2020-11-21 01:15:50] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码z4uns
 [2020-11-21 01:15:58] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码z4uns
 [2020-11-21 01:15:58] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码z4uns
+[2020-11-21 08:55:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 1884 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 08:55:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 08:55:14] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.278 seconds (JVM running for 9.679)
+[2020-11-21 08:56:22] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 8
+[2020-11-21 08:56:22] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> sayys
+[2020-11-21 08:56:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码sayys
+[2020-11-21 08:56:40] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码sayys
+[2020-11-21 09:06:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 1048 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 09:06:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 09:06:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.665 seconds (JVM running for 6.87)
+[2020-11-21 09:07:02] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:07:03] [http-nio-2020-exec-4] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T08:56:47+0800. Current time: 2020-11-21T09:07:03+0800
+[2020-11-21 09:13:51] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 09:13:51] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码sayys
+[2020-11-21 09:13:56] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 0
+[2020-11-21 09:13:56] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 0
+[2020-11-21 09:14:15] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码0
+[2020-11-21 09:14:15] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码0
+[2020-11-21 09:14:26] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:14:26] [http-nio-2020-exec-5] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:14:22+0800. Current time: 2020-11-21T09:14:26+0800
+[2020-11-21 09:30:24] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:30:24] [http-nio-2020-exec-1] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:14:22+0800. Current time: 2020-11-21T09:30:24+0800
+[2020-11-21 09:34:28] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13900 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 09:34:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 09:34:34] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.168 seconds (JVM running for 7.288)
+[2020-11-21 09:34:45] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:34:46] [http-nio-2020-exec-1] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:14:22+0800. Current time: 2020-11-21T09:34:46+0800
+[2020-11-21 09:39:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 9824 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 09:39:54] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 09:39:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.966 seconds (JVM running for 7.171)
+[2020-11-21 09:40:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:40:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>52f0df2680dba18ab7d6ef8bdcb92740
+[2020-11-21 09:40:12] [http-nio-2020-exec-2] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:14:22+0800. Current time: 2020-11-21T09:40:12+0800
+[2020-11-21 09:43:21] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 1664 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 09:43:21] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 09:43:26] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.643 seconds (JVM running for 6.77)
+[2020-11-21 09:43:32] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:43:32] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>52f0df2680dba18ab7d6ef8bdcb92740
+[2020-11-21 09:43:33] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzA3MTMyMzM0MjQzODQiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzIiwiZXhwIjoxNjA1OTIxMjYyLCJlbWFpbCI6ImJlaXdhbmdzaGFuQHllYWgubmV0In0.0fVJZzVLBmPfrj8RgztqF8trrx2pCC_6p0MLwClc1vQ
+[2020-11-21 09:43:33] [http-nio-2020-exec-1] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:14:22+0800. Current time: 2020-11-21T09:43:33+0800
+[2020-11-21 09:43:33] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims2===>null
+[2020-11-21 09:48:37] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码null
+[2020-11-21 09:48:37] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码0
+[2020-11-21 09:48:44] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - fontTypeIndex ==> 0
+[2020-11-21 09:48:44] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> exmyc
+[2020-11-21 09:48:57] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码exmyc
+[2020-11-21 09:48:57] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码exmyc
+[2020-11-21 09:49:00] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:49:00] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>e74206a7b969e23dcc27961212b41beb
+[2020-11-21 09:49:00] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzM0NCwiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ.o5b1L5qkBH-PG5mIMamrTIAvF89d_YLWRSChnQhBPdk
+[2020-11-21 09:49:00] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims1===>{roles=role_normal, sign=null, id=382331511250092032, avatar=https://profile.csdnimg.cn/8/1/1/2_simon_477, userName=bws1, exp=1605923344, email=beiwangshan1@yeah.net}
+[2020-11-21 09:49:34] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13160 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 09:49:34] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 09:49:38] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.348 seconds (JVM running for 6.408)
+[2020-11-21 09:49:46] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:49:46] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>e74206a7b969e23dcc27961212b41beb
+[2020-11-21 09:49:47] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzM0NCwiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ.o5b1L5qkBH-PG5mIMamrTIAvF89d_YLWRSChnQhBPdk
+[2020-11-21 09:49:47] [http-nio-2020-exec-2] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:49:04+0800. Current time: 2020-11-21T09:49:47+0800
+[2020-11-21 09:49:47] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims2===>null
+[2020-11-21 09:49:51] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码exmyc
+[2020-11-21 09:49:51] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码exmyc
+[2020-11-21 09:49:57] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:49:57] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>a60c3f48f37192ff39bd0732f5022518
+[2020-11-21 09:49:57] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzM5OSwiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ.aftJAfQCX3Gp3QVoGMEYz9JMzraRdLH_D5kIfO7GGk4
+[2020-11-21 09:49:57] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims1===>{roles=role_normal, sign=null, id=382331511250092032, avatar=https://profile.csdnimg.cn/8/1/1/2_simon_477, userName=bws1, exp=1605923399, email=beiwangshan1@yeah.net}
+[2020-11-21 09:55:47] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 8016 (E:\毕业设计\blog\code\bws_blog\target\classes started by 14333 in E:\毕业设计\blog\code\bws_blog)
+[2020-11-21 09:55:47] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - No active profile set, falling back to default profiles: default
+[2020-11-21 09:55:53] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.921 seconds (JVM running for 6.993)
+[2020-11-21 09:56:23] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:56:23] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>a60c3f48f37192ff39bd0732f5022518
+[2020-11-21 09:56:24] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzM5OSwiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ.aftJAfQCX3Gp3QVoGMEYz9JMzraRdLH_D5kIfO7GGk4
+[2020-11-21 09:56:24] [http-nio-2020-exec-2] - [ERROR] [ com.beiwangshan.blog.controller.TestController] - io.jsonwebtoken.ExpiredJwtException: JWT expired at 2020-11-21T09:49:59+0800. Current time: 2020-11-21T09:56:24+0800
+[2020-11-21 09:56:24] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims2===>null
+[2020-11-21 09:56:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 获取到的人类验证码exmyc
+[2020-11-21 09:56:36] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 传入的人类验证码exmyc
+[2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - comment content ==> 评论成功
+[2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - tokenKey ==>3cbce8b120a0a82802e5aedef9d8a923
+[2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - token ==>eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6InJvbGVfbm9ybWFsIiwic2lnbiI6bnVsbCwiaWQiOiIzODIzMzE1MTEyNTAwOTIwMzIiLCJhdmF0YXIiOiJodHRwczovL3Byb2ZpbGUuY3NkbmltZy5jbi84LzEvMS8yX3NpbW9uXzQ3NyIsInVzZXJOYW1lIjoiYndzMSIsImV4cCI6MTYwNTkyMzgwMywiZW1haWwiOiJiZWl3YW5nc2hhbjFAeWVhaC5uZXQifQ._FPwk8cdcDtpgRzEZfYPn7HZYE112lTEzmOLLQW4iIk
+[2020-11-21 09:56:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.TestController] - claims1===>{roles=role_normal, sign=null, id=382331511250092032, avatar=https://profile.csdnimg.cn/8/1/1/2_simon_477, userName=bws1, exp=1605923803, email=beiwangshan1@yeah.net}

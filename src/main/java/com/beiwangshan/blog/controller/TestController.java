@@ -23,7 +23,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -232,13 +231,15 @@ public class TestController {
         String content = comment.getContent();
         log.info("comment content ==> " + content);
 //        需要知道是谁的评论，对评论进行身份验证
-        String tokenKey = getCookie(Constants.User.COOKIE_TOKEN_KEY, request);
+        String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
+        log.info("tokenKey ==>" + tokenKey);
         if (tokenKey == null) {
             return ResponseResult.FAILD("账号为登录");
         }
         String token = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
+        log.info("token ==>" + token);
         if (token == null) {
-            //TODO: 空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
+            //空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
             //如果 refreshToken 不存在，或者已经过期
             // 告诉用户未登录或者重新登录
 
@@ -247,14 +248,17 @@ public class TestController {
         Claims claims = null;
         try {
             claims = JwtUtil.parseJWT(token);
+            log.info("claims1===>" + claims);
         } catch (Exception e) {
-            //TODO: 空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
+            //空的时候就是过期了，但是有可能登录过的，可以去查refreshToken
             //如果 refreshToken 不存在，或者已经过期
             // 告诉用户未登录或者重新登录
             log.error(e.toString());
         }
-        if (claims==null){
-            return  ResponseResult.FAILD("用户未登录");
+
+        if (claims == null) {
+            log.info("claims2===>" + claims);
+            return ResponseResult.FAILD("用户未登录");
         }
 
         BwsUser bwsUser = ClaimsUtils.cliams2BwsUser(claims);
@@ -263,21 +267,9 @@ public class TestController {
         comment.setUserAvatar(bwsUser.getAvatar());
         comment.setUserName(bwsUser.getUserName());
         comment.setCreateTime(new Date());
+        comment.setUpdateTime(new Date());
         comment.setId(String.valueOf(snowflakeIdWorker.nextId()));
         commentDao.save(comment);
         return ResponseResult.SUCCESS("评论成功");
-    }
-
-    private String getCookie(String cookieTokenKey, HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies == null) {
-            return null;
-        }
-        for (Cookie cookie : cookies) {
-            if (cookieTokenKey.equals(cookie.getName())) {
-                return cookie.getValue();
-            }
-        }
-        return null;
     }
 }
