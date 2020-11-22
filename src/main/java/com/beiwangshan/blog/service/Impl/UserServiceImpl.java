@@ -779,12 +779,7 @@ public class UserServiceImpl implements IUserService {
         Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
         Pageable pageable = PageRequest.of(page-1,size,sort);
 //       TODO: 就这个地方错了！！！
-        Page<BwsUser> allUser = userDao.findAll(pageable);
-
-//        String toJson = gson.toJson(allUser);
-//        BwsUser newBwsUser = gson.fromJson(toJson, BwsUser.class);
-//        newBwsUser.setPassword("");
-
+        Page<BwsUser> allUser = userDao.findAllUserNoPassword(pageable);
 
         return ResponseResult.SUCCESS("查询成功").setData(allUser);
     }

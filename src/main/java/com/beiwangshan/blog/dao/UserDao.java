@@ -1,6 +1,8 @@
 package com.beiwangshan.blog.dao;
 
 import com.beiwangshan.blog.pojo.BwsUser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -66,5 +68,8 @@ public interface UserDao extends JpaRepository<BwsUser,String>, JpaSpecification
 //    @Modifying
 //    @Query(value = "select new com.beiwangshan.blog.pojo.BwsUser(u.id,u.userName,u.roles,u.avatar,u.email,u.sign,u.state,u.regIp,u.loginIp,u.createTime,u.updateTime) from BwsUser as u")
 //    Page<BwsUser> listAllUserNoPassword(Pageable pageable);
+
+    @Query(value = "select new com.beiwangshan.blog.pojo.BwsUser(u.id,u.userName,u.roles,u.avatar,u.email,u.sign,u.state,u.regIp,u.loginIp,u.createTime,u.updateTime) from BwsUser as u")
+    Page<BwsUser> findAllUserNoPassword(Pageable pageable);
 
 }
