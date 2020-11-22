@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -184,6 +185,7 @@ public class UserApi {
      * @param size
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listUser(@RequestParam("page") int page,
                                    @RequestParam("size") int size,
@@ -191,7 +193,7 @@ public class UserApi {
                                    HttpServletResponse response
                                    ) {
 
-        return userService.ListUser(page,size,request,response);
+        return userService.listUser(page,size,request,response);
     }
 
     /**
@@ -203,6 +205,7 @@ public class UserApi {
      * @param userId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{userId}")
     public ResponseResult deleteUser(HttpServletResponse response,
                                      HttpServletRequest request,

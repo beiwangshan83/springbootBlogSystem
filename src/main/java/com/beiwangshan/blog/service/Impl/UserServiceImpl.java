@@ -9,7 +9,6 @@ import com.beiwangshan.blog.pojo.Setting;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.response.ResponseState;
 import com.beiwangshan.blog.service.IUserService;
-import com.beiwangshan.blog.service.TaskService;
 import com.beiwangshan.blog.utils.*;
 import com.google.gson.Gson;
 import com.wf.captcha.ArithmeticCaptcha;
@@ -724,16 +723,6 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public ResponseResult deleteUserById(String userId, HttpServletResponse response, HttpServletRequest request) {
-//        检验当前用户是谁
-        BwsUser currentUser = checkBwsUser(request, response);
-        if (currentUser == null) {
-            return ResponseResult.ACCOUNT_NOT_LOGIN();
-        }
-//        已经登录，判断权限
-        log.info("删除时候的用户权限：==>" + currentUser.getUserName() + "==>" + currentUser.getRoles());
-        if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())) {
-            return ResponseResult.PERMISSION_DENIAL();
-        }
 //        可以操作
         int delResult = userDao.deleteUserByState(userId);
         if (delResult > 0) {
@@ -754,17 +743,7 @@ public class UserServiceImpl implements IUserService {
      * @return
      */
     @Override
-    public ResponseResult ListUser(int page, int size, HttpServletRequest request, HttpServletResponse response) {
-        //        检验当前用户是谁
-        BwsUser currentUser = checkBwsUser(request, response);
-        if (currentUser == null) {
-            return ResponseResult.ACCOUNT_NOT_LOGIN();
-        }
-//        已经登录，判断权限
-        log.info("删除时候的用户权限：==>" + currentUser.getUserName() + "==>" + currentUser.getRoles());
-        if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())) {
-            return ResponseResult.PERMISSION_DENIAL();
-        }
+    public ResponseResult listUser(int page, int size, HttpServletRequest request, HttpServletResponse response) {
 //        判断page大小，分页查询
         if (page < Constants.Page.DEFAULT_PAGE) {
             page = Constants.Page.DEFAULT_PAGE;

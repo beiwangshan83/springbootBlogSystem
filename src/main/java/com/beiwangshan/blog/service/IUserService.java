@@ -141,5 +141,5 @@ public interface IUserService {
      * @param response
      * @return
      */
-    ResponseResult ListUser(int page, int size, HttpServletRequest request, HttpServletResponse response);
+    ResponseResult listUser(int page, int size, HttpServletRequest request, HttpServletResponse response);
 }

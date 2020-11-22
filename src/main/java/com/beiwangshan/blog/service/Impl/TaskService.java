@@ -1,4 +1,4 @@
-package com.beiwangshan.blog.service;
+package com.beiwangshan.blog.service.Impl;
 
 import com.beiwangshan.blog.utils.EmailSender;
 import org.springframework.scheduling.annotation.Async;
