@@ -69,7 +69,7 @@ public class UserServiceImpl implements IUserService {
      * 注入redis工具类
      */
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
 
     @Autowired
     private UserDao userDao;
@@ -227,7 +227,7 @@ public class UserServiceImpl implements IUserService {
         log.info("图灵验证码 ==> " + content);
 
 //        验证码信息 保存在redis里
-        redisUtil.set(Constants.User.KEY_CAPTCHA_CONTENT + key, content, Constants.TimeValueInMillions.MIN_10);
+        redisUtils.set(Constants.User.KEY_CAPTCHA_CONTENT + key, content, Constants.TimeValueInMillions.MIN_10);
 
         // 输出图片流
         targetCaptcha.out(response.getOutputStream());
@@ -290,14 +290,14 @@ public class UserServiceImpl implements IUserService {
 
         //1.防止暴力发送，就是不断的发送，同一个邮箱，间隔需要超过1分钟，一小时内同一个IP，最多只能10次，短信最多是 3 次
 //        获取邮箱发送IP的次数，如果没有 ==> 继续；如果有 ==> 判断次数 ==> 操作
-        Integer ipSendTimes = (Integer) redisUtil.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress);
+        Integer ipSendTimes = (Integer) redisUtils.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress);
 
         if (ipSendTimes != null && ipSendTimes > 10) {
             return ResponseResult.FAILED("发送过于频繁，请稍后再试！");
         }
 
 //        获取邮箱验证码的发送次数，同理
-        Object hasEmailSend = redisUtil.get(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress);
+        Object hasEmailSend = redisUtils.get(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress);
         if (hasEmailSend != null) {
             return ResponseResult.FAILED("发送过于频繁，请稍后再试！");
         }
@@ -328,10 +328,10 @@ public class UserServiceImpl implements IUserService {
         }
 
 //        设置IP 和 邮箱地址 一小时有效期 和 30 秒
-        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress, ipSendTimes, 60 * 60);
-        redisUtil.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress, "true", 30);
+        redisUtils.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress, ipSendTimes, 60 * 60);
+        redisUtils.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress, "true", 30);
 //        保存code，10分钟内有效
-        redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), 60 * 10);
+        redisUtils.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), 60 * 10);
         log.info("邮箱验证码===>" + code);
         return ResponseResult.SUCCESS("验证码发送成功");
     }
@@ -380,7 +380,7 @@ public class UserServiceImpl implements IUserService {
         }
 
 //        4.检查邮箱验证码是都正确
-        String emailVerifyCode = (String) redisUtil.get(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
+        String emailVerifyCode = (String) redisUtils.get(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         log.info("拿到的 emailVerifyCode ===> " + emailVerifyCode);
         if (TextUtils.isEmpty(emailVerifyCode)) {
             return ResponseResult.FAILED("邮箱验证码无效");
@@ -390,7 +390,7 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.FAILED("邮箱验证码不正确");
         }
 //        5.检查图灵验证码是否正确 拿到验证码
-        String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+        String captchaVerifyCode = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
         log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
         log.info("拿到的captchaKey ==>" + captchaKey);
@@ -403,8 +403,8 @@ public class UserServiceImpl implements IUserService {
         }
 
         if (captchaVerifyCode.equals(captchaCode) && emailVerifyCode.equals(emailCode)) {
-            redisUtil.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
-            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
+            redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+            redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
 
         }
 
@@ -473,7 +473,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         //获取redis中保存的 图灵验证码的信息
-        String captchaFromRedis = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+        String captchaFromRedis = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         log.info("获取到的人类验证码" + captchaFromRedis);
         log.info("传入的人类验证码" + captcha);
         //进行判断 是否和携带的图灵验证码是否一致
@@ -518,13 +518,13 @@ public class UserServiceImpl implements IUserService {
         Map<String, Object> claims = ClaimsUtils.bwsUser2Claims(userFromDb);
 
         //生成 token 默认有效期是两个小时
-        String token = JwtUtil.createToken(claims);
+        String token = JwtUtils.createToken(claims);
 
         // 返回token的md5值，token会保存在redis里面，前端访问的时候，携带token的md5 key
         //从redis中，获取即可
         String tokenKey = DigestUtils.md5DigestAsHex(token.getBytes());
         //保存token 到 redis里，有效期是两个小时，key是tokenKey
-        redisUtil.set(Constants.User.KEY_TOKEN + tokenKey, token, Constants.TimeValueInMillions.HOUR_2);
+        redisUtils.set(Constants.User.KEY_TOKEN + tokenKey, token, Constants.TimeValueInMillions.HOUR_2);
         //创建一个cookies
         Cookie cookie = new Cookie(Constants.User.COOKIE_TOKEN_KEY, tokenKey);
         //需要动态获取，可以从request里获取
@@ -537,7 +537,7 @@ public class UserServiceImpl implements IUserService {
         response.addCookie(cookie);
 
         // 生成refreshToken
-        String refreshTokenValue = JwtUtil.createRefreshToken(userFromDb.getId(), Constants.TimeValueInMillions.MONTH);
+        String refreshTokenValue = JwtUtils.createRefreshToken(userFromDb.getId(), Constants.TimeValueInMillions.MONTH);
         //保存到数据库
         /**
          * refreshToken，tokenKey,用户ID，创建时间，更新时间
@@ -569,7 +569,7 @@ public class UserServiceImpl implements IUserService {
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
         log.info("检查登录时候拿到的tokenKey===>" + tokenKey);
         // 从redis中取得 token
-        String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
+        String redisToken = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
         log.info("checkBwsUser ==> redisToken==> " + redisToken);
         BwsUser bwsUser = parseByTokenKey(tokenKey);
         log.info("检查登录时候拿到的tokenKey 解析后的 user===>" + bwsUser);
@@ -584,7 +584,7 @@ public class UserServiceImpl implements IUserService {
             }
             // - 如果存在就解析 refreshToken
             try {
-                JwtUtil.parseJWT(refreshToken.getRefreshToken());
+                JwtUtils.parseJWT(refreshToken.getRefreshToken());
                 // - 如果有效，就创建新的token，并更新 refreshToken
                 String userId = refreshToken.getUserId();
                 BwsUser bwsUserById = userDao.findOneById(userId);
@@ -705,7 +705,7 @@ public class UserServiceImpl implements IUserService {
 
 //        干掉redis里面的token，下一次请求的时候，就需要解析token，就会根据refreshToken重新创建一个
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
-        redisUtil.del(Constants.User.KEY_TOKEN + tokenKey);
+        redisUtils.del(Constants.User.KEY_TOKEN + tokenKey);
 
         userDao.save(userFromDb);
 
@@ -755,12 +755,39 @@ public class UserServiceImpl implements IUserService {
 
         //分页查询，根据注册日期来排序
         //TODO:实现查询所有用户信息，但是不查询到用户密码
-        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
-        Pageable pageable = PageRequest.of(page-1,size,sort);
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
 //       TODO: 就这个地方错了！！！
         Page<BwsUser> allUser = userDao.findAllUserNoPassword(pageable);
 
         return ResponseResult.SUCCESS("查询成功").setData(allUser);
+    }
+
+    /**
+     * 更新用户的密码
+     *
+     * @param verifyCode
+     * @param bwsUser
+     * @return
+     */
+    @Override
+    public ResponseResult updatePassword(String verifyCode, BwsUser bwsUser) {
+        //检查邮箱是否有填写
+        String email = bwsUser.getEmail();
+        if (TextUtils.isEmpty(email)) {
+            return ResponseResult.FAILED("邮箱不可以为空.");
+        }
+        //根据邮箱去redis里拿验证
+        //进行对比
+        String redisVerifyCode = (String) redisUtils.get(Constants.User.KEY_EMAIL_CODE_CONTENT + email);
+        if (redisVerifyCode == null || !redisVerifyCode.equals(verifyCode)) {
+            return ResponseResult.FAILED("验证码错误.");
+        }
+        redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + email);
+        log.info("用户修改的密码："+bCryptPasswordEncoder.encode(bwsUser.getPassword()));
+        int result = userDao.updatePasswordByEmail(bCryptPasswordEncoder.encode(bwsUser.getPassword()), email);
+        //修改密码
+        return result > 0 ? ResponseResult.SUCCESS("密码修改成功") : ResponseResult.FAILED("密码修改失败");
     }
 
 
@@ -771,12 +798,12 @@ public class UserServiceImpl implements IUserService {
      * @return BwsUser
      */
     private BwsUser parseByTokenKey(String tokenKey) {
-        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
+        String token = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
         log.info("parseByTokenKey ==> token ===>" + token);
         if (token != null) {
             try {
                 //解析token
-                Claims claims = JwtUtil.parseJWT(token);
+                Claims claims = JwtUtils.parseJWT(token);
                 //解析token为 User 实体类
                 return ClaimsUtils.cliams2BwsUser(claims);
             } catch (Exception e) {

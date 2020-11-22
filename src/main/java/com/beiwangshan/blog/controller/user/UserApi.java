@@ -3,7 +3,7 @@ package com.beiwangshan.blog.controller.user;
 import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IUserService;
-import com.beiwangshan.blog.utils.RedisUtil;
+import com.beiwangshan.blog.utils.RedisUtils;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class UserApi {
     private IUserService userService;
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
 
     @Autowired
     private Random random;
@@ -132,14 +132,30 @@ public class UserApi {
 
     /**
      * 修改密码
+     *  1.修改密码
+     *      普通做法：通过旧密码对比来更新密码
+     *  2.找回密码，即可找回密码，也可以修改密码
+     *      发送验证码到邮箱或者手机 ==> 判断验证码是否正确 ==> 判断对应的邮箱或者手机号所注册的账号是否属于用户
+     *  步骤：
+     *      1.用户填写邮箱
+     *      2.用户获取验证码 type = forget ==> LOGIN_TYPE_FORGET
+     *      3.用户填写验证码
+     *      4.填写新的密码
+     *      5.提交数据
+     *
+     *   数据包括：
+     *      1.邮箱和新密码
+     *      2.验证码
+     *          如果验证码正确，说明所用邮箱注册的账号属于用户，就可以修改密码
      *
      * @param bwsUser
      * @return
      */
-    @PutMapping("/password/{userId}")
-    public ResponseResult updatePassword(@PathVariable("userId") String userId, @RequestBody BwsUser bwsUser) {
+    @PutMapping("/password/{verify_code}")
+    public ResponseResult updatePassword(@PathVariable("verify_code")String verifyCode,
+                                         @RequestBody BwsUser bwsUser) {
 
-        return null;
+        return userService.updatePassword(verifyCode,bwsUser);
     }
 
     /**

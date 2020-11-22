@@ -16,9 +16,11 @@ import java.util.Map;
  * @version: 1.0
  * @todo:
  */
-public class JwtUtil {
+public class JwtUtils {
 
-    //盐值
+    /**
+     * 盐值
+     */
     private static String key = "ad128433d8e3356e7024009bf6add2ab";
 
     /**
@@ -31,7 +33,7 @@ public class JwtUtil {
     }
 
     public void setKey(String key) {
-        JwtUtil.key = key;
+        JwtUtils.key = key;
     }
 
     public long getTtl() {
@@ -39,7 +41,7 @@ public class JwtUtil {
     }
 
     public void setTtl(long ttl) {
-        JwtUtil.ttl = ttl;
+        JwtUtils.ttl = ttl;
     }
 
     /**
@@ -48,7 +50,7 @@ public class JwtUtil {
      * @return
      */
     public static String createToken(Map<String, Object> claims, long ttl) {
-        JwtUtil.ttl = ttl;
+        JwtUtils.ttl = ttl;
         return createToken(claims);
     }
 

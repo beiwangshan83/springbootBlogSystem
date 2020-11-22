@@ -1,6 +1,6 @@
 package com.beiwangshan.blog;
 
-import com.beiwangshan.blog.utils.RedisUtil;
+import com.beiwangshan.blog.utils.RedisUtils;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.google.gson.Gson;
 import org.springframework.boot.SpringApplication;
@@ -43,8 +43,8 @@ public class BlogApplication {
      * @return
      */
     @Bean
-    public RedisUtil createRedisUtil() {
-        return new RedisUtil();
+    public RedisUtils createRedisUtil() {
+        return new RedisUtils();
     }
 
     /**

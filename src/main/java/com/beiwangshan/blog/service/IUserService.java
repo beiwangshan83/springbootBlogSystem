@@ -142,4 +142,12 @@ public interface IUserService {
      * @return
      */
     ResponseResult listUser(int page, int size, HttpServletRequest request, HttpServletResponse response);
+
+    /**
+     * 更新用户的密码
+     * @param verifyCode
+     * @param bwsUser
+     * @return
+     */
+    ResponseResult updatePassword(String verifyCode, BwsUser bwsUser);
 }

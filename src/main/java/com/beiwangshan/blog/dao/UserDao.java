@@ -69,7 +69,22 @@ public interface UserDao extends JpaRepository<BwsUser,String>, JpaSpecification
 //    @Query(value = "select new com.beiwangshan.blog.pojo.BwsUser(u.id,u.userName,u.roles,u.avatar,u.email,u.sign,u.state,u.regIp,u.loginIp,u.createTime,u.updateTime) from BwsUser as u")
 //    Page<BwsUser> listAllUserNoPassword(Pageable pageable);
 
+    /**
+     * 查询用户信息，但是不包含密码
+     * @param pageable
+     * @return
+     */
     @Query(value = "select new com.beiwangshan.blog.pojo.BwsUser(u.id,u.userName,u.roles,u.avatar,u.email,u.sign,u.state,u.regIp,u.loginIp,u.createTime,u.updateTime) from BwsUser as u")
     Page<BwsUser> findAllUserNoPassword(Pageable pageable);
 
+    /**
+     * 更新用户的邮箱和密码
+     *  nativeQuery = true 说明我们使用的是 SQL 语言
+     * @param encode
+     * @param emailAddress
+     * @return
+     */
+    @Modifying
+    @Query(nativeQuery = true,value = "update `tb_user` set `password` = ? where `email` = ?")
+    int updatePasswordByEmail(String encode, String emailAddress);
 }

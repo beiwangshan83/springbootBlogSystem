@@ -9,7 +9,7 @@ import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.CookieUtils;
-import com.beiwangshan.blog.utils.RedisUtil;
+import com.beiwangshan.blog.utils.RedisUtils;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
@@ -48,7 +48,7 @@ public class TestController {
     @ResponseBody
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String helloWorld() {
-        String redisCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + "123456");
+        String redisCode = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + "123456");
         log.info("hello world...redisCode ===> " + redisCode);
         return "hello world";
     }
@@ -188,7 +188,7 @@ public class TestController {
     }
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisUtils redisUtils;
 
     /**
      * 图灵验证码
@@ -216,7 +216,7 @@ public class TestController {
         log.info("图灵验证码 ==> " + content);
 
 //        保存在redis里
-        redisUtil.set(Constants.User.KEY_CAPTCHA_CONTENT + "123456", content, 60 * 10);
+        redisUtils.set(Constants.User.KEY_CAPTCHA_CONTENT + "123456", content, 60 * 10);
 
         // 输出图片流
         specCaptcha.out(response.getOutputStream());
@@ -246,7 +246,7 @@ public class TestController {
             return ResponseResult.FAILED("账号未登录");
         }
 
-        String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
+        String redisToken = (String) redisUtils.get(Constants.User.KEY_TOKEN+tokenKey);
         log.info("comment == >redisToken ==> "+redisToken);
 
         BwsUser bwsUser =  userService.checkBwsUser(request,response);
