@@ -122,4 +122,13 @@ public interface IUserService {
      * @return
      */
     ResponseResult updateUserInfo(HttpServletRequest request,HttpServletResponse response,String userId, BwsUser bwsUser);
+
+    /**
+     * 通过userId来删除用户，在此之前需要判断操作用户的权限
+     * @param userId
+     * @param response
+     * @param request
+     * @return
+     */
+    ResponseResult deleteUserById(String userId, HttpServletResponse response, HttpServletRequest request);
 }

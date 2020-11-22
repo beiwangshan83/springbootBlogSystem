@@ -3,7 +3,10 @@ package com.beiwangshan.blog.dao;
 import com.beiwangshan.blog.pojo.BwsUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -46,4 +49,12 @@ public interface UserDao extends JpaRepository<BwsUser,String>, JpaSpecification
      */
     BwsUser findOneById(String userId);
 
+    /**
+     * 删除用户，通过修改用户的状态来实现
+     * @param userId
+     */
+    @Transactional
+    @Modifying
+    @Query(nativeQuery = true,value = "UPDATE `tb_user` SET `state` = '0' WHERE `id` = ?")
+    int deleteUserByState(String userId);
 }

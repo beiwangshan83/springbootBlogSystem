@@ -14,6 +14,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface SettingsDao extends JpaRepository<Setting,String>, JpaSpecificationExecutor<Setting> {
 
+    /**
+     * 查询key
+     * @param key
+     * @return
+     */
     Setting findOneByKey(String key);
 
 }

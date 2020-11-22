@@ -191,14 +191,22 @@ public class UserApi {
 
     /**
      * 删除用户，通过用户的ID
+     *  需要管理员的权限
+     *      判断当前操作的用户是谁
+     *      根据用户的角色判断是否可以执行下一步操作
      *
      * @param userId
      * @return
      */
     @DeleteMapping("/{userId}")
-    public ResponseResult deleteUser(@PathVariable("userId") String userId) {
-        return null;
+    public ResponseResult deleteUser(HttpServletResponse response,
+                                     HttpServletRequest request,
+                                     @PathVariable("userId") String userId) {
+        //TODO:通过注解的方式来控制权限
+
+        return userService.deleteUserById(userId,response,request);
     }
+
 
     /**
      * 检查该email 是否已经注册了

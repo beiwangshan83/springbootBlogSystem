@@ -155,7 +155,7 @@ public class UserServiceImpl implements IUserService {
      * 图灵验证码的字体设置 数组形式，保证请求的不一致性
      * 防止机器攻击注册
      */
-    public static final int[] captcha_font_types = {
+    public static final int[] CAPTCHA_FONT_TYPES = {
             Captcha.FONT_1
             , Captcha.FONT_2
             , Captcha.FONT_3
@@ -207,14 +207,15 @@ public class UserServiceImpl implements IUserService {
         } else {
             // 算术类型
             tagetCaptcha = new ArithmeticCaptcha(200, 60);
-            tagetCaptcha.setLen(2);  // 几位数运算，默认是两位
+            // 几位数运算，默认是两位
+            tagetCaptcha.setLen(2);
             tagetCaptcha.text();  // 获取运算的结果：
         }
 
         // 设置字体
-        int fontTypeIndex = random.nextInt(captcha_font_types.length);
+        int fontTypeIndex = random.nextInt(CAPTCHA_FONT_TYPES.length);
         log.info("fontTypeIndex ==> " + String.valueOf(fontTypeIndex));
-        tagetCaptcha.setFont(captcha_font_types[fontTypeIndex]);
+        tagetCaptcha.setFont(CAPTCHA_FONT_TYPES[fontTypeIndex]);
         // 设置类型，纯数字、纯字母、字母数字混合
         tagetCaptcha.setCharType(Captcha.TYPE_DEFAULT);
 
@@ -710,6 +711,36 @@ public class UserServiceImpl implements IUserService {
         userDao.save(userFromDb);
 
         return ResponseResult.SUCCESS("用户信息更新完成");
+    }
+
+    /**
+     * 通过userId来删除用户，在此之前需要判断操作用户的权限
+     *  并不是真的删除，而是修改状态，需要管理员权限
+     *
+     * @param userId
+     * @param response
+     * @param request
+     * @return
+     */
+    @Override
+    public ResponseResult deleteUserById(String userId, HttpServletResponse response, HttpServletRequest request) {
+//        检验当前用户是谁
+        BwsUser currentUser = checkBwsUser(request, response);
+        if (currentUser == null) {
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+//        已经登录，判断权限
+        log.info("删除时候的用户权限：==>"+currentUser.getUserName()+"==>"+currentUser.getRoles());
+        if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())){
+            return ResponseResult.PERMISSION_FORBID();
+        }
+//        可以操作
+        int delResult = userDao.deleteUserByState(userId);
+        if (delResult>0) {
+            return ResponseResult.SUCCESS("删除成功");
+        }
+
+        return ResponseResult.FAILD("用户不存在，删除失败");
     }
 
 

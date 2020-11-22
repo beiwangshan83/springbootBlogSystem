@@ -13,7 +13,10 @@ import java.util.Date;
 @Entity
 @Table(name = "tb_user")
 public class BwsUser {
-//  用户id
+
+    /**
+     * 用户id
+     */
     @Id
     @Column(name = "id")
     private String id;
