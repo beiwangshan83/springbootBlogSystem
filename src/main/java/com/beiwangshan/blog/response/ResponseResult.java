@@ -52,6 +52,46 @@ public class ResponseResult {
         return new ResponseResult(ResponseState.ACCOUNT_DENIAL);
     }
 
+    /**
+     * 403 状态
+     * @return
+     */
+    public static ResponseResult ERROR_403(){
+        return new ResponseResult(ResponseState.ERROR_403);
+    }
+
+    /**
+     * 404 状态
+     * @return
+     */
+    public static ResponseResult ERROR_404(){
+        return new ResponseResult(ResponseState.ERROR_404);
+    }
+
+    /**
+     * 405 状态
+     * @return
+     */
+    public static ResponseResult ERROR_405(){
+        return new ResponseResult(ResponseState.ERROR_405);
+    }
+
+    /**
+     * 504 状态
+     * @return
+     */
+    public static ResponseResult ERROR_504(){
+        return new ResponseResult(ResponseState.ERROR_504);
+    }
+
+    /**
+     * 505 状态
+     * @return
+     */
+    public static ResponseResult ERROR_505(){
+        return new ResponseResult(ResponseState.ERROR_505);
+    }
+
 
     /**
      * 成功状态的封装，加上重载，可以传入参数
