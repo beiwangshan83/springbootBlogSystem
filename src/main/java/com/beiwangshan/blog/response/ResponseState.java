@@ -16,12 +16,13 @@ public enum  ResponseState {
     SUCCESS(true,20000,"操作成功"),
     LOGIN_SUCCESS(true,20001,"登录成功"),
     JOIN_IN_SUCCESS(true,20002,"注册成功"),
-    FAILD(false,40000,"操作失败"),
-    LOGIN_FAILD(false,40001,"登录失败"),
-    REGISTER_FAILD(false,40002,"注册失败"),
+    FAILED(false,40000,"操作失败"),
+    LOGIN_FAILED(false,40001,"登录失败"),
+    REGISTER_FAILED(false,40002,"注册失败"),
     ACCOUNT_NOT_LOGIN(false,40003,"账号未登录"),
-    PERMISSION_FORBID(false,40004,"无权访问"),
-    GET_RESOURCES_FAILD(false,49999,"获取资源失败");
+    PERMISSION_DENIAL(false,40004,"无权访问"),
+    ACCOUNT_DENIAL(false,40005,"当前账号已被禁止"),
+    GET_RESOURCES_FAILED(false,49999,"获取资源失败");
 
     private int code;
     private String message;

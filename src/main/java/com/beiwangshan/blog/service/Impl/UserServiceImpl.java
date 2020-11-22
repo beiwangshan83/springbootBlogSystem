@@ -95,18 +95,18 @@ public class UserServiceImpl implements IUserService {
 //        检查是否初始化
         Setting managerAccountState = settingsDao.findOneByKey(Constants.Settings.MANAGER_ACCOUNT_INIT_STATE);
         if (managerAccountState != null) {
-            return ResponseResult.FAILD("管理员账号已经初始化了");
+            return ResponseResult.FAILED("管理员账号已经初始化了");
         }
 
 //        检查数据 用户名，邮箱，密码是否为空
         if (TextUtils.isEmpty(bwsUser.getUserName())) {
-            return ResponseResult.FAILD("用户名不能为空");
+            return ResponseResult.FAILED("用户名不能为空");
         }
         if (TextUtils.isEmpty(bwsUser.getPassword())) {
-            return ResponseResult.FAILD("密码不能为空");
+            return ResponseResult.FAILED("密码不能为空");
         }
         if (TextUtils.isEmpty(bwsUser.getEmail())) {
-            return ResponseResult.FAILD("Email不能为空");
+            return ResponseResult.FAILED("Email不能为空");
         }
 
 //        补充数据
@@ -252,7 +252,7 @@ public class UserServiceImpl implements IUserService {
     public ResponseResult sendEmail(String type, HttpServletRequest request, String emailAddress) {
 
         if (emailAddress == null) {
-            return ResponseResult.FAILD("邮箱地址不能为空");
+            return ResponseResult.FAILED("邮箱地址不能为空");
         }
 
         /**
@@ -267,12 +267,12 @@ public class UserServiceImpl implements IUserService {
         if (Constants.User.LOGIN_TYPE_REGISTER.equals(type) || Constants.User.LOGIN_TYPE_UPDATE.equals(type)) {
             BwsUser userByEmail = userDao.findOneByEmail(emailAddress);
             if (userByEmail != null) {
-                return ResponseResult.FAILD("该邮箱已经被注册");
+                return ResponseResult.FAILED("该邮箱已经被注册");
             }
         } else if (Constants.User.LOGIN_TYPE_FORGET.equals(type)) {
             BwsUser userByEmail = userDao.findOneByEmail(emailAddress);
             if (userByEmail == null) {
-                return ResponseResult.FAILD("该邮箱未注册");
+                return ResponseResult.FAILED("该邮箱未注册");
             }
         }
 
@@ -290,19 +290,19 @@ public class UserServiceImpl implements IUserService {
         Integer ipSendTimes = (Integer) redisUtil.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress);
 
         if (ipSendTimes != null && ipSendTimes > 10) {
-            return ResponseResult.FAILD("发送过于频繁，请稍后再试！");
+            return ResponseResult.FAILED("发送过于频繁，请稍后再试！");
         }
 
 //        获取邮箱验证码的发送次数，同理
         Object hasEmailSend = redisUtil.get(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress);
         if (hasEmailSend != null) {
-            return ResponseResult.FAILD("发送过于频繁，请稍后再试！");
+            return ResponseResult.FAILED("发送过于频繁，请稍后再试！");
         }
 
 //        2.检查邮箱是否正确
         boolean isEmailFormatOk = TextUtils.isEmailAddressOk(emailAddress);
         if (!isEmailFormatOk) {
-            return ResponseResult.FAILD("邮箱地址格式不正确");
+            return ResponseResult.FAILED("邮箱地址格式不正确");
         }
 
 //        3.生成随机的6位数验证码
@@ -316,7 +316,7 @@ public class UserServiceImpl implements IUserService {
             taskService.SendEmailVerifyCode(String.valueOf(code), emailAddress);
         } catch (Exception e) {
             log.error(e.toString());
-            return ResponseResult.FAILD("验证码发送异常，请稍后重试");
+            return ResponseResult.FAILED("验证码发送异常，请稍后重试");
         }
 
 //        4.做记录 ==> 发送记录和code
@@ -353,38 +353,38 @@ public class UserServiceImpl implements IUserService {
 //        1.检查当前用户是否已经注册
         String userName = bwsUser.getUserName();
         if (TextUtils.isEmpty(userName)) {
-            return ResponseResult.FAILD("用户名不能为空");
+            return ResponseResult.FAILED("用户名不能为空");
         }
 
         BwsUser userFromDbByUserName = userDao.findOneByUserName(userName);
         if (userFromDbByUserName != null) {
-            return ResponseResult.FAILD("该用户已经注册");
+            return ResponseResult.FAILED("该用户已经注册");
         }
 
 //        2.检查邮箱格式是否正确（前端+后端都可以的）
         String emailAddr = bwsUser.getEmail();
         if (emailAddr.isEmpty()) {
-            return ResponseResult.FAILD("邮箱地址不可以为空");
+            return ResponseResult.FAILED("邮箱地址不可以为空");
         }
         if (!TextUtils.isEmailAddressOk(emailAddr)) {
-            return ResponseResult.FAILD("邮箱地址不正确");
+            return ResponseResult.FAILED("邮箱地址不正确");
         }
 
 //        3.检查邮箱是否已经注册
         BwsUser userFromDbByEmail = userDao.findOneByEmail(emailAddr);
         if (userFromDbByEmail != null) {
-            return ResponseResult.FAILD("该邮箱地址已经注册");
+            return ResponseResult.FAILED("该邮箱地址已经注册");
         }
 
 //        4.检查邮箱验证码是都正确
         String emailVerifyCode = (String) redisUtil.get(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         log.info("拿到的 emailVerifyCode ===> " + emailVerifyCode);
         if (TextUtils.isEmpty(emailVerifyCode)) {
-            return ResponseResult.FAILD("邮箱验证码无效");
+            return ResponseResult.FAILED("邮箱验证码无效");
         }
 
         if (!emailVerifyCode.equals(emailCode)) {
-            return ResponseResult.FAILD("邮箱验证码不正确");
+            return ResponseResult.FAILED("邮箱验证码不正确");
         } else {
 //            验证码正确，干掉redis里面的内容
 //            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
@@ -396,10 +396,10 @@ public class UserServiceImpl implements IUserService {
         log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
         log.info("拿到的captchaKey ==>" + captchaKey);
         if (TextUtils.isEmpty(captchaVerifyCode)) {
-            return ResponseResult.FAILD("人类验证码已经过期");
+            return ResponseResult.FAILED("人类验证码已经过期");
         }
         if (!captchaVerifyCode.equals(captchaCode)) {
-            return ResponseResult.FAILD("人类验证码不正确");
+            return ResponseResult.FAILED("人类验证码不正确");
         } else {
         }
 
@@ -413,7 +413,7 @@ public class UserServiceImpl implements IUserService {
 //        6.对密码进行加密
         String password = bwsUser.getPassword();
         if (TextUtils.isEmpty(password)) {
-            return ResponseResult.FAILD("密码不能为空");
+            return ResponseResult.FAILED("密码不能为空");
         }
         bwsUser.setPassword(bCryptPasswordEncoder.encode(bwsUser.getPassword()));
 
@@ -462,15 +462,15 @@ public class UserServiceImpl implements IUserService {
 
         //对数据进行判空处理
         if (captcha == "" || captcha == null) {
-            return ResponseResult.FAILD("验证码不能为空");
+            return ResponseResult.FAILED("验证码不能为空");
         }
         if (TextUtils.isEmpty(bwsUser.getEmail()) && TextUtils.isEmpty(bwsUser.getUserName())) {
-            return ResponseResult.FAILD("账户名不能为空");
+            return ResponseResult.FAILED("账户名不能为空");
         }
 
 
         if (TextUtils.isEmpty(bwsUser.getPassword())) {
-            return ResponseResult.FAILD("密码不能为空");
+            return ResponseResult.FAILED("密码不能为空");
         }
 
         //获取redis中保存的 图灵验证码的信息
@@ -479,7 +479,7 @@ public class UserServiceImpl implements IUserService {
         log.info("传入的人类验证码" + captcha);
         //进行判断 是否和携带的图灵验证码是否一致
         if (!captcha.equals(captchaFromRedis)) {
-            return ResponseResult.FAILD("人类验证码不正确");
+            return ResponseResult.FAILED("人类验证码不正确");
         }
 
         //根据传入的数据进行查询是否存在这个用户
@@ -488,18 +488,18 @@ public class UserServiceImpl implements IUserService {
             userFromDb = userDao.findOneByEmail(bwsUser.getEmail());
         }
         if (userFromDb == null) {
-            return ResponseResult.FAILD("用户名或密码错误");
+            return ResponseResult.FAILED("用户名或密码错误");
         }
 
         //用户存在，对比密码
         boolean matches = bCryptPasswordEncoder.matches(bwsUser.getPassword(), userFromDb.getPassword());
         if (!matches) {
-            return ResponseResult.FAILD("用户名或密码错误");
+            return ResponseResult.FAILED("用户名或密码错误");
         }
         //密码是正确的
         //判断用户状态，如果是非正常状态，则返回结果
         if ("0".equals(userFromDb.getState())) {
-            return ResponseResult.FAILD("该账户已被禁止");
+            return ResponseResult.FAILED("该账户已被禁止");
         }
         createToken(response, userFromDb);
         return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
@@ -623,7 +623,7 @@ public class UserServiceImpl implements IUserService {
 //        判断用户是否存在
         if (bwsUser == null) {
 //            用户不存在，返回查询失败
-            return ResponseResult.FAILD("用户不存在");
+            return ResponseResult.FAILED("用户不存在");
         }
 //        用户存在，清空敏感数据
         String userJson = gson.toJson(bwsUser);
@@ -647,7 +647,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseResult checkEmail(String email) {
         BwsUser oneByEmail = userDao.findOneByEmail(email);
-        return oneByEmail==null?ResponseResult.FAILD("该邮箱未注册"):ResponseResult.SUCCESS("该邮箱已注册");
+        return oneByEmail==null?ResponseResult.FAILED("该邮箱未注册"):ResponseResult.SUCCESS("该邮箱已注册");
     }
 
     /**
@@ -659,7 +659,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseResult checkUserName(String userName) {
         BwsUser oneByUserName = userDao.findOneByUserName(userName);
-        return oneByUserName==null?ResponseResult.FAILD("该用户名未注册"):ResponseResult.SUCCESS("该用户名已注册");
+        return oneByUserName==null?ResponseResult.FAILED("该用户名未注册"):ResponseResult.SUCCESS("该用户名已注册");
     }
 
     /**
@@ -691,7 +691,7 @@ public class UserServiceImpl implements IUserService {
 //            检查是否已经存在
             BwsUser oneByUserName = userDao.findOneByUserName(userName);
             if (oneByUserName != null) {
-                return ResponseResult.FAILD("该用户名已经注册");
+                return ResponseResult.FAILED("该用户名已经注册");
             }
             userFromDb.setUserName(userName);
         }
@@ -740,7 +740,7 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.SUCCESS("删除成功");
         }
 
-        return ResponseResult.FAILD("用户不存在，删除失败");
+        return ResponseResult.FAILED("用户不存在，删除失败");
     }
 
 

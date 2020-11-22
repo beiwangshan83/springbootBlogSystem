@@ -41,7 +41,7 @@ public class ResponseResult {
      * @return
      */
     public static ResponseResult PERMISSION_FORBID(){
-        return new ResponseResult(ResponseState.PERMISSION_FORBID);
+        return new ResponseResult(ResponseState.PERMISSION_DENIAL);
     }
 
 
@@ -65,8 +65,8 @@ public class ResponseResult {
      *    失败状态的封装
      * @return
      */
-    public static ResponseResult FAILD(){
-        return new ResponseResult(ResponseState.FAILD);
+    public static ResponseResult FAILED(){
+        return new ResponseResult(ResponseState.FAILED);
     }
 
 
@@ -75,8 +75,8 @@ public class ResponseResult {
      * @param message
      * @return
      */
-    public static ResponseResult FAILD(String message){
-        ResponseResult responseResult =new ResponseResult(ResponseState.FAILD);;
+    public static ResponseResult FAILED(String message){
+        ResponseResult responseResult =new ResponseResult(ResponseState.FAILED);;
         responseResult.setMessage(message);
         return responseResult;
     }

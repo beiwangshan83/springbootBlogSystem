@@ -95,7 +95,7 @@ public class TestController {
         if (deleteResult > 0) {
             return ResponseResult.SUCCESS("删除成功");
         } else {
-            return ResponseResult.FAILD("删除失败");
+            return ResponseResult.FAILED("删除失败");
         }
     }
 
@@ -110,7 +110,7 @@ public class TestController {
     public ResponseResult updateLabel(@PathVariable("labelId") String labelId, @RequestBody Label label) {
         Label dblabel = labelDao.findOneById(labelId);
         if (dblabel == null) {
-            return ResponseResult.FAILD("标签不存在");
+            return ResponseResult.FAILED("标签不存在");
 
         }
         dblabel.setCount(label.getCount());
@@ -130,7 +130,7 @@ public class TestController {
     public ResponseResult getLabelById(@PathVariable("labelId") String labelId) {
         Label dblabel = labelDao.findOneById(labelId);
         if (dblabel == null) {
-            return ResponseResult.FAILD("标签不存在");
+            return ResponseResult.FAILED("标签不存在");
         }
         return ResponseResult.SUCCESS("查询成功").setData(dblabel);
     }
@@ -182,7 +182,7 @@ public class TestController {
             }
         });
         if (all.size() == 0 || all == null) {
-            return ResponseResult.FAILD("结果为空").setData(all);
+            return ResponseResult.FAILED("结果为空").setData(all);
         }
         return ResponseResult.SUCCESS("查找成功").setData(all);
     }
@@ -243,7 +243,7 @@ public class TestController {
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
         log.info("tokenKey ==>" + tokenKey);
         if (tokenKey == null) {
-            return ResponseResult.FAILD("账号未登录");
+            return ResponseResult.FAILED("账号未登录");
         }
 
         String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
@@ -253,7 +253,7 @@ public class TestController {
         log.info("检查登录之后的user ===> "+ bwsUser);
 
         if (bwsUser == null) {
-            return ResponseResult.FAILD("账号未登录");
+            return ResponseResult.FAILED("账号未登录");
         }
         comment.setUserId(bwsUser.getId());
         comment.setUserAvatar(bwsUser.getAvatar());
