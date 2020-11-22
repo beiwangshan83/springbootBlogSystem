@@ -178,7 +178,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void createCaptcha(HttpServletResponse response, String captchaKey) throws Exception {
         //        判断key是否符合规则
-        if (TextUtils.isEmpty(captchaKey) || captchaKey.length() < 13) {
+        if (TextUtils.isEmpty(captchaKey) || captchaKey.length() < Constants.User.CAPTCHA_KEY_LENGTH) {
             return;
         }
         long key;
@@ -197,37 +197,37 @@ public class UserServiceImpl implements IUserService {
 
 //        生成随机数，完成随机产生验证码的类型
         int captchaType = random.nextInt(3);
-        Captcha tagetCaptcha;
+        Captcha targetCaptcha;
         if (captchaType == 0) {
             // 三个参数分别为宽、高、位数
-            tagetCaptcha = new SpecCaptcha(200, 60, 5);
+            targetCaptcha = new SpecCaptcha(200, 60, 5);
         } else if (captchaType == 1) {
             // gif类型
-            tagetCaptcha = new GifCaptcha(200, 60);
+            targetCaptcha = new GifCaptcha(200, 60);
         } else {
             // 算术类型
-            tagetCaptcha = new ArithmeticCaptcha(200, 60);
+            targetCaptcha = new ArithmeticCaptcha(200, 60);
             // 几位数运算，默认是两位
-            tagetCaptcha.setLen(2);
-            tagetCaptcha.text();  // 获取运算的结果：
+            targetCaptcha.setLen(2);
+            targetCaptcha.text();  // 获取运算的结果：
         }
 
         // 设置字体
         int fontTypeIndex = random.nextInt(CAPTCHA_FONT_TYPES.length);
         log.info("fontTypeIndex ==> " + String.valueOf(fontTypeIndex));
-        tagetCaptcha.setFont(CAPTCHA_FONT_TYPES[fontTypeIndex]);
+        targetCaptcha.setFont(CAPTCHA_FONT_TYPES[fontTypeIndex]);
         // 设置类型，纯数字、纯字母、字母数字混合
-        tagetCaptcha.setCharType(Captcha.TYPE_DEFAULT);
+        targetCaptcha.setCharType(Captcha.TYPE_DEFAULT);
 
 //        获取内容
-        String content = tagetCaptcha.text().toLowerCase();
+        String content = targetCaptcha.text().toLowerCase();
         log.info("图灵验证码 ==> " + content);
 
 //        验证码信息 保存在redis里
         redisUtil.set(Constants.User.KEY_CAPTCHA_CONTENT + key, content, Constants.TimeValueInMillions.MIN_10);
 
         // 输出图片流
-        tagetCaptcha.out(response.getOutputStream());
+        targetCaptcha.out(response.getOutputStream());
     }
 
     @Autowired
@@ -239,7 +239,7 @@ public class UserServiceImpl implements IUserService {
      * // 检查邮箱格式，判空
      * let reg = /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/
      * if (!reg.test(邮箱地址)) {
-     * consol.log('邮箱地址格式不对..');
+     * console.log('邮箱地址格式不对..');
      * return
      * }
      *
@@ -276,18 +276,18 @@ public class UserServiceImpl implements IUserService {
             }
         }
 
-        String remoteAdress = request.getRemoteAddr();
-        log.info("sendEmail ==> ip ==> " + remoteAdress);
+        String remoteAddress = request.getRemoteAddr();
+        log.info("sendEmail ==> ip ==> " + remoteAddress);
 
 //        转换 ip 地址的格式
-        if (remoteAdress == null) {
-            remoteAdress = remoteAdress.replaceAll(":", "_");
+        if (remoteAddress == null) {
+            remoteAddress = remoteAddress.replaceAll(":", "_");
         }
 
 
         //1.防止暴力发送，就是不断的发送，同一个邮箱，间隔需要超过1分钟，一小时内同一个IP，最多只能10次，短信最多是 3 次
 //        获取邮箱发送IP的次数，如果没有 ==> 继续；如果有 ==> 判断次数 ==> 操作
-        Integer ipSendTimes = (Integer) redisUtil.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress);
+        Integer ipSendTimes = (Integer) redisUtil.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress);
 
         if (ipSendTimes != null && ipSendTimes > 10) {
             return ResponseResult.FAILED("发送过于频繁，请稍后再试！");
@@ -325,7 +325,7 @@ public class UserServiceImpl implements IUserService {
         }
 
 //        设置IP 和 邮箱地址 一小时有效期 和 30 秒
-        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAdress, ipSendTimes, 60 * 60);
+        redisUtil.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress, ipSendTimes, 60 * 60);
         redisUtil.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress, "true", 30);
 //        保存code，10分钟内有效
         redisUtil.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), 60 * 10);
@@ -385,12 +385,8 @@ public class UserServiceImpl implements IUserService {
 
         if (!emailVerifyCode.equals(emailCode)) {
             return ResponseResult.FAILED("邮箱验证码不正确");
-        } else {
-//            验证码正确，干掉redis里面的内容
-//            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         }
-
-//        5.检查图灵验证码是否正确 1.拿到验证码
+//        5.检查图灵验证码是否正确 拿到验证码
         String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
         log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
@@ -498,7 +494,7 @@ public class UserServiceImpl implements IUserService {
         }
         //密码是正确的
         //判断用户状态，如果是非正常状态，则返回结果
-        if ("0".equals(userFromDb.getState())) {
+        if (Constants.User.DENIAL_STATE.equals(userFromDb.getState())) {
             return ResponseResult.ACCOUNT_DENIAL();
         }
         createToken(response, userFromDb);
@@ -516,10 +512,10 @@ public class UserServiceImpl implements IUserService {
         int deleteResult = refreshTokenDao.deleteAllByUserId(userFromDb.getId());
         log.info("deleteResult == > " + deleteResult);
         //生成token
-        Map<String, Object> cliams = ClaimsUtils.bwsUser2Claims(userFromDb);
+        Map<String, Object> claims = ClaimsUtils.bwsUser2Claims(userFromDb);
 
         //生成 token 默认有效期是两个小时
-        String token = JwtUtil.createToken(cliams);
+        String token = JwtUtil.createToken(claims);
 
         // 返回token的md5值，token会保存在redis里面，前端访问的时候，携带token的md5 key
         //从redis中，获取即可
@@ -576,17 +572,17 @@ public class UserServiceImpl implements IUserService {
         log.info("检查登录时候拿到的tokenKey 解析后的 user===>" + bwsUser);
         if (bwsUser == null) {
             // 说明解析出错，过期了，
-            // - 去数据库查询，根据 refrToken，
+            // - 去数据库查询，根据 refreshToken，
             RefreshToken refreshToken = refreshTokenDao.findOneByTokenKey(tokenKey);
             // - 如果不存在，就是没登录
             if (refreshToken == null) {
                 log.info("checkBwsUser  refreshToken ==> 为空");
                 return null;
             }
-            // - 如果存在就解析 refrToken
+            // - 如果存在就解析 refreshToken
             try {
                 JwtUtil.parseJWT(refreshToken.getRefreshToken());
-                // - 如果有效，就创建新的token，并更新 refrToken
+                // - 如果有效，就创建新的token，并更新 refreshToken
                 String userId = refreshToken.getUserId();
                 BwsUser bwsUserById = userDao.findOneById(userId);
                 // 删掉之前的 refreshToken 记录
@@ -597,7 +593,7 @@ public class UserServiceImpl implements IUserService {
                 // 返回 token
                 return parseByTokenKey(newTokenKey);
             } catch (Exception exception) {
-                // - 如果 refrToken 过期了，就返回 当前用户没有登录
+                // - 如果 refreshToken 过期了，就返回 当前用户没有登录
                 log.info("checkBwsUser  refreshToken ==> 过期");
                 return null;
             }

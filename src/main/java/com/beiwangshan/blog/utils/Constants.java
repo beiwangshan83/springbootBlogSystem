@@ -24,10 +24,14 @@ public interface Constants {
         String DEFAULT_AVATAR = "https://profile.csdnimg.cn/8/1/1/2_simon_477";
         //默认的状态，是可用的
         String DEFAULT_STATE = "1";
+        //用户被禁止的状态 state = 0
+        String DENIAL_STATE = "0";
         //图灵验证码的key
         String KEY_CAPTCHA_CONTENT = "key_captcha_content_";
         //图灵验证码的key
         String KEY_EMAIL_CODE_CONTENT = "key_email_code_content_";
+        //图灵验证码key的长度，100年之间，默认是 13位
+        int CAPTCHA_KEY_LENGTH = 13;
         //邮箱发送的key
         String KEY_EMAIL_SEND_IP = "key_email_send_ip_";
         //邮箱发送的地址
