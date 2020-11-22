@@ -4,6 +4,8 @@ import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.RedisUtil;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -83,8 +85,8 @@ public class UserApi {
                                 @RequestBody BwsUser bwsUser,
                                 HttpServletRequest request,
                                 HttpServletResponse response
-                                ) {
-        return userService.doLogin(captcha, captchaKey, bwsUser,request,response);
+    ) {
+        return userService.doLogin(captcha, captchaKey, bwsUser, request, response);
     }
 
 
@@ -147,21 +149,31 @@ public class UserApi {
      */
     @GetMapping("/{userId}")
     public ResponseResult getUserInfo(@PathVariable("userId") String userId) {
-        
+
         return userService.getUserInfo(userId);
     }
 
     /**
-     * 更新用户信息
+     * 更新用户信息 user-info
+     * 校验用户权限 HttpServletResponse response
+     * 1.允许用户修改密码
+     * 2.用户头像
+     * 3.用户名 （唯一的）
+     * 4.密码 （单独修改，需要验证）
+     * 5.签名
+     * 6.email （唯一的，单独修改，需要验证）
      *
      * @param userId
      * @param bwsUser
      * @return
      */
     @PutMapping("/{userId}")
-    public ResponseResult updateUserInfo(@PathVariable("userId") String userId, @RequestBody BwsUser bwsUser) {
+    public ResponseResult updateUserInfo( HttpServletRequest request,
+                                          HttpServletResponse response,
+                                         @PathVariable("userId") String userId,
+                                         @RequestBody BwsUser bwsUser) {
 
-        return null;
+        return userService.updateUserInfo(request,response,userId, bwsUser);
     }
 
     /**
@@ -188,9 +200,37 @@ public class UserApi {
         return null;
     }
 
-    @PutMapping("")
-    public ResponseResult updateUser() {
-        return null;
+    /**
+     * 检查该email 是否已经注册了
+     *
+     * @param email
+     * @return SUCCESS --> 已经注册 FAILD ---> 没有注册
+     */
+    @ApiResponses({
+            @ApiResponse(code = 20000, message = "表示当前邮箱已经注册"),
+            @ApiResponse(code = 40000, message = "表示当前邮箱未注册"),
+
+    })
+    @PutMapping("/email")
+    public ResponseResult checkEmail(@RequestParam("email") String email) {
+        return userService.checkEmail(email);
+    }
+
+
+    /**
+     * 检查该userName 是否已经注册了
+     *
+     * @param userName
+     * @return SUCCESS --> 已经注册 FAILD ---> 没有注册
+     */
+    @ApiResponses({
+            @ApiResponse(code = 20000, message = "表示当前用户名已经注册"),
+            @ApiResponse(code = 40000, message = "表示当前用户名未注册"),
+
+    })
+    @PutMapping("/user_name")
+    public ResponseResult checkUserName(@RequestParam("userName") String userName) {
+        return userService.checkUserName(userName);
     }
 
 }

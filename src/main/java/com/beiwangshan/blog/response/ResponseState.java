@@ -19,6 +19,8 @@ public enum  ResponseState {
     FAILD(false,40000,"操作失败"),
     LOGIN_FAILD(false,40001,"登录失败"),
     REGISTER_FAILD(false,40002,"注册失败"),
+    ACCOUNT_NOT_LOGIN(false,40003,"账号未登录"),
+    PERMISSION_FORBID(false,40004,"无权访问"),
     GET_RESOURCES_FAILD(false,49999,"获取资源失败");
 
     private int code;

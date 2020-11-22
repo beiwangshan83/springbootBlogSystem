@@ -389,8 +389,7 @@ public class UserServiceImpl implements IUserService {
 //            redisUtil.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         }
 
-//        5.检查图灵验证码是否正确
-//              1.拿到验证码
+//        5.检查图灵验证码是否正确 1.拿到验证码
         String captchaVerifyCode = (String) redisUtil.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
         log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
@@ -637,6 +636,88 @@ public class UserServiceImpl implements IUserService {
         return ResponseResult.SUCCESS("读取用户信息成功").setData(newBwsUser);
     }
 
+    /**
+     * 用户在修改用户信息之前验证 email
+     * 保证email的唯一性
+     *
+     * @param email
+     * @return
+     */
+    @Override
+    public ResponseResult checkEmail(String email) {
+        BwsUser oneByEmail = userDao.findOneByEmail(email);
+        return oneByEmail==null?ResponseResult.FAILD("该邮箱未注册"):ResponseResult.SUCCESS("该邮箱已注册");
+    }
+
+    /**
+     * 检查用户名是否已经注册，保证其唯一性
+     *
+     * @param userName
+     * @return
+     */
+    @Override
+    public ResponseResult checkUserName(String userName) {
+        BwsUser oneByUserName = userDao.findOneByUserName(userName);
+        return oneByUserName==null?ResponseResult.FAILD("该用户名未注册"):ResponseResult.SUCCESS("该用户名已注册");
+    }
+
+    /**
+     * 更新用户信息
+     *
+     * @param request  检查用户登录状态
+     * @param response 检查用户登录状态
+     * @param userId   查询
+     * @param bwsUser  查询
+     * @return
+     */
+    @Override
+    public ResponseResult updateUserInfo(HttpServletRequest request, HttpServletResponse response, String userId, BwsUser bwsUser) {
+        //检查用户的登录状态 从token里面解析出来的，为了校验权限，只有用户才可以操作
+        BwsUser userFromTokenKey = checkBwsUser(request, response);
+        if (userFromTokenKey == null) {
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+//        用户已经登录 判断当前用户的ID 和即将修改的用户ID 是否一致，一致才可以修改
+        BwsUser userFromDb = userDao.findOneById(userFromTokenKey.getId());
+        if (!userFromDb.getId().equals(userId)){
+            return ResponseResult.PERMISSION_FORBID();
+        }
+//        Id一致，可以修改，可以修改的项目：头像，用户名，签名
+
+        //        用户名不能为空
+        String userName =bwsUser.getUserName();
+        if (!TextUtils.isEmpty(userName)) {
+//            检查是否已经存在
+            BwsUser oneByUserName = userDao.findOneByUserName(userName);
+            if (oneByUserName != null) {
+                return ResponseResult.FAILD("该用户名已经注册");
+            }
+            userFromDb.setUserName(userName);
+        }
+
+//        头像不能为空
+        if (!TextUtils.isEmpty(bwsUser.getAvatar())) {
+            userFromDb.setAvatar(bwsUser.getAvatar());
+        }
+
+//        签名可以为空，可以直接设置
+        userFromDb.setSign(bwsUser.getSign());
+
+//        干掉redis里面的token，下一次请求的时候，就需要解析token，就会根据refreshToken重新创建一个
+        String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
+        redisUtil.del(Constants.User.KEY_TOKEN+tokenKey);
+
+        userDao.save(userFromDb);
+
+        return ResponseResult.SUCCESS("用户信息更新完成");
+    }
+
+
+    /**
+     * 解析 token 通过token_key
+     * @param tokenKey
+     * @return BwsUser
+     */
     private BwsUser parseByTokenKey(String tokenKey) {
         String token = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
         log.info("parseByTokenKey ==> token ===>" + token);

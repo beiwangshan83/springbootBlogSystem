@@ -97,4 +97,29 @@ public interface IUserService {
      * @return
      */
     ResponseResult getUserInfo(String userId);
+
+    /**
+     * 用户在修改用户信息之前验证 email
+     * 保证email的唯一性
+     * @param email
+     * @return
+     */
+    ResponseResult checkEmail(String email);
+
+    /**
+     * 检查用户名是否已经注册，保证其唯一性
+     * @param userName
+     * @return
+     */
+    ResponseResult checkUserName(String userName);
+
+    /**
+     * 更新用户信息
+     * @param request 检查用户登录状态
+     * @param response 检查用户登录状态
+     * @param userId 查询
+     * @param bwsUser 查询
+     * @return
+     */
+    ResponseResult updateUserInfo(HttpServletRequest request,HttpServletResponse response,String userId, BwsUser bwsUser);
 }

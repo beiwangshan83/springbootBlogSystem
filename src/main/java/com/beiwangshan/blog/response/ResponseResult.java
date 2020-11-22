@@ -29,6 +29,24 @@ public class ResponseResult {
     }
 
     /**
+     * 用户未登录
+     * @return
+     */
+    public static ResponseResult ACCOUNT_NOT_LOGIN(){
+        return new ResponseResult(ResponseState.ACCOUNT_NOT_LOGIN);
+    }
+
+    /**
+     * 用户无权限操作
+     * @return
+     */
+    public static ResponseResult PERMISSION_FORBID(){
+        return new ResponseResult(ResponseState.PERMISSION_FORBID);
+    }
+
+
+
+    /**
      * 成功状态的封装，加上重载，可以传入参数
      * @param message
      * @return
@@ -70,6 +88,7 @@ public class ResponseResult {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
 
     public int getCode() {
         return code;
