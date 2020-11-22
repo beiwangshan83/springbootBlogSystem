@@ -565,14 +565,9 @@ public class UserServiceImpl implements IUserService {
      */
     @Override
     public BwsUser checkBwsUser() {
-        //        拿到request 和response
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        HttpServletResponse response = requestAttributes.getResponse();
-
 
         //1.拿到token_key
-        String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
+        String tokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
         log.info("检查登录时候拿到的tokenKey===>" + tokenKey);
         // 从redis中取得 token
         String redisToken = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
@@ -597,7 +592,7 @@ public class UserServiceImpl implements IUserService {
                 // 删掉之前的 refreshToken 记录
 
                 // 创建新的，并且存入数据库
-                String newTokenKey = createToken(response, bwsUserById);
+                String newTokenKey = createToken(getResponse(), bwsUserById);
                 log.info("checkBwsUser 创建新的 refreshToken ==> " + newTokenKey);
                 // 返回 token
                 return parseByTokenKey(newTokenKey);
@@ -670,8 +665,8 @@ public class UserServiceImpl implements IUserService {
     /**
      * 更新用户信息
      *
-     * @param userId   查询
-     * @param bwsUser  查询
+     * @param userId  查询
+     * @param bwsUser 查询
      * @return
      */
     @Override
@@ -707,15 +702,23 @@ public class UserServiceImpl implements IUserService {
 //        签名可以为空，可以直接设置
         userFromDb.setSign(bwsUser.getSign());
 
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
 //        干掉redis里面的token，下一次请求的时候，就需要解析token，就会根据refreshToken重新创建一个
-        String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
+        String tokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
         redisUtils.del(Constants.User.KEY_TOKEN + tokenKey);
 
         userDao.save(userFromDb);
 
         return ResponseResult.SUCCESS("用户信息更新完成");
+    }
+
+    private HttpServletRequest getRequest() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return requestAttributes.getRequest();
+    }
+
+    private HttpServletResponse getResponse() {
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return requestAttributes.getResponse();
     }
 
     /**
@@ -786,7 +789,7 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.FAILED("验证码错误.");
         }
         redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + email);
-        log.info("用户修改的密码："+bCryptPasswordEncoder.encode(bwsUser.getPassword()));
+        log.info("用户修改的密码：" + bCryptPasswordEncoder.encode(bwsUser.getPassword()));
         int result = userDao.updatePasswordByEmail(bCryptPasswordEncoder.encode(bwsUser.getPassword()), email);
         //修改密码
         return result > 0 ? ResponseResult.SUCCESS("密码修改成功") : ResponseResult.FAILED("密码修改失败");
@@ -803,7 +806,7 @@ public class UserServiceImpl implements IUserService {
     public ResponseResult updateEmail(String email, String verifyCode) {
 //        确保已经登录
         BwsUser bwsUser = this.checkBwsUser();
-        log.info("用户传入的邮箱地址 ===> " +email);
+        log.info("用户传入的邮箱地址 ===> " + email);
         if (bwsUser == null) {
 //            没有登录
             return ResponseResult.ACCOUNT_NOT_LOGIN();
@@ -816,7 +819,29 @@ public class UserServiceImpl implements IUserService {
 
         int result = userDao.updateEmailById(email, bwsUser.getId());
 
-        return result>0?ResponseResult.SUCCESS("邮箱修改成功"):ResponseResult.FAILED("邮箱修改失败");
+        return result > 0 ? ResponseResult.SUCCESS("邮箱修改成功") : ResponseResult.FAILED("邮箱修改失败");
+    }
+
+    /**
+     * 退出登录
+     *
+     * @return
+     */
+    @Override
+    public ResponseResult doLogout() {
+//        拿到token_key
+        String tokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
+        if (TextUtils.isEmpty(tokenKey)) {
+//            用户没有登录
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+//        删除redis里面的token
+        redisUtils.del(Constants.User.KEY_TOKEN+tokenKey);
+//        删除MySQL里面的refreshToken
+        refreshTokenDao.deleteAllByTokenKey(tokenKey);
+//        删除cookies
+        CookieUtils.deleteCookie(getResponse(),Constants.User.COOKIE_TOKEN_KEY);
+        return ResponseResult.SUCCESS("退出登录成功");
     }
 
 

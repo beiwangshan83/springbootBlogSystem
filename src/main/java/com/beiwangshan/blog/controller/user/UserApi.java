@@ -132,30 +132,30 @@ public class UserApi {
 
     /**
      * 修改密码
-     *  1.修改密码
-     *      普通做法：通过旧密码对比来更新密码
-     *  2.找回密码，即可找回密码，也可以修改密码
-     *      发送验证码到邮箱或者手机 ==> 判断验证码是否正确 ==> 判断对应的邮箱或者手机号所注册的账号是否属于用户
-     *  步骤：
-     *      1.用户填写邮箱
-     *      2.用户获取验证码 type = forget ==> LOGIN_TYPE_FORGET
-     *      3.用户填写验证码
-     *      4.填写新的密码
-     *      5.提交数据
-     *
-     *   数据包括：
-     *      1.邮箱和新密码
-     *      2.验证码
-     *          如果验证码正确，说明所用邮箱注册的账号属于用户，就可以修改密码
+     * 1.修改密码
+     * 普通做法：通过旧密码对比来更新密码
+     * 2.找回密码，即可找回密码，也可以修改密码
+     * 发送验证码到邮箱或者手机 ==> 判断验证码是否正确 ==> 判断对应的邮箱或者手机号所注册的账号是否属于用户
+     * 步骤：
+     * 1.用户填写邮箱
+     * 2.用户获取验证码 type = forget ==> LOGIN_TYPE_FORGET
+     * 3.用户填写验证码
+     * 4.填写新的密码
+     * 5.提交数据
+     * <p>
+     * 数据包括：
+     * 1.邮箱和新密码
+     * 2.验证码
+     * 如果验证码正确，说明所用邮箱注册的账号属于用户，就可以修改密码
      *
      * @param bwsUser
      * @return
      */
     @PutMapping("/password/{verify_code}")
-    public ResponseResult updatePassword(@PathVariable("verify_code")String verifyCode,
+    public ResponseResult updatePassword(@PathVariable("verify_code") String verifyCode,
                                          @RequestBody BwsUser bwsUser) {
 
-        return userService.updatePassword(verifyCode,bwsUser);
+        return userService.updatePassword(verifyCode, bwsUser);
     }
 
     /**
@@ -193,7 +193,7 @@ public class UserApi {
 
     /**
      * 获取用户列表
-     *  需要管理员权限
+     * 需要管理员权限
      *
      * @param page
      * @param size
@@ -204,15 +204,15 @@ public class UserApi {
     public ResponseResult listUser(@RequestParam("page") int page,
                                    @RequestParam("size") int size) {
 
-        return userService.listUser(page,size);
+        return userService.listUser(page, size);
     }
 
 
     /**
      * 删除用户，通过用户的ID
-     *  需要管理员的权限
-     *      判断当前操作的用户是谁
-     *      根据用户的角色判断是否可以执行下一步操作
+     * 需要管理员的权限
+     * 判断当前操作的用户是谁
+     * 根据用户的角色判断是否可以执行下一步操作
      *
      * @param userId
      * @return
@@ -262,33 +262,48 @@ public class UserApi {
 
     /**
      * 用户修改邮箱
-     *
-     *     1.必须登录
-     *     2.新的邮箱没有注册过
-     *
-     *     用户的步骤：
-     *         1.已经登录
-     *         2.输入新的邮箱地址
-     *         3.获取邮箱验证码 type=update
-     *         4.输入验证码
-     *         5.提交数据
-     *     需要提交的数据:
-     *         1.新的邮箱地址
-     *         2.验证码
-     *         3.其他信息可以从token里面获取
-     *      注意的点：
-     *         /email/{email}/{verify_code} ：
-     *                 如果用户的email地址中包含转义字符 / \ 等等，就会重新导向地址，所以不使用这种方式
+     * <p>
+     * 1.必须登录
+     * 2.新的邮箱没有注册过
+     * <p>
+     * 用户的步骤：
+     * 1.已经登录
+     * 2.输入新的邮箱地址
+     * 3.获取邮箱验证码 type=update
+     * 4.输入验证码
+     * 5.提交数据
+     * 需要提交的数据:
+     * 1.新的邮箱地址
+     * 2.验证码
+     * 3.其他信息可以从token里面获取
+     * 注意的点：
+     * /email/{email}/{verify_code} ：
+     * 如果用户的email地址中包含转义字符 / \ 等等，就会重新导向地址，所以不使用这种方式
      *
      * @param email
      * @param verifyCode
      * @return
      */
     @PutMapping("/email")
-    public ResponseResult updateEmail(@RequestParam("email")String email,
-                                      @RequestParam("verify_code")String verifyCode){
-        return userService.updateEmail(email,verifyCode);
+    public ResponseResult updateEmail(@RequestParam("email") String email,
+                                      @RequestParam("verify_code") String verifyCode) {
+        return userService.updateEmail(email, verifyCode);
 
+    }
+
+
+    /**
+     * 退出登录
+     * 拿到tokenKey
+     * 删除redis里对应的token
+     * 删除MySQL的refreshToken
+     * 删除cookie里面的tokenKey
+     *
+     * @return
+     */
+    @GetMapping("/logout")
+    public ResponseResult logout() {
+        return userService.doLogout();
     }
 
 }

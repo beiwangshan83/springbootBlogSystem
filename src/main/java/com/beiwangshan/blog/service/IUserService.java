@@ -150,4 +150,10 @@ public interface IUserService {
      * @return
      */
     ResponseResult updateEmail(String email, String verifyCode);
+
+    /**
+     * 退出登录
+     * @return
+     */
+    ResponseResult doLogout();
 }
