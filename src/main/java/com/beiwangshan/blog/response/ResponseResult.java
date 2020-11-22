@@ -40,10 +40,17 @@ public class ResponseResult {
      * 用户无权限操作
      * @return
      */
-    public static ResponseResult PERMISSION_FORBID(){
+    public static ResponseResult PERMISSION_DENIAL(){
         return new ResponseResult(ResponseState.PERMISSION_DENIAL);
     }
 
+    /**
+     * 当前账户被禁止
+     * @return
+     */
+    public static ResponseResult ACCOUNT_DENIAL(){
+        return new ResponseResult(ResponseState.ACCOUNT_DENIAL);
+    }
 
 
     /**

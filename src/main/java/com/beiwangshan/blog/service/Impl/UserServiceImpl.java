@@ -499,7 +499,7 @@ public class UserServiceImpl implements IUserService {
         //密码是正确的
         //判断用户状态，如果是非正常状态，则返回结果
         if ("0".equals(userFromDb.getState())) {
-            return ResponseResult.FAILED("该账户已被禁止");
+            return ResponseResult.ACCOUNT_DENIAL();
         }
         createToken(response, userFromDb);
         return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
@@ -681,7 +681,7 @@ public class UserServiceImpl implements IUserService {
 //        用户已经登录 判断当前用户的ID 和即将修改的用户ID 是否一致，一致才可以修改
         BwsUser userFromDb = userDao.findOneById(userFromTokenKey.getId());
         if (!userFromDb.getId().equals(userId)){
-            return ResponseResult.PERMISSION_FORBID();
+            return ResponseResult.PERMISSION_DENIAL();
         }
 //        Id一致，可以修改，可以修改的项目：头像，用户名，签名
 
@@ -732,7 +732,7 @@ public class UserServiceImpl implements IUserService {
 //        已经登录，判断权限
         log.info("删除时候的用户权限：==>"+currentUser.getUserName()+"==>"+currentUser.getRoles());
         if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())){
-            return ResponseResult.PERMISSION_FORBID();
+            return ResponseResult.PERMISSION_DENIAL();
         }
 //        可以操作
         int delResult = userDao.deleteUserByState(userId);
