@@ -15,42 +15,104 @@ import java.util.Date;
 public class BwsUser {
 
     /**
+     * 空的构造函数
+     */
+    public BwsUser() {
+    }
+
+    /**
+     * 定义自己的构造方法 ，除了密码不需要，其他的都需要
+     *
+     * @param id
+     * @param userName
+     * @param roles
+     * @param avatar
+     * @param email
+     * @param sign
+     * @param state
+     * @param regIp
+     * @param loginIp
+     * @param createTime
+     * @param updateTime
+     */
+    public BwsUser(String id, String userName,
+                   String roles, String avatar,
+                   String email, String sign,
+                   String state, String regIp,
+                   String loginIp, Date createTime,
+                   Date updateTime) {
+        this.id = id;
+        this.userName = userName;
+        this.roles = roles;
+        this.avatar = avatar;
+        this.email = email;
+        this.sign = sign;
+        this.state = state;
+        this.regIp = regIp;
+        this.loginIp = loginIp;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
+
+    /**
      * 用户id
      */
     @Id
     @Column(name = "id")
     private String id;
-//  用户名
+    /**
+     * 用户名
+     */
     @Column(name = "user_name")
     private String userName;
-//  用户密码
+    /**
+     * 用户密码
+     */
     @Column(name = "password")
     private String password;
-//  用户角色
+    /**
+     * 用户角色
+     */
     @Column(name = "roles")
     private String roles;
-//  用户头像
+    /**
+     * 用户头像
+     */
     @Column(name = "avatar")
     private String avatar;
-//  用户邮箱
+    /**
+     * 用户邮箱
+     */
     @Column(name = "email")
     private String email;
-//  用户签名
+    /**
+     * 用户签名
+     */
     @Column(name = "sign")
     private String sign;
-//  用户状态 0表示删除，1表示正常
+    /**
+     * 用户状态 0表示删除，1表示正常
+     */
     @Column(name = "state")
     private String state;
-//  注册ip地址
+    /**
+     * 注册ip地址
+     */
     @Column(name = "reg_ip")
     private String regIp;
-//  登录ip地址
+    /**
+     * 登录ip地址
+     */
     @Column(name = "login_ip")
     private String loginIp;
-//  用户创建时间
+    /**
+     * 用户创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
-//  用户登录时间
+    /**
+     * 用户登录时间
+     */
     @Column(name = "update_time")
     private Date updateTime;
 

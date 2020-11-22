@@ -43,13 +43,13 @@ public interface Constants {
 
 
         /**
-         *         注册(register)：如果已经存在，提示该邮箱已经注册
-         *         找回密码(forget)：如果没有注册，提示该邮箱没有注册
-         *          修改邮箱(update)：（新的邮箱）如果已经注册了，提示该邮箱已经注册
+         * 注册(register)：如果已经存在，提示该邮箱已经注册
+         * 找回密码(forget)：如果没有注册，提示该邮箱没有注册
+         * 修改邮箱(update)：（新的邮箱）如果已经注册了，提示该邮箱已经注册
          */
-        String LOGIN_TYPE_REGISTER="register";
-        String LOGIN_TYPE_FORGET="forget";
-        String LOGIN_TYPE_UPDATE="update";
+        String LOGIN_TYPE_REGISTER = "register";
+        String LOGIN_TYPE_FORGET = "forget";
+        String LOGIN_TYPE_UPDATE = "update";
     }
 
     interface Settings {
@@ -70,6 +70,16 @@ public interface Constants {
         int WEAK = DAY * 7;//一个周
         int MONTH = DAY * 30;//一个月
         int YEAR = MONTH * 12;//一年
+    }
+
+    /**
+     * 页面大小
+     */
+    interface Page {
+        //默认的page大小
+        int DEFAULT_PAGE = 1;
+        //较小的分页大小
+        int MIN_SIZE = 10;
     }
 
 

@@ -19,6 +19,10 @@ import com.wf.captcha.base.Captcha;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -566,8 +570,8 @@ public class UserServiceImpl implements IUserService {
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
         log.info("检查登录时候拿到的tokenKey===>" + tokenKey);
         // 从redis中取得 token
-        String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
-        log.info("checkBwsUser ==> redisToken==> "+redisToken);
+        String redisToken = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
+        log.info("checkBwsUser ==> redisToken==> " + redisToken);
         BwsUser bwsUser = parseByTokenKey(tokenKey);
         log.info("检查登录时候拿到的tokenKey 解析后的 user===>" + bwsUser);
         if (bwsUser == null) {
@@ -643,7 +647,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseResult checkEmail(String email) {
         BwsUser oneByEmail = userDao.findOneByEmail(email);
-        return oneByEmail==null?ResponseResult.FAILED("该邮箱未注册"):ResponseResult.SUCCESS("该邮箱已注册");
+        return oneByEmail == null ? ResponseResult.FAILED("该邮箱未注册") : ResponseResult.SUCCESS("该邮箱已注册");
     }
 
     /**
@@ -655,7 +659,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseResult checkUserName(String userName) {
         BwsUser oneByUserName = userDao.findOneByUserName(userName);
-        return oneByUserName==null?ResponseResult.FAILED("该用户名未注册"):ResponseResult.SUCCESS("该用户名已注册");
+        return oneByUserName == null ? ResponseResult.FAILED("该用户名未注册") : ResponseResult.SUCCESS("该用户名已注册");
     }
 
     /**
@@ -676,13 +680,13 @@ public class UserServiceImpl implements IUserService {
         }
 //        用户已经登录 判断当前用户的ID 和即将修改的用户ID 是否一致，一致才可以修改
         BwsUser userFromDb = userDao.findOneById(userFromTokenKey.getId());
-        if (!userFromDb.getId().equals(userId)){
+        if (!userFromDb.getId().equals(userId)) {
             return ResponseResult.PERMISSION_DENIAL();
         }
 //        Id一致，可以修改，可以修改的项目：头像，用户名，签名
 
         //        用户名不能为空
-        String userName =bwsUser.getUserName();
+        String userName = bwsUser.getUserName();
         if (!TextUtils.isEmpty(userName)) {
 //            检查是否已经存在
             BwsUser oneByUserName = userDao.findOneByUserName(userName);
@@ -702,7 +706,7 @@ public class UserServiceImpl implements IUserService {
 
 //        干掉redis里面的token，下一次请求的时候，就需要解析token，就会根据refreshToken重新创建一个
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
-        redisUtil.del(Constants.User.KEY_TOKEN+tokenKey);
+        redisUtil.del(Constants.User.KEY_TOKEN + tokenKey);
 
         userDao.save(userFromDb);
 
@@ -711,7 +715,7 @@ public class UserServiceImpl implements IUserService {
 
     /**
      * 通过userId来删除用户，在此之前需要判断操作用户的权限
-     *  并不是真的删除，而是修改状态，需要管理员权限
+     * 并不是真的删除，而是修改状态，需要管理员权限
      *
      * @param userId
      * @param response
@@ -726,27 +730,74 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.ACCOUNT_NOT_LOGIN();
         }
 //        已经登录，判断权限
-        log.info("删除时候的用户权限：==>"+currentUser.getUserName()+"==>"+currentUser.getRoles());
-        if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())){
+        log.info("删除时候的用户权限：==>" + currentUser.getUserName() + "==>" + currentUser.getRoles());
+        if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())) {
             return ResponseResult.PERMISSION_DENIAL();
         }
 //        可以操作
         int delResult = userDao.deleteUserByState(userId);
-        if (delResult>0) {
+        if (delResult > 0) {
             return ResponseResult.SUCCESS("删除成功");
         }
 
         return ResponseResult.FAILED("用户不存在，删除失败");
     }
 
+    /**
+     * 查询用户列表
+     * 需要管理员权限，分页查询
+     *
+     * @param page
+     * @param size
+     * @param request
+     * @param response
+     * @return
+     */
+    @Override
+    public ResponseResult ListUser(int page, int size, HttpServletRequest request, HttpServletResponse response) {
+        //        检验当前用户是谁
+        BwsUser currentUser = checkBwsUser(request, response);
+        if (currentUser == null) {
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+//        已经登录，判断权限
+        log.info("删除时候的用户权限：==>" + currentUser.getUserName() + "==>" + currentUser.getRoles());
+        if (!Constants.User.ROLE_ADMIN.equals(currentUser.getRoles())) {
+            return ResponseResult.PERMISSION_DENIAL();
+        }
+//        判断page大小，分页查询
+        if (page < Constants.Page.DEFAULT_PAGE) {
+            page = Constants.Page.DEFAULT_PAGE;
+        }
+
+        if (size < Constants.Page.MIN_SIZE) {
+            size = Constants.Page.MIN_SIZE;
+        }
+
+        //分页查询，根据注册日期来排序
+        //TODO:实现查询所有用户信息，但是不查询到用户密码
+        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
+        Pageable pageable = PageRequest.of(page-1,size,sort);
+//       TODO: 就这个地方错了！！！
+        Page<BwsUser> allUser = userDao.findAll(pageable);
+
+//        String toJson = gson.toJson(allUser);
+//        BwsUser newBwsUser = gson.fromJson(toJson, BwsUser.class);
+//        newBwsUser.setPassword("");
+
+
+        return ResponseResult.SUCCESS("查询成功").setData(allUser);
+    }
+
 
     /**
      * 解析 token 通过token_key
+     *
      * @param tokenKey
      * @return BwsUser
      */
     private BwsUser parseByTokenKey(String tokenKey) {
-        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN+tokenKey);
+        String token = (String) redisUtil.get(Constants.User.KEY_TOKEN + tokenKey);
         log.info("parseByTokenKey ==> token ===>" + token);
         if (token != null) {
             try {

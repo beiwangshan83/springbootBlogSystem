@@ -131,4 +131,15 @@ public interface IUserService {
      * @return
      */
     ResponseResult deleteUserById(String userId, HttpServletResponse response, HttpServletRequest request);
+
+    /**
+     * 查询用户列表
+     *  需要管理员权限，分页查询
+     * @param page
+     * @param size
+     * @param request
+     * @param response
+     * @return
+     */
+    ResponseResult ListUser(int page, int size, HttpServletRequest request, HttpServletResponse response);
 }

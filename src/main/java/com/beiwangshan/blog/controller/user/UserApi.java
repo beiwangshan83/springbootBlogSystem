@@ -136,7 +136,7 @@ public class UserApi {
      * @return
      */
     @PutMapping("/password/{userId}")
-    public ResponseResult updatePasssword(@PathVariable("userId") String userId, @RequestBody BwsUser bwsUser) {
+    public ResponseResult updatePassword(@PathVariable("userId") String userId, @RequestBody BwsUser bwsUser) {
 
         return null;
     }
@@ -178,15 +178,20 @@ public class UserApi {
 
     /**
      * 获取用户列表
+     *  需要管理员权限
      *
      * @param page
      * @param size
      * @return
      */
     @GetMapping("/list")
-    public ResponseResult listUser(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public ResponseResult listUser(@RequestParam("page") int page,
+                                   @RequestParam("size") int size,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response
+                                   ) {
 
-        return null;
+        return userService.ListUser(page,size,request,response);
     }
 
     /**
@@ -212,7 +217,7 @@ public class UserApi {
      * 检查该email 是否已经注册了
      *
      * @param email
-     * @return SUCCESS --> 已经注册 FAILD ---> 没有注册
+     * @return SUCCESS --> 已经注册 FAILED ---> 没有注册
      */
     @ApiResponses({
             @ApiResponse(code = 20000, message = "表示当前邮箱已经注册"),
@@ -229,7 +234,7 @@ public class UserApi {
      * 检查该userName 是否已经注册了
      *
      * @param userName
-     * @return SUCCESS --> 已经注册 FAILD ---> 没有注册
+     * @return SUCCESS --> 已经注册 FAILED ---> 没有注册
      */
     @ApiResponses({
             @ApiResponse(code = 20000, message = "表示当前用户名已经注册"),
