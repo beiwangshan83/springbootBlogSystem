@@ -25,6 +25,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -559,12 +561,16 @@ public class UserServiceImpl implements IUserService {
      * 检查用户登录状态
      * 本质就是通过携带的 token_key检查用户是否有登录，如果有登录，就返回用户信息，如果没有就提示
      *
-     * @param request
-     * @param response
      * @return
      */
     @Override
-    public BwsUser checkBwsUser(HttpServletRequest request, HttpServletResponse response) {
+    public BwsUser checkBwsUser() {
+        //        拿到request 和response
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        HttpServletResponse response = requestAttributes.getResponse();
+
+
         //1.拿到token_key
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
         log.info("检查登录时候拿到的tokenKey===>" + tokenKey);
@@ -664,16 +670,14 @@ public class UserServiceImpl implements IUserService {
     /**
      * 更新用户信息
      *
-     * @param request  检查用户登录状态
-     * @param response 检查用户登录状态
      * @param userId   查询
      * @param bwsUser  查询
      * @return
      */
     @Override
-    public ResponseResult updateUserInfo(HttpServletRequest request, HttpServletResponse response, String userId, BwsUser bwsUser) {
+    public ResponseResult updateUserInfo(String userId, BwsUser bwsUser) {
         //检查用户的登录状态 从token里面解析出来的，为了校验权限，只有用户才可以操作
-        BwsUser userFromTokenKey = checkBwsUser(request, response);
+        BwsUser userFromTokenKey = checkBwsUser();
         if (userFromTokenKey == null) {
             return ResponseResult.ACCOUNT_NOT_LOGIN();
         }
@@ -703,6 +707,8 @@ public class UserServiceImpl implements IUserService {
 //        签名可以为空，可以直接设置
         userFromDb.setSign(bwsUser.getSign());
 
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
 //        干掉redis里面的token，下一次请求的时候，就需要解析token，就会根据refreshToken重新创建一个
         String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
         redisUtils.del(Constants.User.KEY_TOKEN + tokenKey);
@@ -717,12 +723,10 @@ public class UserServiceImpl implements IUserService {
      * 并不是真的删除，而是修改状态，需要管理员权限
      *
      * @param userId
-     * @param response
-     * @param request
      * @return
      */
     @Override
-    public ResponseResult deleteUserById(String userId, HttpServletResponse response, HttpServletRequest request) {
+    public ResponseResult deleteUserById(String userId) {
 //        可以操作
         int delResult = userDao.deleteUserByState(userId);
         if (delResult > 0) {
@@ -738,12 +742,10 @@ public class UserServiceImpl implements IUserService {
      *
      * @param page
      * @param size
-     * @param request
-     * @param response
      * @return
      */
     @Override
-    public ResponseResult listUser(int page, int size, HttpServletRequest request, HttpServletResponse response) {
+    public ResponseResult listUser(int page, int size) {
 //        判断page大小，分页查询
         if (page < Constants.Page.DEFAULT_PAGE) {
             page = Constants.Page.DEFAULT_PAGE;
@@ -788,6 +790,33 @@ public class UserServiceImpl implements IUserService {
         int result = userDao.updatePasswordByEmail(bCryptPasswordEncoder.encode(bwsUser.getPassword()), email);
         //修改密码
         return result > 0 ? ResponseResult.SUCCESS("密码修改成功") : ResponseResult.FAILED("密码修改失败");
+    }
+
+    /**
+     * 更新用户的邮箱
+     *
+     * @param email
+     * @param verifyCode
+     * @return
+     */
+    @Override
+    public ResponseResult updateEmail(String email, String verifyCode) {
+//        确保已经登录
+        BwsUser bwsUser = this.checkBwsUser();
+        log.info("用户传入的邮箱地址 ===> " +email);
+        if (bwsUser == null) {
+//            没有登录
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+//        对比验证码，确保新的邮箱是用户的
+        String redisVerifyCode = (String) redisUtils.get(Constants.User.KEY_EMAIL_CODE_CONTENT + email);
+        if (TextUtils.isEmpty(redisVerifyCode) || !redisVerifyCode.equals(verifyCode)) {
+            return ResponseResult.FAILED("验证码错误");
+        }
+
+        int result = userDao.updateEmailById(email, bwsUser.getId());
+
+        return result>0?ResponseResult.SUCCESS("邮箱修改成功"):ResponseResult.FAILED("邮箱修改失败");
     }
 
 

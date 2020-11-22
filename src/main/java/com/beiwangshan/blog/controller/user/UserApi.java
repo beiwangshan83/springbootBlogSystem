@@ -185,12 +185,10 @@ public class UserApi {
      * @return
      */
     @PutMapping("/{userId}")
-    public ResponseResult updateUserInfo( HttpServletRequest request,
-                                          HttpServletResponse response,
-                                         @PathVariable("userId") String userId,
+    public ResponseResult updateUserInfo(@PathVariable("userId") String userId,
                                          @RequestBody BwsUser bwsUser) {
 
-        return userService.updateUserInfo(request,response,userId, bwsUser);
+        return userService.updateUserInfo(userId, bwsUser);
     }
 
     /**
@@ -204,13 +202,11 @@ public class UserApi {
     @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listUser(@RequestParam("page") int page,
-                                   @RequestParam("size") int size,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response
-                                   ) {
+                                   @RequestParam("size") int size) {
 
-        return userService.listUser(page,size,request,response);
+        return userService.listUser(page,size);
     }
+
 
     /**
      * 删除用户，通过用户的ID
@@ -223,12 +219,10 @@ public class UserApi {
      */
     @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{userId}")
-    public ResponseResult deleteUser(HttpServletResponse response,
-                                     HttpServletRequest request,
-                                     @PathVariable("userId") String userId) {
-        //TODO:通过注解的方式来控制权限
+    public ResponseResult deleteUser(@PathVariable("userId") String userId) {
+        //通过注解的方式来控制权限
 
-        return userService.deleteUserById(userId,response,request);
+        return userService.deleteUserById(userId);
     }
 
 
@@ -243,7 +237,7 @@ public class UserApi {
             @ApiResponse(code = 40000, message = "表示当前邮箱未注册"),
 
     })
-    @PutMapping("/email")
+    @GetMapping("/email")
     public ResponseResult checkEmail(@RequestParam("email") String email) {
         return userService.checkEmail(email);
     }
@@ -260,9 +254,41 @@ public class UserApi {
             @ApiResponse(code = 40000, message = "表示当前用户名未注册"),
 
     })
-    @PutMapping("/user_name")
+    @GetMapping("/user_name")
     public ResponseResult checkUserName(@RequestParam("userName") String userName) {
         return userService.checkUserName(userName);
+    }
+
+
+    /**
+     * 用户修改邮箱
+     *
+     *     1.必须登录
+     *     2.新的邮箱没有注册过
+     *
+     *     用户的步骤：
+     *         1.已经登录
+     *         2.输入新的邮箱地址
+     *         3.获取邮箱验证码 type=update
+     *         4.输入验证码
+     *         5.提交数据
+     *     需要提交的数据:
+     *         1.新的邮箱地址
+     *         2.验证码
+     *         3.其他信息可以从token里面获取
+     *      注意的点：
+     *         /email/{email}/{verify_code} ：
+     *                 如果用户的email地址中包含转义字符 / \ 等等，就会重新导向地址，所以不使用这种方式
+     *
+     * @param email
+     * @param verifyCode
+     * @return
+     */
+    @PutMapping("/email")
+    public ResponseResult updateEmail(@RequestParam("email")String email,
+                                      @RequestParam("verify_code")String verifyCode){
+        return userService.updateEmail(email,verifyCode);
+
     }
 
 }

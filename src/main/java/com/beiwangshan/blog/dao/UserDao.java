@@ -87,4 +87,14 @@ public interface UserDao extends JpaRepository<BwsUser,String>, JpaSpecification
     @Modifying
     @Query(nativeQuery = true,value = "update `tb_user` set `password` = ? where `email` = ?")
     int updatePasswordByEmail(String encode, String emailAddress);
+
+    /**
+     * 根据ID 更新 用户的 email
+     *
+     * @param email
+     * @param id
+     */
+    @Modifying
+    @Query(nativeQuery = true,value = "update `tb_user` set `email` = ? where `id` = ?")
+    int updateEmailById(String email, String id);
 }

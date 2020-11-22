@@ -249,7 +249,7 @@ public class TestController {
         String redisToken = (String) redisUtils.get(Constants.User.KEY_TOKEN+tokenKey);
         log.info("comment == >redisToken ==> "+redisToken);
 
-        BwsUser bwsUser =  userService.checkBwsUser(request,response);
+        BwsUser bwsUser =  userService.checkBwsUser();
         log.info("检查登录之后的user ===> "+ bwsUser);
 
         if (bwsUser == null) {

@@ -79,11 +79,9 @@ public interface IUserService {
     /**
      * 检查用户登录状态
      *
-     * @param request
-     * @param response
      * @return
      */
-    BwsUser checkBwsUser(HttpServletRequest request,HttpServletResponse response);
+    BwsUser checkBwsUser();
 
         /**
          * 获取用户的信息
@@ -115,33 +113,27 @@ public interface IUserService {
 
     /**
      * 更新用户信息
-     * @param request 检查用户登录状态
-     * @param response 检查用户登录状态
      * @param userId 查询
      * @param bwsUser 查询
      * @return
      */
-    ResponseResult updateUserInfo(HttpServletRequest request,HttpServletResponse response,String userId, BwsUser bwsUser);
+    ResponseResult updateUserInfo(String userId, BwsUser bwsUser);
 
     /**
      * 通过userId来删除用户，在此之前需要判断操作用户的权限
      * @param userId
-     * @param response
-     * @param request
      * @return
      */
-    ResponseResult deleteUserById(String userId, HttpServletResponse response, HttpServletRequest request);
+    ResponseResult deleteUserById(String userId);
 
     /**
      * 查询用户列表
      *  需要管理员权限，分页查询
      * @param page
      * @param size
-     * @param request
-     * @param response
      * @return
      */
-    ResponseResult listUser(int page, int size, HttpServletRequest request, HttpServletResponse response);
+    ResponseResult listUser(int page, int size);
 
     /**
      * 更新用户的密码
@@ -150,4 +142,12 @@ public interface IUserService {
      * @return
      */
     ResponseResult updatePassword(String verifyCode, BwsUser bwsUser);
+
+    /**
+     * 更新用户的邮箱
+     * @param email
+     * @param verifyCode
+     * @return
+     */
+    ResponseResult updateEmail(String email, String verifyCode);
 }

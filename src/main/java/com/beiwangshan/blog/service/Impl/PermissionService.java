@@ -46,7 +46,7 @@ public class PermissionService {
             return false;
         }
 
-        BwsUser checkBwsUser = userService.checkBwsUser(request, response);
+        BwsUser checkBwsUser = userService.checkBwsUser();
         if (checkBwsUser == null) {
 //            没有权限的用户  ==> 未登录
             return false;
