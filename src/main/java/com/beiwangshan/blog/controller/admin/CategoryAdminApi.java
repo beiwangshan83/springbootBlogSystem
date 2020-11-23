@@ -93,10 +93,10 @@ public class CategoryAdminApi {
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list")
-    public ResponseResult listCategories(@RequestParam("page")int page,@RequestParam("size")int size){
+    @GetMapping("/list/{page}/{size}")
+    public ResponseResult listCategories(@PathVariable("page")int page,@PathVariable("size")int size){
 
-        return null;
+        return categoryService.listCategories(page,size);
     }
 
 }

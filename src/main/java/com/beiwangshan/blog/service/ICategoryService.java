@@ -33,4 +33,12 @@ public interface ICategoryService {
      * @return
      */
     ResponseResult deleteCategory(String categoryId);
+
+    /**
+     * 获取分类的列表
+     * @param page
+     * @param size
+     * @return
+     */
+    ResponseResult listCategories(int page, int size);
 }

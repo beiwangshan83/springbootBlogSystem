@@ -4,9 +4,14 @@ import com.beiwangshan.blog.dao.CategoryDao;
 import com.beiwangshan.blog.pojo.Category;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.ICategoryService;
+import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -88,6 +93,30 @@ public class CategoryServiceImpl implements ICategoryService {
      */
     @Override
     public ResponseResult deleteCategory(String categoryId) {
+
         return null;
+    }
+
+    /**
+     * 获取分类的列表
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    @Override
+    public ResponseResult listCategories(int page, int size) {
+        //参数检查
+        if (page< Constants.Page.DEFAULT_PAGE){
+            page = Constants.Page.DEFAULT_PAGE;
+        }
+        if (size< Constants.Page.DEFAULT_SIZE){
+            size = Constants.Page.DEFAULT_SIZE;
+        }
+//        创建条件
+        Sort sort = Sort.by(Sort.Direction.DESC,"createTime","order");
+        Pageable pageable = PageRequest.of(page-1,size,sort);
+        Page<Category> allCategory = categoryDao.findAll(pageable);
+        return ResponseResult.SUCCESS("获取分类列表成功").setData(allCategory);
     }
 }
