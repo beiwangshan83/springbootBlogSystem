@@ -18,7 +18,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> ImageServiceImpl
@@ -69,18 +70,10 @@ public class ImageServiceImpl implements IImageService {
         String originalFilename = file.getOriginalFilename();
         log.info("file.getOriginalFilename() ==> " + originalFilename);
 //        图片类型
-        String imageType = null;
-        if (Constants.Image.IMAGE_PNG_WITH_PREFIX.equals(contentType) && originalFilename.endsWith(Constants.Image.IMAGE_PNG)) {
-            imageType = Constants.Image.IMAGE_PNG;
-        } else if (Constants.Image.IMAGE_GIF_WITH_PREFIX.equals(contentType) && originalFilename.endsWith(Constants.Image.IMAGE_GIF)) {
-            imageType = Constants.Image.IMAGE_GIF;
-        } else if (Constants.Image.IMAGE_JPG_WITH_PREFIX.equals(contentType) && originalFilename.endsWith(Constants.Image.IMAGE_JPG)) {
-            imageType = Constants.Image.IMAGE_JPG;
-        }
+        String imageType = getType(contentType, originalFilename);
         if (imageType == null) {
             return ResponseResult.FAILED("不支持此图片类型");
         }
-        //TODO:正确的判断上传的格式，允许其放行
 
 //        限制文件的大小 5M
         long size = file.getSize();
@@ -90,18 +83,20 @@ public class ImageServiceImpl implements IImageService {
         }
 //        创建图片的保存目录：
 //            规则： 配置目录 + 日期 + 类型 + ID.类型
-        String currentDay = simpleDateFormat.format(new Date());
+        long currentMillions = System.currentTimeMillis();
+        String currentDay = simpleDateFormat.format(currentMillions);
         log.info("currentDay ==> " + currentDay);
         String dayPath = imagePath + File.separator + currentDay;
         log.info("dayPath ==> " + dayPath);
         File dayPathFile = new File(dayPath);
 //        判断日期是否存在
-        if (!dayPathFile.exists()){
+        if (!dayPathFile.exists()) {
 //            如果路径不存在，则创建路径
             dayPathFile.mkdirs();
         }
+        String targetName = String.valueOf(snowflakeIdWorker.nextId());
         String targetPath = dayPath + File.separator + imageType + File.separator +
-                snowflakeIdWorker.nextId() + "." + imageType;
+                targetName + "." + imageType;
         File targetFile = new File(targetPath);
         log.info("targetPath ==> " + targetPath);
 //        判断类型是否存在
@@ -116,15 +111,36 @@ public class ImageServiceImpl implements IImageService {
 //        TODO:根据自定义命名规则进行命名
             log.info("targetFile === > " + targetFile);
             file.transferTo(targetFile);
-//           TODO: 保存数据到数据库
+
 //            返回结果：包含图片的名称和访问路径
+//              第一个是访问的路径
+            Map<String, String> result = new HashMap<>();
+            String resultPath = currentMillions + "_" + targetName + "." + imageType;
+//              第二个是名称 --> alt=“图片描述”，如果不写，前端可以使用名称作为描述
+            result.put("path", resultPath);
+            result.put("name", originalFilename);
+
+            //           TODO: 保存数据到数据库
+            return ResponseResult.SUCCESS("图片上传成功").setData(result);
         } catch (IOException e) {
             e.printStackTrace();
-            return ResponseResult.FAILED("服务器异常，请稍后重试");
         }
-//        记录文件
+
 //        返回结果
-        return ResponseResult.SUCCESS("图片上传成功");
+        return ResponseResult.FAILED("服务器异常，请稍后重试");
+
+    }
+
+    private String getType(String contentType, String name) {
+        String imageType = null;
+        if (Constants.Image.IMAGE_PNG_WITH_PREFIX.equals(contentType) && name.endsWith(Constants.Image.IMAGE_PNG)) {
+            imageType = Constants.Image.IMAGE_PNG;
+        } else if (Constants.Image.IMAGE_GIF_WITH_PREFIX.equals(contentType) && name.endsWith(Constants.Image.IMAGE_GIF)) {
+            imageType = Constants.Image.IMAGE_GIF;
+        } else if (Constants.Image.IMAGE_JPG_WITH_PREFIX.equals(contentType) && name.endsWith(Constants.Image.IMAGE_JPG)) {
+            imageType = Constants.Image.IMAGE_JPG;
+        }
+        return imageType;
     }
 
     /**
@@ -136,7 +152,22 @@ public class ImageServiceImpl implements IImageService {
      */
     @Override
     public void viewImage(HttpServletResponse response, String imageId) throws IOException {
-        File file = new File(imagePath + File.separator + "yml8wd.png");
+//        配置的目录已知
+//        需要日期
+//        使用日期的时间戳_ID.类型
+        String[] paths = imageId.split("_");
+        String dayValue = paths[0];
+        //        ID
+        String name = paths[1];
+        String dayValueFormat = simpleDateFormat.format(Long.parseLong(dayValue));
+        log.info("dayValueFormat ==> " + dayValueFormat);
+        //        需要类型
+        String type = name.substring(name.length() - 3);
+        String targetPath = imagePath + File.separator + dayValueFormat +
+                File.separator + type + File.separator + name;
+        log.info("targetPath === > " + targetPath);
+
+        File file = new File(targetPath);
         OutputStream writer = null;
         FileInputStream fos = null;
         try {
