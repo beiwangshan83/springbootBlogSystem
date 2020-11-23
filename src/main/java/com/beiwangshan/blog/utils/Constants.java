@@ -68,8 +68,8 @@ public interface Constants {
         int YEAR = MONTH * 12;//一年
     }
 
-    interface  TimeValueInMillions{
-        long MIN = 60*1000;//一分钟
+    interface TimeValueInMillions {
+        long MIN = 60 * 1000;//一分钟
         long MIN_5 = MIN * 5;// 5 分钟
         long MIN_10 = MIN * 10;// 10 分钟
         long HOUR_1 = MIN * 60;//一小时
@@ -95,10 +95,15 @@ public interface Constants {
     /**
      * 图片相关常量
      */
-    interface Image{
-        String IMAGE_PNG = "image/png";
-        String IMAGE_GIF = "image/gif";
-        String IMAGE_JPG = "image/jpg";
+    interface Image {
+        String PREFIX = "image/";
+        String IMAGE_PNG = "png";
+        String IMAGE_GIF = "gif";
+        String IMAGE_JPG = "jpg";
+
+        String IMAGE_PNG_WITH_PREFIX = PREFIX + "png";
+        String IMAGE_GIF_WITH_PREFIX = PREFIX + "gif";
+        String IMAGE_JPG_WITH_PREFIX = PREFIX + "jpg";
     }
 
 
