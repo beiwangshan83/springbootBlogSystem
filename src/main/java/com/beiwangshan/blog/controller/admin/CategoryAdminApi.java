@@ -2,6 +2,9 @@ package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.pojo.Category;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.ICategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,15 +19,26 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/category")
 public class CategoryAdminApi {
 
+    @Autowired
+    ICategoryService categoryService;
+
     /**
      * 添加分类的接口
+     * 需要管理员权限
+     * 需要添加的数据：
+     *      1.分类名称
+     *      2.分类的pinyin
+     *      3.顺序
+     *      4.描述
+     *
      * @param category
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PostMapping
     public ResponseResult addCategory(@RequestBody Category category){
 
-        return null;
+        return categoryService.addCategory(category);
     }
 
     /**

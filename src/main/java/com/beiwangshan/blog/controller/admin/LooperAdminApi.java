@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/admin/loop")
-public class LooperApi {
+public class LooperAdminApi {
 
     /**
      * 上传轮播图的api

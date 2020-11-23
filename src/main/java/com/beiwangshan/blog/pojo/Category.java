@@ -22,7 +22,7 @@ public class Category {
   @Column(name= "`description`")
   private String description;
   @Column(name= "`order`")
-  private long order;
+  private long order = 1;
   @Column(name= "`status`")
   private String status;
   @Column(name= "`create_time`")
