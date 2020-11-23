@@ -1,7 +1,11 @@
 package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.IImageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @className: com.beiwangshan.blog.controller.admin-> ImageApi
@@ -15,14 +19,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/image")
 public class ImageAdminApi {
 
+    @Autowired
+    private IImageService imageService;
+
     /**
      * 上传图片的api
+     *
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PostMapping
-    public ResponseResult uploadImage(){
+    public ResponseResult uploadImage(@RequestParam("file") MultipartFile file){
 
-        return null;
+        return imageService.uploadImage(file);
     }
 
     /**
@@ -30,6 +39,7 @@ public class ImageAdminApi {
      * @param imageId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{imageId}")
     public ResponseResult deleteImage(@PathVariable("imageId")String imageId){
 
@@ -41,6 +51,7 @@ public class ImageAdminApi {
      * @param imageId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/{imageId}")
     public ResponseResult updateImage(@PathVariable("imageId")String imageId){
 
@@ -53,6 +64,7 @@ public class ImageAdminApi {
      * @param imageId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/{imageId}")
     public ResponseResult getImage(@PathVariable("imageId")String imageId){
 
@@ -65,6 +77,7 @@ public class ImageAdminApi {
      * @param size
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listImage(@RequestParam("apge")int page,@RequestParam("size")int size){
 

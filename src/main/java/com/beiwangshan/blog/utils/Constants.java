@@ -92,5 +92,14 @@ public interface Constants {
         int DEFAULT_SIZE = 20;
     }
 
+    /**
+     * 图片相关常量
+     */
+    interface Image{
+        String IMAGE_PNG = "image/png";
+        String IMAGE_GIF = "image/gif";
+        String IMAGE_JPG = "image/jpg";
+    }
+
 
 }

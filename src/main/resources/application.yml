@@ -14,3 +14,10 @@ spring:
     host: 127.0.0.1 # Redis服务器地址
     port: 6379 # Redis服务器连接端口
     password: 123456 # Redis服务器连接密码
+    #设置文件上传的大小
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+

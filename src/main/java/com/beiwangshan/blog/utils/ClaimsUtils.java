@@ -39,9 +39,7 @@ public class ClaimsUtils {
 
     public static BwsUser cliams2BwsUser(Claims claims) {
         BwsUser bwsUser = new BwsUser();
-        log.info("cliams2BwsUser 传入的 claims" + claims);
         String id = (String) claims.get(ID);
-        log.info("cliams2BwsUser get 的ID " + id);
         bwsUser.setId(id);
         String userName = (String) claims.get(USERNAME);
         bwsUser.setUserName(userName);
@@ -54,7 +52,6 @@ public class ClaimsUtils {
         String sign = (String) claims.get(SIGN);
         bwsUser.setSign(sign);
 
-        log.info("cliams2BwsUser 生成的 user " + bwsUser);
         return bwsUser;
 
     }

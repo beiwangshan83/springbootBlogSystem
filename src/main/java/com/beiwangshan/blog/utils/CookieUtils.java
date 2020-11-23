@@ -64,7 +64,6 @@ public class CookieUtils {
         Cookie[] cookies = request.getCookies();
         for (Cookie cookie : cookies) {
             if (key.equals(cookie.getName())) {
-                log.info("cookie获取到名字了");
                 return cookie.getValue();
             }
         }

@@ -219,7 +219,6 @@ public class UserServiceImpl implements IUserService {
 
         // 设置字体
         int fontTypeIndex = random.nextInt(CAPTCHA_FONT_TYPES.length);
-        log.info("fontTypeIndex ==> " + String.valueOf(fontTypeIndex));
         targetCaptcha.setFont(CAPTCHA_FONT_TYPES[fontTypeIndex]);
         // 设置类型，纯数字、纯字母、字母数字混合
         targetCaptcha.setCharType(Captcha.TYPE_DEFAULT);
@@ -282,7 +281,6 @@ public class UserServiceImpl implements IUserService {
         }
 
         String remoteAddress = request.getRemoteAddr();
-        log.info("sendEmail ==> ip ==> " + remoteAddress);
 
 //        转换 ip 地址的格式
         if (remoteAddress == null) {
@@ -383,7 +381,6 @@ public class UserServiceImpl implements IUserService {
 
 //        4.检查邮箱验证码是都正确
         String emailVerifyCode = (String) redisUtils.get(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
-        log.info("拿到的 emailVerifyCode ===> " + emailVerifyCode);
         if (TextUtils.isEmpty(emailVerifyCode)) {
             return ResponseResult.FAILED("邮箱验证码无效");
         }
@@ -396,8 +393,6 @@ public class UserServiceImpl implements IUserService {
 //        5.检查图灵验证码是否正确 拿到验证码
         String captchaVerifyCode = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
-        log.info("拿到的captchaVerifyCode ==>" + captchaVerifyCode);
-        log.info("拿到的captchaKey ==>" + captchaKey);
         if (TextUtils.isEmpty(captchaVerifyCode)) {
             return ResponseResult.FAILED("人类验证码已经过期");
         }
@@ -513,7 +508,6 @@ public class UserServiceImpl implements IUserService {
      */
     private String createToken(HttpServletResponse response, BwsUser userFromDb) {
         int deleteResult = refreshTokenDao.deleteAllByUserId(userFromDb.getId());
-        log.info("deleteResult == > " + deleteResult);
         //生成token
         Map<String, Object> claims = ClaimsUtils.bwsUser2Claims(userFromDb);
 
@@ -566,19 +560,15 @@ public class UserServiceImpl implements IUserService {
 
         //1.拿到token_key
         String tokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
-        log.info("检查登录时候拿到的tokenKey===>" + tokenKey);
         // 从redis中取得 token
         String redisToken = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
-        log.info("checkBwsUser ==> redisToken==> " + redisToken);
         BwsUser bwsUser = parseByTokenKey(tokenKey);
-        log.info("检查登录时候拿到的tokenKey 解析后的 user===>" + bwsUser);
         if (bwsUser == null) {
             // 说明解析出错，过期了，
             // - 去数据库查询，根据 refreshToken，
             RefreshToken refreshToken = refreshTokenDao.findOneByTokenKey(tokenKey);
             // - 如果不存在，就是没登录
             if (refreshToken == null) {
-                log.info("checkBwsUser  refreshToken ==> 为空");
                 return null;
             }
             // - 如果存在就解析 refreshToken
@@ -591,12 +581,10 @@ public class UserServiceImpl implements IUserService {
 
                 // 创建新的，并且存入数据库
                 String newTokenKey = createToken(getResponse(), bwsUserById);
-                log.info("checkBwsUser 创建新的 refreshToken ==> " + newTokenKey);
                 // 返回 token
                 return parseByTokenKey(newTokenKey);
             } catch (Exception exception) {
                 // - 如果 refreshToken 过期了，就返回 当前用户没有登录
-                log.info("checkBwsUser  refreshToken ==> 过期");
                 return null;
             }
         }
@@ -787,7 +775,6 @@ public class UserServiceImpl implements IUserService {
             return ResponseResult.FAILED("验证码错误.");
         }
         redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + email);
-        log.info("用户修改的密码：" + bCryptPasswordEncoder.encode(bwsUser.getPassword()));
         int result = userDao.updatePasswordByEmail(bCryptPasswordEncoder.encode(bwsUser.getPassword()), email);
         //修改密码
         return result > 0 ? ResponseResult.SUCCESS("密码修改成功") : ResponseResult.FAILED("密码修改失败");
@@ -804,7 +791,6 @@ public class UserServiceImpl implements IUserService {
     public ResponseResult updateEmail(String email, String verifyCode) {
 //        确保已经登录
         BwsUser bwsUser = this.checkBwsUser();
-        log.info("用户传入的邮箱地址 ===> " + email);
         if (bwsUser == null) {
 //            没有登录
             return ResponseResult.ACCOUNT_NOT_LOGIN();
@@ -853,7 +839,6 @@ public class UserServiceImpl implements IUserService {
      */
     private BwsUser parseByTokenKey(String tokenKey) {
         String token = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
-        log.info("parseByTokenKey ==> token ===>" + token);
         if (token != null) {
             try {
                 //解析token
