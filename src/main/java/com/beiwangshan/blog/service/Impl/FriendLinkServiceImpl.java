@@ -4,10 +4,15 @@ import com.beiwangshan.blog.dao.FriendLinkDao;
 import com.beiwangshan.blog.pojo.FriendLink;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.FriendLinkService;
+import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -60,5 +65,42 @@ public class FriendLinkServiceImpl implements FriendLinkService {
         friendLinkDao.save(friendLink);
 //        返回结果
         return ResponseResult.SUCCESS("友情链接保存成功");
+    }
+
+    /**
+     * 获取友情链接
+     *
+     * @param friendLinkId
+     * @return
+     */
+    @Override
+    public ResponseResult getFriendLink(String friendLinkId) {
+        FriendLink oneById = friendLinkDao.findOneById(friendLinkId);
+        if (oneById == null) {
+            return ResponseResult.FAILED("友情链接不存在");
+        }
+        return ResponseResult.SUCCESS("友情链接查询成功").setData(oneById);
+    }
+
+    /**
+     * 获取友情链接列表
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    @Override
+    public ResponseResult listFriendLink(int page, int size) {
+        //参数检查
+        if (page < Constants.Page.DEFAULT_PAGE) {
+            page = Constants.Page.DEFAULT_PAGE;
+        }
+        if (size < Constants.Page.DEFAULT_SIZE) {
+            size = Constants.Page.DEFAULT_SIZE;
+        }
+        Sort sort = Sort.by(Sort.Direction.DESC,"createTime","order");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<FriendLink> allFriendLink = friendLinkDao.findAll(pageable);
+        return ResponseResult.SUCCESS("友情链接列表获取成功").setData(allFriendLink);
     }
 }

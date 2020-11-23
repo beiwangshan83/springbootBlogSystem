@@ -13,4 +13,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @todo:
  */
 public interface FriendLinkDao extends JpaRepository<FriendLink,String>, JpaSpecificationExecutor<FriendLink> {
+    /**
+     * 查询单个友情链接，通过id
+      * @param friendLinkId
+     * @return
+     */
+    FriendLink findOneById(String friendLinkId);
 }

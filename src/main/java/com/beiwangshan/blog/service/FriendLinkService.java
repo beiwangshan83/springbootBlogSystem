@@ -18,4 +18,19 @@ public interface FriendLinkService {
      * @return
      */
     ResponseResult addFriendLink(FriendLink friendLink);
+
+    /**
+     * 获取单个友情链接
+     * @param friendLinkId
+     * @return
+     */
+    ResponseResult getFriendLink(String friendLinkId);
+
+    /**
+     * 获取友情链接列表
+     * @param page
+     * @param size
+     * @return
+     */
+    ResponseResult listFriendLink(int page, int size);
 }

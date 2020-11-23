@@ -67,7 +67,7 @@ public class FriendLinkAdminApi {
     @GetMapping("/{friendLinkId}")
     public ResponseResult getFriendLink(@PathVariable("friendLinkId")String friendLinkId){
 
-        return null;
+        return friendLinkService.getFriendLink(friendLinkId);
     }
 
     /**
@@ -77,9 +77,9 @@ public class FriendLinkAdminApi {
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list")
-    public ResponseResult listFriendLink(@RequestParam("apge")int page,@RequestParam("size")int size){
+    @GetMapping("/list/{page}/{size}")
+    public ResponseResult listFriendLink(@PathVariable("page")int page,@PathVariable("size")int size){
 
-        return null;
+        return friendLinkService.listFriendLink(page,size);
     }
 }
