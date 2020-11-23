@@ -57,7 +57,7 @@ public class UserApi {
      * @param bwsUser
      * @return
      */
-    @PostMapping
+    @PostMapping("/join_in")
     public ResponseResult register(@RequestBody BwsUser bwsUser,
                                    @RequestParam("email_code") String emailCode,
                                    @RequestParam("captcha_code") String captchaCode,
@@ -80,7 +80,7 @@ public class UserApi {
      * @return
      * @Param captchaKey 图灵验证码的key
      */
-    @PostMapping("/{captcha}/{captcha_key}")
+    @PostMapping("/login/{captcha}/{captcha_key}")
     public ResponseResult login(@PathVariable("captcha") String captcha,
                                 @PathVariable("captcha_key") String captchaKey,
                                 @RequestBody BwsUser bwsUser,
@@ -164,7 +164,7 @@ public class UserApi {
      * @param userId
      * @return
      */
-    @GetMapping("/{userId}")
+    @GetMapping("/user_info/{userId}")
     public ResponseResult getUserInfo(@PathVariable("userId") String userId) {
 
         return userService.getUserInfo(userId);
@@ -184,7 +184,7 @@ public class UserApi {
      * @param bwsUser
      * @return
      */
-    @PutMapping("/{userId}")
+    @PutMapping("/user_info/{userId}")
     public ResponseResult updateUserInfo(@PathVariable("userId") String userId,
                                          @RequestBody BwsUser bwsUser) {
 

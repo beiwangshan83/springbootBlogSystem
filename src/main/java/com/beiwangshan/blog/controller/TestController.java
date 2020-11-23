@@ -152,7 +152,7 @@ public class TestController {
         }
 //        判断size的大小是否符合规范
         if (size <= 0) {
-            size = Constants.DEFAULT_SIZE;
+            size = Constants.Page.DEFAULT_SIZE;
         }
 //        排序
 //        Sort sort= new Sort(Sort.Direction.DESC,"createTime");

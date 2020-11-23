@@ -20,7 +20,7 @@ public class CookieUtils {
     /**
      * 设置cookie的默认时间
      */
-    public static final int default_age = Constants.TimeValueInMillions.YEAR;
+    public static final int default_age = Constants.TimeValueInSecond.YEAR;
 
     public static final String domain = "localhost";
 

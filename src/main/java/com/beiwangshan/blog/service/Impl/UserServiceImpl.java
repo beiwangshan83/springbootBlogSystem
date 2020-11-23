@@ -390,6 +390,8 @@ public class UserServiceImpl implements IUserService {
 
         if (!emailVerifyCode.equals(emailCode)) {
             return ResponseResult.FAILED("邮箱验证码不正确");
+        }else{
+            redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         }
 //        5.检查图灵验证码是否正确 拿到验证码
         String captchaVerifyCode = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
@@ -402,13 +404,9 @@ public class UserServiceImpl implements IUserService {
         if (!captchaVerifyCode.equals(captchaCode)) {
             return ResponseResult.FAILED("人类验证码不正确");
         } else {
-        }
-
-        if (captchaVerifyCode.equals(captchaCode) && emailVerifyCode.equals(emailCode)) {
-            redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
             redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
-
         }
+
 
 //        达到注册的条件  ps:前端可以对用户名等进行校验
 //        6.对密码进行加密
@@ -476,12 +474,12 @@ public class UserServiceImpl implements IUserService {
 
         //获取redis中保存的 图灵验证码的信息
         String captchaFromRedis = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
-        log.info("获取到的人类验证码" + captchaFromRedis);
-        log.info("传入的人类验证码" + captcha);
         //进行判断 是否和携带的图灵验证码是否一致
         if (!captcha.equals(captchaFromRedis)) {
             return ResponseResult.FAILED("人类验证码不正确");
         }
+//        图灵验证码正确，删除它
+        redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
 
         //根据传入的数据进行查询是否存在这个用户
         BwsUser userFromDb = userDao.findOneByUserName(bwsUser.getUserName());
@@ -534,12 +532,12 @@ public class UserServiceImpl implements IUserService {
         cookie.setDomain("localhost");
         cookie.setPath("/");
         //设置时间,这里默认设置的是一个月
-        cookie.setMaxAge(Constants.TimeValueInMillions.MONTH);
+        cookie.setMaxAge(Constants.TimeValueInSecond.MONTH);
         // 把 tokenKey 写到 cookies里
         response.addCookie(cookie);
 
         // 生成refreshToken
-        String refreshTokenValue = JwtUtils.createRefreshToken(userFromDb.getId(), Constants.TimeValueInMillions.MONTH);
+        String refreshTokenValue = JwtUtils.createRefreshToken(userFromDb.getId(), Constants.TimeValueInSecond.MONTH);
         //保存到数据库
         /**
          * refreshToken，tokenKey,用户ID，创建时间，更新时间
@@ -816,6 +814,8 @@ public class UserServiceImpl implements IUserService {
         if (TextUtils.isEmpty(redisVerifyCode) || !redisVerifyCode.equals(verifyCode)) {
             return ResponseResult.FAILED("验证码错误");
         }
+//        验证码正确，删除占用的资源
+        redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + email);
 
         int result = userDao.updateEmailById(email, bwsUser.getId());
 

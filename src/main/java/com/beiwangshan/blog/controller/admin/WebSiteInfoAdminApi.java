@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/admin/web_size_info")
-public class WebSiteInfoApi {
+public class WebSiteInfoAdminApi {
 
     /**
      * 获取网站标题

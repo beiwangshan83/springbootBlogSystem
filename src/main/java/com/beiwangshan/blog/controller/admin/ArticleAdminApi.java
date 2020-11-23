@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/admin/article")
-public class ArticleApi {
+public class ArticleAdminApi {
 
     /**
      * 上传文章的api

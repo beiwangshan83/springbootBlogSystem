@@ -10,10 +10,6 @@ package com.beiwangshan.blog.utils;
  */
 public interface Constants {
 
-    /**
-     * 页面默认的分页大小
-     */
-    int DEFAULT_SIZE = 20;
 
     interface User {
         //管理员默认角色
@@ -60,7 +56,7 @@ public interface Constants {
      * 时间类
      * 单位是 s
      */
-    interface TimeValueInMillions {
+    interface TimeValueInSecond {
         int MIN = 60;//一分钟
         int MIN_5 = MIN * 5;// 5 分钟
         int MIN_10 = MIN * 10;// 10 分钟
@@ -72,6 +68,18 @@ public interface Constants {
         int YEAR = MONTH * 12;//一年
     }
 
+    interface  TimeValueInMillions{
+        long MIN = 60*1000;//一分钟
+        long MIN_5 = MIN * 5;// 5 分钟
+        long MIN_10 = MIN * 10;// 10 分钟
+        long HOUR_1 = MIN * 60;//一小时
+        long HOUR_2 = HOUR_1 * 2;//两小时
+        long DAY = HOUR_1 * 2;//一天
+        long WEAK = DAY * 7;//一个周
+        long MONTH = DAY * 30;//一个月
+        long YEAR = MONTH * 12;//一年
+    }
+
     /**
      * 页面大小
      */
@@ -80,6 +88,8 @@ public interface Constants {
         int DEFAULT_PAGE = 1;
         //较小的分页大小
         int MIN_SIZE = 10;
+        //默认大小
+        int DEFAULT_SIZE = 20;
     }
 
 
