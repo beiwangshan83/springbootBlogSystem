@@ -65,9 +65,10 @@ public class CategoryAdminApi {
      */
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{categoryId}")
-    public ResponseResult updateCategory(@PathVariable("categoryId")String categoryId,@RequestBody Category category){
+    public ResponseResult updateCategory(@PathVariable("categoryId")String categoryId,
+                                         @RequestBody Category category){
 
-        return null;
+        return categoryService.updateCategory(categoryId,category);
     }
 
     /**
