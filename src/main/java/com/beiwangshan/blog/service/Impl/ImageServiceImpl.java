@@ -117,7 +117,7 @@ public class ImageServiceImpl implements IImageService {
             Map<String, String> result = new HashMap<>();
             String resultPath = currentMillions + "_" + targetName + "." + imageType;
 //              第二个是名称 --> alt=“图片描述”，如果不写，前端可以使用名称作为描述
-            result.put("path", resultPath);
+            result.put("id", resultPath);
             result.put("name", originalFilename);
 
             //           TODO: 保存数据到数据库
