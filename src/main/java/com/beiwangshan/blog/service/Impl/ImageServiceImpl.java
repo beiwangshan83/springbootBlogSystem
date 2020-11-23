@@ -8,9 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> ImageServiceImpl
@@ -25,7 +25,7 @@ import java.io.IOException;
 @Transactional
 public class ImageServiceImpl implements IImageService {
 
-private static final String imagePath = "E:\\javaProjects\\blog\\code\\images";
+    private static final String imagePath = "E:\\javaProjects\\blog\\code\\images";
 
     /**
      * 上传图片
@@ -51,10 +51,10 @@ private static final String imagePath = "E:\\javaProjects\\blog\\code\\images";
         }
 //        获取相关数据，比如文件类型，文件名字
         String originalFilename = file.getOriginalFilename();
-        log.info("file.getOriginalFilename() ==> " +originalFilename);
+        log.info("file.getOriginalFilename() ==> " + originalFilename);
 //        TODO:根据自定义命名规则进行命名
-        File targetFile = new File(imagePath+File.separator+originalFilename);
-        log.info("targetFile === > " +targetFile);
+        File targetFile = new File(imagePath + File.separator + originalFilename);
+        log.info("targetFile === > " + targetFile);
 //        保存文件
         try {
             file.transferTo(targetFile);
@@ -65,5 +65,40 @@ private static final String imagePath = "E:\\javaProjects\\blog\\code\\images";
 //        记录文件
 //        返回结果
         return ResponseResult.SUCCESS("图片上传成功");
+    }
+
+    /**
+     * 获取图片，预览图片
+     *
+     * @param response
+     * @param imageId
+     * @return
+     */
+    @Override
+    public void viewImage(HttpServletResponse response, String imageId) throws IOException {
+        File file = new File(imagePath + File.separator + "yml8wd.png");
+        OutputStream writer = null;
+        FileInputStream fos = null;
+        try {
+            writer = response.getOutputStream();
+//            读取
+            fos = new FileInputStream(file);
+            byte[] buff = new byte[1024];
+            int len;
+            while ((len = fos.read(buff)) != -1) {
+                writer.write(buff, 0, len);
+            }
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                fos.close();
+            }
+            if (writer != null) {
+                writer.close();
+            }
+        }
+
     }
 }

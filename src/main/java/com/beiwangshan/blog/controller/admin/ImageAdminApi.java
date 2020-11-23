@@ -7,6 +7,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * @className: com.beiwangshan.blog.controller.admin-> ImageApi
  * @description: 图片相关的API
@@ -46,18 +49,6 @@ public class ImageAdminApi {
         return null;
     }
 
-    /**
-     * 更新图片的api
-     * @param imageId
-     * @return
-     */
-    @PreAuthorize("@permission.admin()")
-    @PutMapping("/{imageId}")
-    public ResponseResult updateImage(@PathVariable("imageId")String imageId){
-
-        return null;
-    }
-
 
     /**
      * 获取图片的 api
@@ -66,9 +57,12 @@ public class ImageAdminApi {
      */
     @PreAuthorize("@permission.admin()")
     @GetMapping("/{imageId}")
-    public ResponseResult getImage(@PathVariable("imageId")String imageId){
-
-        return null;
+    public void getImage(HttpServletResponse response, @PathVariable("imageId")String imageId){
+        try {
+            imageService.viewImage(response,imageId);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

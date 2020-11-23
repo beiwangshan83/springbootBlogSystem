@@ -3,6 +3,9 @@ package com.beiwangshan.blog.service;
 import com.beiwangshan.blog.response.ResponseResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 /**
  * @className: com.beiwangshan.blog.service-> IImageService
  * @description: 图片相关的service
@@ -19,4 +22,12 @@ public interface IImageService {
      * @return
      */
     ResponseResult uploadImage(MultipartFile file);
+
+    /**
+     * 获取图片，预览图片
+     * @param response
+     * @param imageId
+     * @return
+     */
+    void viewImage(HttpServletResponse response, String imageId) throws IOException;
 }
