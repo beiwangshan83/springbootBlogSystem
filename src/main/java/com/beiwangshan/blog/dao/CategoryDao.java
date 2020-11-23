@@ -13,4 +13,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @todo:
  */
 public interface CategoryDao extends JpaRepository<Category,String>, JpaSpecificationExecutor<Category> {
+
+    /**
+     * 通过分类ID 查询分类信息
+     * @param categoryId
+     * @return
+     */
+    Category findOneById(String categoryId);
 }

@@ -64,4 +64,30 @@ public class CategoryServiceImpl implements ICategoryService {
 //        返回结果
         return ResponseResult.SUCCESS("分类保存成功");
     }
+
+    /**
+     * 获取分类信息
+     *
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public ResponseResult getCategory(String categoryId) {
+        Category oneById = categoryDao.findOneById(categoryId);
+        if (oneById == null) {
+            return ResponseResult.FAILED("分类不存在");
+        }
+        return ResponseResult.SUCCESS("分类获取成功").setData(oneById);
+    }
+
+    /**
+     * 删除分类信息
+     *
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public ResponseResult deleteCategory(String categoryId) {
+        return null;
+    }
 }

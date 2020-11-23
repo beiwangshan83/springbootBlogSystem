@@ -19,4 +19,18 @@ public interface ICategoryService {
      * @return
      */
     ResponseResult addCategory(Category category);
+
+    /**
+     * 获取分类信息
+     * @param categoryId
+     * @return
+     */
+    ResponseResult getCategory(String categoryId);
+
+    /**
+     * 删除分类信息
+     * @param categoryId
+     * @return
+     */
+    ResponseResult deleteCategory(String categoryId);
 }

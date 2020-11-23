@@ -41,15 +41,19 @@ public class CategoryAdminApi {
         return categoryService.addCategory(category);
     }
 
+
     /**
      * 删除文章的分类
+     *      使用情况：
+     *          1.
      * @param categoryId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{categoryId}")
     public ResponseResult deleteCategory(@PathVariable("categoryId")String categoryId){
 
-        return null;
+        return categoryService.deleteCategory(categoryId);
     }
 
 
@@ -59,6 +63,7 @@ public class CategoryAdminApi {
      * @param category
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/{categoryId}")
     public ResponseResult updateCategory(@PathVariable("categoryId")String categoryId,@RequestBody Category category){
 
@@ -67,13 +72,17 @@ public class CategoryAdminApi {
 
     /**
      *  获取分类信息
+     *      使用情况：
+     *          1.修改的时候获取一下
+     *          2.填充弹窗
      * @param categoryId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/{categoryId}")
     public ResponseResult getCategory(@PathVariable("categoryId")String categoryId){
 
-        return null;
+        return categoryService.getCategory(categoryId);
     }
 
 
@@ -83,6 +92,7 @@ public class CategoryAdminApi {
      * @param size
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listCategories(@RequestParam("page")int page,@RequestParam("size")int size){
 
