@@ -33,4 +33,19 @@ public interface FriendLinkService {
      * @return
      */
     ResponseResult listFriendLink(int page, int size);
+
+    /**
+     * 删除友链，彻底的删除
+     * @param friendLinkId
+     * @return
+     */
+    ResponseResult deleteFriendLink(String friendLinkId);
+
+    /**
+     * 更新友链
+     * @param friendLinkId
+     * @param friendLink
+     * @return
+     */
+    ResponseResult updateFriendLink(String friendLinkId, FriendLink friendLink);
 }

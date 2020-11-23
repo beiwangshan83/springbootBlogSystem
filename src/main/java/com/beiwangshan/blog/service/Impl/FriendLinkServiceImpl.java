@@ -36,6 +36,7 @@ public class FriendLinkServiceImpl implements FriendLinkService {
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+
     /**
      * 添加友情链接
      *
@@ -58,7 +59,7 @@ public class FriendLinkServiceImpl implements FriendLinkService {
             return ResponseResult.FAILED("友情链接名不能为空");
         }
 //        补全数据
-        friendLink.setId(snowflakeIdWorker.nextId()+"");
+        friendLink.setId(snowflakeIdWorker.nextId() + "");
         friendLink.setCreateTime(new Date());
         friendLink.setUpdateTime(new Date());
 //        保存数据
@@ -98,9 +99,61 @@ public class FriendLinkServiceImpl implements FriendLinkService {
         if (size < Constants.Page.DEFAULT_SIZE) {
             size = Constants.Page.DEFAULT_SIZE;
         }
-        Sort sort = Sort.by(Sort.Direction.DESC,"createTime","order");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<FriendLink> allFriendLink = friendLinkDao.findAll(pageable);
         return ResponseResult.SUCCESS("友情链接列表获取成功").setData(allFriendLink);
+    }
+
+    /**
+     * 删除友链，彻底的删除
+     *
+     * @param friendLinkId
+     * @return
+     */
+    @Override
+    public ResponseResult deleteFriendLink(String friendLinkId) {
+        int result = friendLinkDao.deleteAllById(friendLinkId);
+        if (result == 0) {
+            return ResponseResult.FAILED("删除失败，该友情链接不存在");
+        }
+        return ResponseResult.SUCCESS("友情链接删除成功");
+    }
+
+    /**
+     * 更新友链
+     * 更新内容：
+     * 1.logo
+     * 2.网站名称
+     * 3.链接地址url
+     * 4.order
+     *
+     * @param friendLinkId
+     * @param friendLink
+     * @return
+     */
+    @Override
+    public ResponseResult updateFriendLink(String friendLinkId, FriendLink friendLink) {
+//        检查数据
+        FriendLink friendLinkFromDb = friendLinkDao.findOneById(friendLinkId);
+        if (friendLinkFromDb == null) {
+            return ResponseResult.FAILED("更新失败，该友情链接不存在");
+        }
+        String logo = friendLink.getLogo();
+        if (!TextUtils.isEmpty(logo)) {
+            friendLinkFromDb.setLogo(logo);
+        }
+        String name = friendLink.getName();
+        if (!TextUtils.isEmpty(name)) {
+            friendLinkFromDb.setName(name);
+        }
+        String url = friendLink.getUrl();
+        if (!TextUtils.isEmpty(url)) {
+            friendLinkFromDb.setUrl(url);
+        }
+        friendLinkFromDb.setOrder(friendLink.getOrder());
+//        保存数据
+        friendLinkDao.save(friendLinkFromDb);
+        return ResponseResult.SUCCESS("友情链接更新成功").setData(friendLinkFromDb);
     }
 }

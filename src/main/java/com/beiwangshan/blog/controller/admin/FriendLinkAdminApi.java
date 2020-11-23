@@ -42,19 +42,25 @@ public class FriendLinkAdminApi {
     @DeleteMapping("/{friendLinkId}")
     public ResponseResult deleteFriendLink(@PathVariable("friendLinkId")String friendLinkId){
 
-        return null;
+        return friendLinkService.deleteFriendLink(friendLinkId);
     }
 
     /**
      * 更新友情链接的api
+     *      更新内容：
+     *          1.logo
+     *          2.网站名称
+     *          3.链接地址url
+     *          4.order
      * @param friendLinkId
      * @return
      */
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{friendLinkId}")
-    public ResponseResult updateFriendLink(@PathVariable("friendLinkId")String friendLinkId){
+    public ResponseResult updateFriendLink(@PathVariable("friendLinkId")String friendLinkId,
+                                           @RequestBody FriendLink friendLink){
 
-        return null;
+        return friendLinkService.updateFriendLink(friendLinkId,friendLink);
     }
 
 

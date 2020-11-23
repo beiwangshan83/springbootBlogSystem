@@ -19,4 +19,11 @@ public interface FriendLinkDao extends JpaRepository<FriendLink,String>, JpaSpec
      * @return
      */
     FriendLink findOneById(String friendLinkId);
+
+    /**
+     * 根据 Id 删除
+     * @param friendLinkId
+     * @return
+     */
+    int deleteAllById(String friendLinkId);
 }
