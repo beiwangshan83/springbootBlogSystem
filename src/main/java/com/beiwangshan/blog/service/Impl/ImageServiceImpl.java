@@ -5,6 +5,7 @@ import com.beiwangshan.blog.service.IImageService;
 import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,10 +26,15 @@ import java.io.*;
 @Transactional
 public class ImageServiceImpl implements IImageService {
 
-    private static final String imagePath = "E:\\javaProjects\\blog\\code\\images";
+    @Value("${bws.blog.image.save-Path}")
+    private String imagePath;
 
     /**
      * 上传图片
+     *  上传的路径：可以配置，在配置文件里面配置
+     *  上传内容：命名--> 可以用ID，每天一个文件夹保存
+     *  保存记录到数据库里面
+     *      ID | 存储路径 | url | 原名称 | 创建日期 | 更新日期
      *
      * @param file
      * @return
@@ -80,6 +86,7 @@ public class ImageServiceImpl implements IImageService {
         OutputStream writer = null;
         FileInputStream fos = null;
         try {
+            response.setContentType("image/png");
             writer = response.getOutputStream();
 //            读取
             fos = new FileInputStream(file);
