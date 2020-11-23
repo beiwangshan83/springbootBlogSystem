@@ -2,6 +2,9 @@ package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.pojo.FriendLink;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.FriendLinkService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,14 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/friend_link")
 public class FriendLinkAdminApi {
 
+    @Autowired
+    private FriendLinkService friendLinkService;
+
     /**
      * 上传友情链接的api
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PostMapping
     public ResponseResult addFriendLink(@RequestBody FriendLink friendLink){
 
-        return null;
+        return friendLinkService.addFriendLink(friendLink);
     }
 
     /**
@@ -31,6 +38,7 @@ public class FriendLinkAdminApi {
      * @param friendLinkId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{friendLinkId}")
     public ResponseResult deleteFriendLink(@PathVariable("friendLinkId")String friendLinkId){
 
@@ -42,6 +50,7 @@ public class FriendLinkAdminApi {
      * @param friendLinkId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/{friendLinkId}")
     public ResponseResult updateFriendLink(@PathVariable("friendLinkId")String friendLinkId){
 
@@ -54,6 +63,7 @@ public class FriendLinkAdminApi {
      * @param friendLinkId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/{friendLinkId}")
     public ResponseResult getFriendLink(@PathVariable("friendLinkId")String friendLinkId){
 
@@ -66,6 +76,7 @@ public class FriendLinkAdminApi {
      * @param size
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listFriendLink(@RequestParam("apge")int page,@RequestParam("size")int size){
 

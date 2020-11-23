@@ -22,9 +22,9 @@ public class FriendLink {
   @Column(name= "`url`")
   private String url;
   @Column(name= "`order`")
-  private long order;
+  private long order = 1;
   @Column(name= "`state`")
-  private String state;
+  private String state ="1";
   @Column(name= "`create_time`")
   private Date createTime;
   @Column(name= "`update_time`")
