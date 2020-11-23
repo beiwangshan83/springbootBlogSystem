@@ -34,6 +34,7 @@ public class CategoryServiceImpl implements ICategoryService {
 
     @Autowired
     private CategoryDao categoryDao;
+
     /**
      * 添加文章分类
      * * 添加分类的接口
@@ -51,7 +52,7 @@ public class CategoryServiceImpl implements ICategoryService {
     public ResponseResult addCategory(Category category) {
 //        检查数据
         if (TextUtils.isEmpty(category.getName())) {
-            return  ResponseResult.FAILED("分类名称不可以为空");
+            return ResponseResult.FAILED("分类名称不可以为空");
         }
         if (TextUtils.isEmpty(category.getPinyin())) {
             return ResponseResult.FAILED("分类拼音不可以为空");
@@ -60,7 +61,7 @@ public class CategoryServiceImpl implements ICategoryService {
             return ResponseResult.FAILED("分类的描述不可以为空");
         }
 //        补全数据
-        category.setId(snowflakeIdWorker.nextId()+"");
+        category.setId(snowflakeIdWorker.nextId() + "");
         category.setStatus("1");
         category.setCreateTime(new Date());
         category.setUpdateTime(new Date());
@@ -87,14 +88,21 @@ public class CategoryServiceImpl implements ICategoryService {
 
     /**
      * 删除分类信息
+     * 简单的改变分类的状态
      *
      * @param categoryId
      * @return
      */
     @Override
     public ResponseResult deleteCategory(String categoryId) {
-
-        return null;
+        if (TextUtils.isEmpty(categoryId)) {
+            return ResponseResult.FAILED("文章Id不能为空");
+        }
+        int result = categoryDao.deleteCategoryByUpdateStatus(categoryId);
+        if (result == 0) {
+            return ResponseResult.FAILED("分类删除失败");
+        }
+        return ResponseResult.SUCCESS("分类删除成功");
     }
 
     /**
@@ -107,15 +115,15 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public ResponseResult listCategories(int page, int size) {
         //参数检查
-        if (page< Constants.Page.DEFAULT_PAGE){
+        if (page < Constants.Page.DEFAULT_PAGE) {
             page = Constants.Page.DEFAULT_PAGE;
         }
-        if (size< Constants.Page.DEFAULT_SIZE){
+        if (size < Constants.Page.DEFAULT_SIZE) {
             size = Constants.Page.DEFAULT_SIZE;
         }
 //        创建条件
-        Sort sort = Sort.by(Sort.Direction.DESC,"createTime","order");
-        Pageable pageable = PageRequest.of(page-1,size,sort);
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<Category> allCategory = categoryDao.findAll(pageable);
         return ResponseResult.SUCCESS("获取分类列表成功").setData(allCategory);
     }
@@ -127,7 +135,7 @@ public class CategoryServiceImpl implements ICategoryService {
      * @return
      */
     @Override
-    public ResponseResult updateCategory(String categoryId,Category category) {
+    public ResponseResult updateCategory(String categoryId, Category category) {
 //        第一步是找出来
         Category categoryFromDb = categoryDao.findOneById(categoryId);
         if (categoryFromDb == null) {
@@ -140,7 +148,7 @@ public class CategoryServiceImpl implements ICategoryService {
         }
 
         String pinyin = category.getPinyin();
-        if (!TextUtils.isEmpty(pinyin)){
+        if (!TextUtils.isEmpty(pinyin)) {
             categoryFromDb.setPinyin(pinyin);
         }
 

@@ -3,6 +3,8 @@ package com.beiwangshan.blog.dao;
 import com.beiwangshan.blog.pojo.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @className: com.beiwangshan.blog.dao-> CategoryDao
@@ -20,4 +22,21 @@ public interface CategoryDao extends JpaRepository<Category,String>, JpaSpecific
      * @return
      */
     Category findOneById(String categoryId);
+
+
+    /**
+     * 通过ID 删除 分类
+     * @return
+     */
+//    int deleteAllById();
+
+
+    /**
+     * 删除分类，这里只是更新分类的状态
+     * @param categoryId
+     * @return
+     */
+    @Modifying
+    @Query(nativeQuery = true,value = "update `tb_categories` SET `status` = '0' WHERE id =  ?")
+    int deleteCategoryByUpdateStatus(String categoryId);
 }
