@@ -25,7 +25,7 @@ public class WebSiteInfoAdminApi {
      * 获取网站标题
      * @return
      */
-    @PreAuthorize("@permission.admin()")
+
     @GetMapping("/title")
     public ResponseResult getWebSiteTitle(){
 
@@ -51,7 +51,7 @@ public class WebSiteInfoAdminApi {
      *
      * @return
      */
-    @PreAuthorize("@permission.admin()")
+
     @GetMapping("/seo")
     public ResponseResult getSeoInfo(){
         return webSiteInfoService.getSeoInfo();
