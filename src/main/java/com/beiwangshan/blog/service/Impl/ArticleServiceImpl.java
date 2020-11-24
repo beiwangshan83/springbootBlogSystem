@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.service.Impl;
 
+import com.beiwangshan.blog.dao.ArticleDao;
 import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.response.ResponseResult;
@@ -34,6 +35,9 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+
+    @Autowired
+    private ArticleDao articleDao;
 
     /**
      * 添加文章
@@ -86,16 +90,16 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             return ResponseResult.FAILED("文章标签不能为空");
         }
 
-
 //        补充数据
         article.setId(snowflakeIdWorker.nextId()+"");
+        article.setUserId(bwsUser.getId());
         article.setCreateTime(new Date());
         article.setUpdateTime(new Date());
 //        保存数据
-
+        articleDao.save(article);
 //        TODO:保存到搜索的数据库里
 
 //        返回结果
-        return null;
+        return ResponseResult.SUCCESS("文章保存成功").setData(article);
     }
 }
