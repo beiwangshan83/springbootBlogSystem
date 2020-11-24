@@ -18,4 +18,33 @@ public interface ILooperService {
      * @return
      */
     ResponseResult addLoop(Looper looper);
+
+    /**
+     * 获取轮播图 单个
+     * @param loopId
+     * @return
+     */
+    ResponseResult getLooper(String loopId);
+
+    /**
+     * 获取轮播图列表 多个
+     * @param page
+     * @param size
+     * @return
+     */
+    ResponseResult listLooper(int page, int size);
+
+    /**
+     * 更新轮播图 单个
+     * @param loopId
+     * @return
+     */
+    ResponseResult updateLooper(String loopId,Looper looper);
+
+    /**
+     * 删除轮播图
+     * @param loopId
+     * @return
+     */
+    ResponseResult deleteLooper(String loopId);
 }

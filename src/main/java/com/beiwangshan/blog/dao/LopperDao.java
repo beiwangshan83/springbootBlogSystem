@@ -14,4 +14,17 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface LopperDao extends JpaRepository<Looper,String>, JpaSpecificationExecutor<Looper> {
 
+    /**
+     * 根据ID 查询一个 loop对象
+     * @param loopId
+     * @return
+     */
+    Looper findOneById(String loopId);
+
+    /**
+     * 删除 轮播图
+     * @param loopId
+     * @return
+     */
+    int deleteOneById(String loopId);
 }

@@ -688,12 +688,13 @@ public class UserServiceImpl extends BaseService implements IUserService {
 
 //        签名可以为空，可以直接设置
         userFromDb.setSign(bwsUser.getSign());
+        userFromDb.setUpdateTime(new Date());
+        userDao.save(userFromDb);
 
 //        干掉redis里面的token，下一次请求的时候，就需要解析token，就会根据refreshToken重新创建一个
         String tokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
         redisUtils.del(Constants.User.KEY_TOKEN + tokenKey);
 
-        userDao.save(userFromDb);
 
         return ResponseResult.SUCCESS("用户信息更新完成");
     }

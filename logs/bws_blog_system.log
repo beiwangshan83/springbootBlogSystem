@@ -34,3 +34,12 @@
 [2020-11-24 09:45:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 18044 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
 [2020-11-24 09:45:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
 [2020-11-24 09:45:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.945 seconds (JVM running for 7.35)
+[2020-11-24 10:46:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 19064 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 10:46:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 10:46:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 5.919 seconds (JVM running for 7.056)
+[2020-11-24 11:20:20] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 8724 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 11:20:20] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 11:20:25] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.113 seconds (JVM running for 7.241)
+[2020-11-24 11:24:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 3036 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 11:24:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 11:24:29] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.211 seconds (JVM running for 7.282)

@@ -42,7 +42,7 @@ public class LooperAdminApi {
     @DeleteMapping("/{loopId}")
     public ResponseResult deleteLooper(@PathVariable("loopId")String loopId){
 
-        return null;
+        return looperService.deleteLooper(loopId);
     }
 
     /**
@@ -52,9 +52,9 @@ public class LooperAdminApi {
      */
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{loopId}")
-    public ResponseResult updateLooper(@PathVariable("loopId")String loopId){
+    public ResponseResult updateLooper(@PathVariable("loopId")String loopId,@RequestBody Looper looper){
 
-        return null;
+        return looperService.updateLooper(loopId,looper);
     }
 
 
@@ -67,7 +67,7 @@ public class LooperAdminApi {
     @GetMapping("/{loopId}")
     public ResponseResult getLooper(@PathVariable("loopId")String loopId){
 
-        return null;
+        return looperService.getLooper(loopId);
     }
 
     /**
@@ -77,9 +77,9 @@ public class LooperAdminApi {
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list")
-    public ResponseResult listLooper(@RequestParam("apge")int page, @RequestParam("size")int size){
+    @GetMapping("/list/{page}/{size}")
+    public ResponseResult listLooper(@PathVariable("page")int page, @PathVariable("size")int size){
 
-        return null;
+        return looperService.listLooper(page,size);
     }
 }
