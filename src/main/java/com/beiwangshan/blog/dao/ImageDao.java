@@ -1,5 +1,9 @@
 package com.beiwangshan.blog.dao;
 
+import com.beiwangshan.blog.pojo.Image;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
 /**
  * @className: com.beiwangshan.blog.dao-> ImageDao
  * @description: 图片香瓜
@@ -8,5 +12,6 @@ package com.beiwangshan.blog.dao;
  * @version: 1.0
  * @todo:
  */
-public class ImageDao {
+public interface ImageDao extends JpaRepository<Image,String>, JpaSpecificationExecutor<Image> {
+
 }

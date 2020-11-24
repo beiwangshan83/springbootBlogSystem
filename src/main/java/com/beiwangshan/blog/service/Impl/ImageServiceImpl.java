@@ -1,7 +1,11 @@
 package com.beiwangshan.blog.service.Impl;
 
+import com.beiwangshan.blog.dao.ImageDao;
+import com.beiwangshan.blog.pojo.BwsUser;
+import com.beiwangshan.blog.pojo.Image;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IImageService;
+import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
@@ -18,6 +22,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +47,12 @@ public class ImageServiceImpl implements IImageService {
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private ImageDao imageDao;
 
     public static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy_MM_dd");
 
@@ -120,7 +131,20 @@ public class ImageServiceImpl implements IImageService {
             result.put("id", resultPath);
             result.put("name", originalFilename);
 
-            //           TODO: 保存数据到数据库
+            //TODO: 保存数据到数据库
+            Image image = new Image();
+            image.setContentType(contentType);
+            image.setId(targetName);
+            image.setCreateTime(new Date());
+            image.setUpdateTime(new Date());
+            image.setPath(targetFile.getPath());
+            image.setName(originalFilename);
+            image.setUrl(resultPath);
+            image.setState("1");
+            BwsUser bwsUser = userService.checkBwsUser();
+            image.setUserId(bwsUser.getId());
+
+            imageDao.save(image);
             return ResponseResult.SUCCESS("图片上传成功").setData(result);
         } catch (IOException e) {
             e.printStackTrace();
@@ -152,6 +176,11 @@ public class ImageServiceImpl implements IImageService {
      */
     @Override
     public void viewImage(HttpServletResponse response, String imageId) throws IOException {
+//        TODO:根据尺寸来动态返回图片给前端
+//        好处：减少带宽占用，传输速度更快
+//        缺点：消耗后台cup资源
+//        推荐做法：上传上来的时候，把图片复制成三个尺寸，大，中，小，根据尺寸范围，返回结果
+
 //        配置的目录已知
 //        需要日期
 //        使用日期的时间戳_ID.类型

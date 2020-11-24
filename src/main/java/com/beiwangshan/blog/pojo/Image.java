@@ -1,10 +1,11 @@
 package com.beiwangshan.blog.pojo;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
+
 
 /**
  * @author 曾豪
@@ -15,15 +16,21 @@ public class Image {
 
   @Id
   private String id;
-  @Column(name = "`user_id`")
-  private String user_id;
-  @Column(name = "`url`")
+  @Column(name= "`user_id`")
+  private String userId;
+  @Column(name= "`url`")
   private String url;
-  @Column(name = "`state`")
+  @Column(name= "`name`")
+  private String name;
+  @Column(name= "`path`")
+  private String path;
+  @Column(name= "`content_type`")
+  private String contentType;
+  @Column(name= "`state`")
   private String state;
-  @Column(name = "`create_time`")
+  @Column(name= "`create_time`")
   private Date createTime;
-  @Column(name = "`update_time`")
+  @Column(name= "`update_time`")
   private Date updateTime;
 
   public String getId() {
@@ -34,12 +41,12 @@ public class Image {
     this.id = id;
   }
 
-  public String getUser_id() {
-    return user_id;
+  public String getUserId() {
+    return userId;
   }
 
-  public void setUser_id(String user_id) {
-    this.user_id = user_id;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
   public String getUrl() {
@@ -48,6 +55,30 @@ public class Image {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+  public String getContentType() {
+    return contentType;
+  }
+
+  public void setContentType(String contentType) {
+    this.contentType = contentType;
   }
 
   public String getState() {
