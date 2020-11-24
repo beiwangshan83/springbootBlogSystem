@@ -52,3 +52,9 @@
 [2020-11-24 19:42:19] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16680 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
 [2020-11-24 19:42:19] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
 [2020-11-24 19:42:26] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 7.256 seconds (JVM running for 8.684)
+[2020-11-24 19:50:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 11004 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 19:50:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 19:50:38] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.775 seconds (JVM running for 8.113)
+[2020-11-24 19:53:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 15304 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 19:53:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 19:53:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 7.162 seconds (JVM running for 8.373)

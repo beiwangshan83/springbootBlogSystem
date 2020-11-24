@@ -149,7 +149,8 @@ public class WebSiteInfoServiceImpl extends BaseService implements IWebSiteInfoS
             viewCountFromDb.setValue("1");
             settingsDao.save(viewCountFromDb);
         }
-
-        return ResponseResult.SUCCESS("网站浏览量获取成功").setData(viewCountFromDb);
+        Map<String, Integer> result = new HashMap<>();
+        result.put(viewCountFromDb.getKey(),Integer.valueOf(viewCountFromDb.getValue()));
+        return ResponseResult.SUCCESS("网站浏览量获取成功").setData(result);
     }
 }
