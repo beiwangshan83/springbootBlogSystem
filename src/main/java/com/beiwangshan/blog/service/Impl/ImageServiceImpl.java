@@ -245,14 +245,23 @@ public class ImageServiceImpl extends BaseService implements IImageService {
         //参数检查
         page = checkPage(page);
         size = checkSize(size);
+        BwsUser bwsUser = userService.checkBwsUser();
+        if (bwsUser == null) {
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
 //        创建条件
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 //        查询数据
+        final String userId =  bwsUser.getId();
         Page<Image> allImages = imageDao.findAll(new Specification<Image>() {
             @Override
             public Predicate toPredicate(Root<Image> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return cb.equal(root.get("state").as(String.class),"1");
+//               根据用户ID 查询
+                Predicate userIdPre = cb.equal(root.get("userId").as(String.class), userId);
+//                根据状态 查询
+                Predicate statePre = cb.equal(root.get("state").as(String.class), "1");
+                return cb.and(userIdPre,statePre);
             }
         },pageable);
 //        返回结果
