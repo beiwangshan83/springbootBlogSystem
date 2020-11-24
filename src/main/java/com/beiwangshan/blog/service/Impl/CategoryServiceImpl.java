@@ -3,8 +3,8 @@ package com.beiwangshan.blog.service.Impl;
 import com.beiwangshan.blog.dao.CategoryDao;
 import com.beiwangshan.blog.pojo.Category;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.ICategoryService;
-import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import java.util.Date;
  */
 @Service
 @Transactional
-public class CategoryServiceImpl implements ICategoryService {
+public class CategoryServiceImpl extends BaseService implements ICategoryService {
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
@@ -115,12 +115,8 @@ public class CategoryServiceImpl implements ICategoryService {
     @Override
     public ResponseResult listCategories(int page, int size) {
         //参数检查
-        if (page < Constants.Page.DEFAULT_PAGE) {
-            page = Constants.Page.DEFAULT_PAGE;
-        }
-        if (size < Constants.Page.DEFAULT_SIZE) {
-            size = Constants.Page.DEFAULT_SIZE;
-        }
+        page = checkPage(page);
+        size = checkSize(size);
 //        创建条件
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
         Pageable pageable = PageRequest.of(page - 1, size, sort);

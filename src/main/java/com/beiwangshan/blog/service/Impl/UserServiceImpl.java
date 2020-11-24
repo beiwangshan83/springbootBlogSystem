@@ -8,6 +8,7 @@ import com.beiwangshan.blog.pojo.RefreshToken;
 import com.beiwangshan.blog.pojo.Setting;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.response.ResponseState;
+import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.*;
 import com.google.gson.Gson;
@@ -47,7 +48,7 @@ import java.util.Random;
 @Service
 @Slf4j
 @Transactional
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends BaseService implements IUserService {
 
     /**
      * 引入雪花算法，计算ID
@@ -736,13 +737,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public ResponseResult listUser(int page, int size) {
 //        判断page大小，分页查询
-        if (page < Constants.Page.DEFAULT_PAGE) {
-            page = Constants.Page.DEFAULT_PAGE;
-        }
-
-        if (size < Constants.Page.MIN_SIZE) {
-            size = Constants.Page.MIN_SIZE;
-        }
+        page = checkPage(page);
+        size = checkSize(size);
 
         //分页查询，根据注册日期来排序
         //TODO:实现查询所有用户信息，但是不查询到用户密码

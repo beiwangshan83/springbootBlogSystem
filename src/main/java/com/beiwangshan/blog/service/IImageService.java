@@ -23,11 +23,20 @@ public interface IImageService {
      */
     ResponseResult uploadImage(MultipartFile file);
 
+
     /**
      * 获取图片，预览图片
      * @param response
      * @param imageId
-     * @return
+     * @throws IOException
      */
     void viewImage(HttpServletResponse response, String imageId) throws IOException;
+
+    /**
+     * 获取图片列表
+     * @param page
+     * @param size
+     * @return
+     */
+    ResponseResult listImages(int page, int size);
 }

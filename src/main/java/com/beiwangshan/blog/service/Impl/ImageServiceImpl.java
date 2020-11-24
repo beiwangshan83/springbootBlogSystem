@@ -4,6 +4,7 @@ import com.beiwangshan.blog.dao.ImageDao;
 import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.pojo.Image;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IImageService;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.Constants;
@@ -12,6 +13,10 @@ import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,7 +42,7 @@ import java.util.Map;
 @Slf4j
 @Service
 @Transactional
-public class ImageServiceImpl implements IImageService {
+public class ImageServiceImpl extends BaseService implements IImageService {
 
     @Value("${bws.blog.image.save-Path}")
     private String imagePath;
@@ -221,5 +226,26 @@ public class ImageServiceImpl implements IImageService {
             }
         }
 
+    }
+
+    /**
+     * 获取图片列表
+     *
+     * @param page
+     * @param size
+     * @return
+     */
+    @Override
+    public ResponseResult listImages(int page, int size) {
+        //参数检查
+        page = checkPage(page);
+        size = checkSize(size);
+//        创建条件
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+//        查询数据
+        Page<Image> allImages = imageDao.findAll(pageable);
+//        返回结果
+        return ResponseResult.SUCCESS("图片列表查询成功").setData(allImages);
     }
 }

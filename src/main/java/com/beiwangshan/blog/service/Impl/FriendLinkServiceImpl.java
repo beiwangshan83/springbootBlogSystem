@@ -3,8 +3,8 @@ package com.beiwangshan.blog.service.Impl;
 import com.beiwangshan.blog.dao.FriendLinkDao;
 import com.beiwangshan.blog.pojo.FriendLink;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.FriendLinkService;
-import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ import java.util.Date;
 @Slf4j
 @Service
 @Transactional
-public class FriendLinkServiceImpl implements FriendLinkService {
+public class FriendLinkServiceImpl extends BaseService implements FriendLinkService {
 
     @Autowired
     private FriendLinkDao friendLinkDao;
@@ -93,12 +93,8 @@ public class FriendLinkServiceImpl implements FriendLinkService {
     @Override
     public ResponseResult listFriendLink(int page, int size) {
         //参数检查
-        if (page < Constants.Page.DEFAULT_PAGE) {
-            page = Constants.Page.DEFAULT_PAGE;
-        }
-        if (size < Constants.Page.DEFAULT_SIZE) {
-            size = Constants.Page.DEFAULT_SIZE;
-        }
+        page = checkPage(page);
+        size = checkSize(size);
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<FriendLink> allFriendLink = friendLinkDao.findAll(pageable);
