@@ -26,7 +26,7 @@ import java.util.Date;
  * @todo:
  */
 @Service
-@Transactional
+@Transactional(rollbackOn = Exception.class)
 public class CategoryServiceImpl extends BaseService implements ICategoryService {
 
     @Autowired

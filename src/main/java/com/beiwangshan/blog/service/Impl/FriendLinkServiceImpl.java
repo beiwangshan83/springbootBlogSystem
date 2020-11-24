@@ -28,7 +28,7 @@ import java.util.Date;
  */
 @Slf4j
 @Service
-@Transactional
+@Transactional(rollbackOn = Exception.class)
 public class FriendLinkServiceImpl extends BaseService implements FriendLinkService {
 
     @Autowired

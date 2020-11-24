@@ -46,7 +46,7 @@ import java.util.Map;
  */
 @Slf4j
 @Service
-@Transactional
+@Transactional(rollbackOn = Exception.class)
 public class ImageServiceImpl extends BaseService implements IImageService {
 
     @Value("${bws.blog.image.save-Path}")

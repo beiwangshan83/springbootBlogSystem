@@ -47,7 +47,7 @@ import java.util.Random;
  */
 @Service
 @Slf4j
-@Transactional
+@Transactional(rollbackOn = Exception.class)
 public class UserServiceImpl extends BaseService implements IUserService {
 
     /**
