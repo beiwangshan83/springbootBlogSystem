@@ -22,3 +22,9 @@
 [2020-11-24 09:06:06] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.ImageServiceImpl] - dayPath ==> E:\javaProjects\blog\code\images\2020_11_24
 [2020-11-24 09:06:06] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.ImageServiceImpl] - targetPath ==> E:\javaProjects\blog\code\images\2020_11_24\png\383543792872980480.png
 [2020-11-24 09:06:06] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.ImageServiceImpl] - targetFile === > E:\javaProjects\blog\code\images\2020_11_24\png\383543792872980480.png
+[2020-11-24 09:23:01] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 2704 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 09:23:01] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 09:23:07] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.147 seconds (JVM running for 7.29)
+[2020-11-24 09:26:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 17436 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-11-24 09:26:59] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-11-24 09:27:05] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.275 seconds (JVM running for 7.379)

@@ -17,9 +17,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.File;
@@ -241,10 +246,15 @@ public class ImageServiceImpl extends BaseService implements IImageService {
         page = checkPage(page);
         size = checkSize(size);
 //        创建条件
-        Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 //        查询数据
-        Page<Image> allImages = imageDao.findAll(pageable);
+        Page<Image> allImages = imageDao.findAll(new Specification<Image>() {
+            @Override
+            public Predicate toPredicate(Root<Image> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
+                return cb.equal(root.get("state").as(String.class),"1");
+            }
+        },pageable);
 //        返回结果
         return ResponseResult.SUCCESS("图片列表查询成功").setData(allImages);
     }
