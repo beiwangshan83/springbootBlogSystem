@@ -2,6 +2,9 @@ package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.pojo.Looper;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.ILooperService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,14 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/loop")
 public class LooperAdminApi {
 
+    @Autowired
+    private ILooperService looperService;
+
     /**
      * 上传轮播图的api
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PostMapping
     public ResponseResult addLoop(@RequestBody Looper looper){
 
-        return null;
+        return looperService.addLoop(looper);
     }
 
     /**
@@ -31,6 +38,7 @@ public class LooperAdminApi {
      * @param loopId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{loopId}")
     public ResponseResult deleteLooper(@PathVariable("loopId")String loopId){
 
@@ -42,6 +50,7 @@ public class LooperAdminApi {
      * @param loopId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/{loopId}")
     public ResponseResult updateLooper(@PathVariable("loopId")String loopId){
 
@@ -54,7 +63,8 @@ public class LooperAdminApi {
      * @param loopId
      * @return
      */
-    @GetMapping("/{looperId}")
+    @PreAuthorize("@permission.admin()")
+    @GetMapping("/{loopId}")
     public ResponseResult getLooper(@PathVariable("loopId")String loopId){
 
         return null;
@@ -66,6 +76,7 @@ public class LooperAdminApi {
      * @param size
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listLooper(@RequestParam("apge")int page, @RequestParam("size")int size){
 
