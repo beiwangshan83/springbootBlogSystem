@@ -267,4 +267,21 @@ public class ImageServiceImpl extends BaseService implements IImageService {
 //        返回结果
         return ResponseResult.SUCCESS("图片列表查询成功").setData(allImages);
     }
+
+    /**
+     * 根据图片的ID 删除图片
+     *  只改变图片的状态
+     *  用户的ID 与 图片中的 userId 一致时才能删除
+     *
+     * @param imageId
+     * @return
+     */
+    @Override
+    public ResponseResult deleteByImageId(String imageId) {
+        int result = imageDao.deleteByUpdateState(imageId);
+        if (result == 0){
+            return ResponseResult.FAILED("图片不存在");
+        }
+        return ResponseResult.SUCCESS("图片删除成功");
+    }
 }

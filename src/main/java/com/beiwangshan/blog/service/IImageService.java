@@ -39,4 +39,11 @@ public interface IImageService {
      * @return
      */
     ResponseResult listImages(int page, int size);
+
+    /**
+     * 根据图片的ID 删除图片
+     * @param imageId
+     * @return
+     */
+    ResponseResult deleteByImageId(String imageId);
 }

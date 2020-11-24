@@ -46,7 +46,7 @@ public class ImageAdminApi {
     @DeleteMapping("/{imageId}")
     public ResponseResult deleteImage(@PathVariable("imageId")String imageId){
 
-        return null;
+        return imageService.deleteByImageId(imageId);
     }
 
 
