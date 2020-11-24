@@ -1,6 +1,9 @@
 package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.IWebSiteInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -12,17 +15,21 @@ import org.springframework.web.bind.annotation.*;
  * @todo:
  */
 @RestController
-@RequestMapping("/admin/web_size_info")
+@RequestMapping("/admin/web_site_info")
 public class WebSiteInfoAdminApi {
+
+    @Autowired
+    private IWebSiteInfoService webSiteInfoService;
 
     /**
      * 获取网站标题
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/title")
     public ResponseResult getWebSiteTitle(){
 
-        return null;
+        return webSiteInfoService.getWebSiteTitle();
     }
 
     /**
@@ -31,10 +38,11 @@ public class WebSiteInfoAdminApi {
      * @param title
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/title")
     public ResponseResult updateWebSiteTitle(@RequestParam("title")String title){
 
-        return null;
+        return webSiteInfoService.updateWebSiteTitle(title);
     }
 
 
@@ -43,9 +51,10 @@ public class WebSiteInfoAdminApi {
      *
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/seo")
     public ResponseResult getSeoInfo(){
-        return null;
+        return webSiteInfoService.getSeoInfo();
     }
 
     /**
@@ -55,9 +64,10 @@ public class WebSiteInfoAdminApi {
      * @param description => 网站描述
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/seo")
     public ResponseResult putSeoInfo(@RequestParam("keywords")String keywords,@RequestParam("description")String description){
-        return null;
+        return webSiteInfoService.putSeoInfo(keywords,description);
     }
 
 
@@ -65,9 +75,10 @@ public class WebSiteInfoAdminApi {
      * 获取统计信息 view_count
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/view_count")
     public ResponseResult getWebSiteViewCount(){
 
-        return null;
+        return webSiteInfoService.getWebSiteViewCount();
     }
 }
