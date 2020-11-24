@@ -110,5 +110,13 @@ public interface Constants {
         String IMAGE_JPG_WITH_PREFIX = PREFIX + "jpg";
     }
 
+    interface Article{
+       int TITLE_MAX_LENGTH = 128;
+       String ARTICLE_TYPE_FU="0";
+       String ARTICLE_TYPE_MD="1";
+       int SUMMARY_MAX_LENGTH = 256;
+       int LABELS_MAX_LENGTH = 50;
+    }
+
 
 }

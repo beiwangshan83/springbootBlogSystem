@@ -1,5 +1,8 @@
 package com.beiwangshan.blog.service;
 
+import com.beiwangshan.blog.pojo.Article;
+import com.beiwangshan.blog.response.ResponseResult;
+
 /**
  * @className: com.beiwangshan.blog.service-> IArticleService
  * @description: 文章的service接口层
@@ -9,4 +12,10 @@ package com.beiwangshan.blog.service;
  * @todo:
  */
 public interface IArticleService {
+    /**
+     * 添加文章
+     * @param article
+     * @return
+     */
+    ResponseResult addArticle(Article article);
 }

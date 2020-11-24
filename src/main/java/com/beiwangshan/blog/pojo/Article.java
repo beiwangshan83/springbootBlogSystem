@@ -20,21 +20,27 @@ public class Article {
   @Column(name= "`title`")
   private String title;
   @Column(name= "`user_id`")
-  private String user_id;
+  private String userId;
   @Column(name= "`category_id`")
-  private String category_id;
+  private String categoryId;
   @Column(name= "`content`")
   private String content;
+  /**
+   * 0表示删除 1表示发布 2表示草稿 3表示置顶
+   */
+  @Column(name= "`state`")
+  private String state = "1";
+  /**
+   * 0 表示 富文本 1表示Markdown
+   */
   @Column(name= "`type`")
   private String type;
-  @Column(name= "`state`")
-  private String state;
   @Column(name= "`summary`")
   private String summary;
   @Column(name= "`labels`")
   private String labels;
   @Column(name= "`view_count`")
-  private long view_count;
+  private long viewCount;
   @Column(name= "`create_time`")
   private Date createTime;
   @Column(name= "`update_time`")
@@ -56,20 +62,20 @@ public class Article {
     this.title = title;
   }
 
-  public String getUser_id() {
-    return user_id;
+  public String getUserId() {
+    return userId;
   }
 
-  public void setUser_id(String user_id) {
-    this.user_id = user_id;
+  public void setUserId(String userId) {
+    this.userId = userId;
   }
 
-  public String getCategory_id() {
-    return category_id;
+  public String getCategoryId() {
+    return categoryId;
   }
 
-  public void setCategory_id(String category_id) {
-    this.category_id = category_id;
+  public void setCategoryId(String categoryId) {
+    this.categoryId = categoryId;
   }
 
   public String getContent() {
@@ -112,12 +118,12 @@ public class Article {
     this.labels = labels;
   }
 
-  public long getView_count() {
-    return view_count;
+  public long getViewCount() {
+    return viewCount;
   }
 
-  public void setView_count(long view_count) {
-    this.view_count = view_count;
+  public void setViewCount(long viewCount) {
+    this.viewCount = viewCount;
   }
 
   public Date getCreateTime() {

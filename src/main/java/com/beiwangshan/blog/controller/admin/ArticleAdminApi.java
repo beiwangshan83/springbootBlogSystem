@@ -2,6 +2,9 @@ package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.IArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,14 +19,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/article")
 public class ArticleAdminApi {
 
+    @Autowired
+    private IArticleService articleService;
+
     /**
      * 上传文章的api
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PostMapping
     public ResponseResult addArticle(@RequestBody Article article){
 
-        return null;
+        return articleService.addArticle(article);
     }
 
     /**
@@ -31,6 +38,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @DeleteMapping("/{articleId}")
     public ResponseResult deleteArticle(@PathVariable("articleId")String articleId){
 
@@ -42,6 +50,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/{articleId}")
     public ResponseResult updateArticle(@PathVariable("articleId")String articleId){
 
@@ -54,6 +63,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/{articleId}")
     public ResponseResult getArticle(@PathVariable("articleId")String articleId){
 
@@ -66,6 +76,7 @@ public class ArticleAdminApi {
      * @param size
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listArticle(@RequestParam("apge")int page, @RequestParam("size")int size){
 
@@ -78,6 +89,7 @@ public class ArticleAdminApi {
      * @param state
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/state/{articleId}/{state}")
     public ResponseResult updateArticleState(@PathVariable("articleId")String articleId,@PathVariable("state")String state){
         return null;
@@ -88,6 +100,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @PreAuthorize("@permission.admin()")
     @PutMapping("/top/{articleId}")
     public ResponseResult updateArticleState(@PathVariable("articleId")String articleId){
         return null;
