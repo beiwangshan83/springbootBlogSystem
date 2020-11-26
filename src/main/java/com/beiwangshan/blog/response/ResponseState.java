@@ -19,15 +19,15 @@ public enum  ResponseState {
     FAILED(false,40000,"操作失败"),
     LOGIN_FAILED(false,40001,"登录失败"),
     REGISTER_FAILED(false,40002,"注册失败"),
-    ACCOUNT_NOT_LOGIN(false,40003,"账号未登录"),
-    PERMISSION_DENIAL(false,40004,"无权访问"),
+    ACCOUNT_NOT_LOGIN(false,40003,"当前账号未登录"),
+    PERMISSION_DENIAL(false,40004,"当前账号无权访问"),
     ACCOUNT_DENIAL(false,40005,"当前账号已被禁止"),
-    ERROR_403(false,40006,"权限不足"),
+    ERROR_403(false,40006,"当前账号权限不足"),
     ERROR_404(false,40007,"页面丢失"),
     ERROR_405(false,40008,"请求方法不正确"),
-    ERROR_504(false,40009,"系统繁忙，请稍后重试"),
-    ERROR_505(false,40010,"请求错误，请检查数据"),
-    GET_RESOURCES_FAILED(false,49999,"获取资源失败");
+    ERROR_504(false,40009,"当前系统繁忙，请稍后重试"),
+    ERROR_505(false,40010,"当前请求错误，请检查数据"),
+    GET_RESOURCES_FAILED(false,49999,"系统获取资源失败");
 
     private int code;
     private String message;

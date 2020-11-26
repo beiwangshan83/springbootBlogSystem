@@ -389,18 +389,19 @@ public class UserServiceImpl extends BaseService implements IUserService {
         if (!emailVerifyCode.equals(emailCode)) {
             return ResponseResult.FAILED("邮箱验证码不正确");
         }else{
-            redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+            redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         }
 //        5.检查图灵验证码是否正确 拿到验证码
         String captchaVerifyCode = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
-
+log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
         if (TextUtils.isEmpty(captchaVerifyCode)) {
             return ResponseResult.FAILED("人类验证码已经过期");
         }
         if (!captchaVerifyCode.equals(captchaCode)) {
             return ResponseResult.FAILED("人类验证码不正确");
         } else {
-            redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
+            //图灵验证码正确，删除它
+            redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         }
 
 
@@ -474,8 +475,7 @@ public class UserServiceImpl extends BaseService implements IUserService {
         if (!captcha.equals(captchaFromRedis)) {
             return ResponseResult.FAILED("人类验证码不正确");
         }
-//        图灵验证码正确，删除它
-        redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
+
 
         //根据传入的数据进行查询是否存在这个用户
         BwsUser userFromDb = userDao.findOneByUserName(bwsUser.getUserName());
@@ -496,6 +496,8 @@ public class UserServiceImpl extends BaseService implements IUserService {
         if (Constants.User.DENIAL_STATE.equals(userFromDb.getState())) {
             return ResponseResult.ACCOUNT_DENIAL();
         }
+        //        图灵验证码正确，删除它
+        redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
         createToken(response, userFromDb);
         return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
     }

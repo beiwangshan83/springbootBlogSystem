@@ -25,6 +25,8 @@ public class Article {
   private String categoryId;
   @Column(name= "`content`")
   private String content;
+  @Column(name= "`cover`")
+  private String cover;
   /**
    * 0表示删除 1表示发布 2表示草稿 3表示置顶
    */
@@ -92,6 +94,14 @@ public class Article {
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  public String getCover() {
+    return cover;
+  }
+
+  public void setCover(String cover) {
+    this.cover = cover;
   }
 
   public String getState() {

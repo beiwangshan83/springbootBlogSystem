@@ -72,6 +72,9 @@ public interface Constants {
         int YEAR = MONTH * 12;//一年
     }
 
+    /**
+     * 单位是毫秒
+     */
     interface TimeValueInMillions {
         long MIN = 60 * 1000;//一分钟
         long MIN_5 = MIN * 5;// 5 分钟
@@ -116,6 +119,11 @@ public interface Constants {
        String ARTICLE_TYPE_MD="1";
        int SUMMARY_MAX_LENGTH = 256;
        int LABELS_MAX_LENGTH = 50;
+//     文章状态 ： 0表示删除 1表示发布 2表示草稿 3表示置顶
+        String STATE_DELETE = "0";
+        String STATE_PUBLIC = "1";
+        String STATE_DRAFT = "2";
+        String STATE_TOP = "3";
     }
 
 

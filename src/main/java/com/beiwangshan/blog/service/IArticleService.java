@@ -18,4 +18,14 @@ public interface IArticleService {
      * @return
      */
     ResponseResult addArticle(Article article);
+
+    /**
+     * 获取文章列表
+     * @param page
+     * @param size
+     * @param keyword
+     * @param categoryId
+     * @return
+     */
+    ResponseResult listArticle(int page, int size, String keyword, String categoryId,String state);
 }

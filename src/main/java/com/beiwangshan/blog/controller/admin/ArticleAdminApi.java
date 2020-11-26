@@ -77,10 +77,14 @@ public class ArticleAdminApi {
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list")
-    public ResponseResult listArticle(@RequestParam("apge")int page, @RequestParam("size")int size){
+    @GetMapping("/list/{page}/{size}")
+    public ResponseResult listArticle(@PathVariable("page")int page,
+                                      @PathVariable("size")int size,
+                                      @RequestParam(value = "state",required = false)String state,
+                                      @RequestParam(value = "keyword",required = false)String keyword,
+                                      @RequestParam(value = "categoryId",required = false)String categoryId){
 
-        return null;
+        return articleService.listArticle(page,size,keyword,categoryId,state);
     }
 
     /**

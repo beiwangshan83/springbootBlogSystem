@@ -13,4 +13,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @todo:
  */
 public interface ArticleDao extends JpaRepository<Article,String>, JpaSpecificationExecutor<Article> {
+    /**
+     * 通过ID 查询一个 Article 对象
+     * @return
+     * @param articleId
+     */
+    Article findOneById(String articleId);
 }
