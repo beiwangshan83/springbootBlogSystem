@@ -1,7 +1,9 @@
 package com.beiwangshan.blog.service.Impl;
 
 import com.beiwangshan.blog.dao.ArticleDao;
+import com.beiwangshan.blog.dao.ArticleNoContentDao;
 import com.beiwangshan.blog.pojo.Article;
+import com.beiwangshan.blog.pojo.ArticleNoContent;
 import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
@@ -49,6 +51,12 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
     @Autowired
     private ArticleDao articleDao;
+
+    /**
+     * 没有文章的内容
+     */
+    @Autowired
+    private ArticleNoContentDao articleNoContentDao;
 
     /**
      * 添加文章
@@ -192,9 +200,9 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         size=checkSize(size);
         Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
         Pageable pageable = PageRequest.of(page-1,size,sort);
-        Page<Article> all = articleDao.findAll(new Specification<Article>() {
+        Page<ArticleNoContent> all = articleNoContentDao.findAll(new Specification<ArticleNoContent>() {
             @Override
-            public Predicate toPredicate(Root<Article> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+            public Predicate toPredicate(Root<ArticleNoContent> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (!TextUtils.isEmpty(state)) {
                     Predicate statePre = cb.equal(root.get("state").as(String.class),state);
@@ -207,7 +215,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
                 }
 
                 if (!TextUtils.isEmpty(keyword)) {
-                    Predicate titlePre = cb.like(root.get("keyword").as(String.class),"%"+keyword+"%");
+                    Predicate titlePre = cb.like(root.get("title").as(String.class),"%"+keyword+"%");
                     predicates.add(titlePre);
                 }
                 Predicate[] preArray = new Predicate[predicates.size()];
