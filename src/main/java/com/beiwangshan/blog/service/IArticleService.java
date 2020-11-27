@@ -43,4 +43,11 @@ public interface IArticleService {
      * @return
      */
     ResponseResult updateArticle(String articleId, Article article);
+
+    /**
+     * 删除文章
+     * @param articleId
+     * @return
+     */
+    ResponseResult deleteArticleById(String articleId);
 }

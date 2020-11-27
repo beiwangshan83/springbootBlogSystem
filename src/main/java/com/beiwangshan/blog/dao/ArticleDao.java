@@ -3,6 +3,7 @@ package com.beiwangshan.blog.dao;
 import com.beiwangshan.blog.pojo.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 
 /**
  * @className: com.beiwangshan.blog.dao-> ArticleDao
@@ -19,4 +20,11 @@ public interface ArticleDao extends JpaRepository<Article,String>, JpaSpecificat
      * @param articleId
      */
     Article findOneById(String articleId);
+
+    /**
+     * 删除文章 通过文章的ID
+     * @param articleId
+     */
+    @Modifying
+    int deleteAllById(String articleId);
 }

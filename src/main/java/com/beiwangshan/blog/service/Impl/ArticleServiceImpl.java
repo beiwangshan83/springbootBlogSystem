@@ -286,7 +286,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         }
 //        内容
         String content = article.getContent();
-        if (!TextUtils.isEmpty(content) ){
+        if (!TextUtils.isEmpty(content)) {
             articleFronmDb.setContent(content);
         }
 //        标签
@@ -317,5 +317,22 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         Article save = articleDao.save(articleFronmDb);
 //        返回结果
         return ResponseResult.SUCCESS("文章更新成功").setData(save);
+    }
+
+    /**
+     * 删除文章
+     *
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ResponseResult deleteArticleById(String articleId) {
+        //        删除文章
+        int result = articleDao.deleteAllById(articleId);
+        if (result == 0) {
+            return ResponseResult.FAILED("文章不存在，删除失败");
+        }
+//        返回结果
+        return ResponseResult.SUCCESS("文章删除成功");
     }
 }

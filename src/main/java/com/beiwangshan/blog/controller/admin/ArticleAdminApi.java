@@ -35,6 +35,9 @@ public class ArticleAdminApi {
 
     /**
      * 删除文章的api
+     *  如果是多用户，用户不可以删除，删除只是修改状态
+     *  管理员可以删除，但是需要二次确认（前端）
+     *  这里做真的del
      * @param articleId
      * @return
      */
@@ -42,7 +45,7 @@ public class ArticleAdminApi {
     @DeleteMapping("/{articleId}")
     public ResponseResult deleteArticle(@PathVariable("articleId")String articleId){
 
-        return null;
+        return articleService.deleteArticleById(articleId);
     }
 
     /**
