@@ -2,7 +2,7 @@ package com.beiwangshan.blog.controller.admin;
 
 import com.beiwangshan.blog.pojo.FriendLink;
 import com.beiwangshan.blog.response.ResponseResult;
-import com.beiwangshan.blog.service.FriendLinkService;
+import com.beiwangshan.blog.service.IFriendLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 public class FriendLinkAdminApi {
 
     @Autowired
-    private FriendLinkService friendLinkService;
+    private IFriendLinkService friendLinkService;
 
     /**
      * 上传友情链接的api
@@ -78,14 +78,12 @@ public class FriendLinkAdminApi {
 
     /**
      * 获取友情链接的列表
-     * @param page
-     * @param size
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list/{page}/{size}")
-    public ResponseResult listFriendLink(@PathVariable("page")int page,@PathVariable("size")int size){
+    @GetMapping("/list")
+    public ResponseResult listFriendLink(){
 
-        return friendLinkService.listFriendLink(page,size);
+        return friendLinkService.listFriendLink();
     }
 }

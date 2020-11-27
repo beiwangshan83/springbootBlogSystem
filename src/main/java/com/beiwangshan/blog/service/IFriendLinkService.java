@@ -11,7 +11,7 @@ import com.beiwangshan.blog.response.ResponseResult;
  * @version: 1.0
  * @todo:
  */
-public interface FriendLinkService {
+public interface IFriendLinkService {
     /**
      * 添加友情链接
      * @param friendLink
@@ -28,11 +28,9 @@ public interface FriendLinkService {
 
     /**
      * 获取友情链接列表
-     * @param page
-     * @param size
      * @return
      */
-    ResponseResult listFriendLink(int page, int size);
+    ResponseResult listFriendLink();
 
     /**
      * 删除友链，彻底的删除

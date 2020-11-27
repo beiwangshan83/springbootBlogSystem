@@ -3,6 +3,10 @@ package com.beiwangshan.blog.dao;
 import com.beiwangshan.blog.pojo.Looper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @className: com.beiwangshan.blog.dao-> LopperDao
@@ -27,4 +31,13 @@ public interface LopperDao extends JpaRepository<Looper,String>, JpaSpecificatio
      * @return
      */
     int deleteOneById(String loopId);
+
+    /**
+     * 根据状态查询列表
+     * @param state
+     * @return
+     */
+    @Modifying
+    @Query(nativeQuery = true,value = "select * from `tb_looper` where `state` = ? ")
+    List<Looper> listloopersByState(String state);
 }

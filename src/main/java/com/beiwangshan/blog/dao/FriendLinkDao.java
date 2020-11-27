@@ -3,6 +3,10 @@ package com.beiwangshan.blog.dao;
 import com.beiwangshan.blog.pojo.FriendLink;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 /**
  * @className: com.beiwangshan.blog.dao-> FriendLinkDao
@@ -26,4 +30,14 @@ public interface FriendLinkDao extends JpaRepository<FriendLink,String>, JpaSpec
      * @return
      */
     int deleteAllById(String friendLinkId);
+
+
+    /**
+     * 通过状态查询列表
+     * @param state
+     * @return
+     */
+    @Modifying
+    @Query(nativeQuery = true,value = "select * from `tb_friends` where `state` = ? ")
+    List<FriendLink> listFriendLinkByState(String state);
 }

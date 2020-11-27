@@ -28,11 +28,9 @@ public interface ILooperService {
 
     /**
      * 获取轮播图列表 多个
-     * @param page
-     * @param size
      * @return
      */
-    ResponseResult listLooper(int page, int size);
+    ResponseResult listLooper();
 
     /**
      * 更新轮播图 单个

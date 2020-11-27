@@ -1,22 +1,23 @@
 package com.beiwangshan.blog.service.Impl;
 
 import com.beiwangshan.blog.dao.FriendLinkDao;
+import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.pojo.FriendLink;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
-import com.beiwangshan.blog.service.FriendLinkService;
+import com.beiwangshan.blog.service.IFriendLinkService;
+import com.beiwangshan.blog.service.IUserService;
+import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> FriendLinkServiceImpl
@@ -29,13 +30,16 @@ import java.util.Date;
 @Slf4j
 @Service
 @Transactional(rollbackOn = Exception.class)
-public class FriendLinkServiceImpl extends BaseService implements FriendLinkService {
+public class FriendLinkServiceImpl extends BaseService implements IFriendLinkService {
 
     @Autowired
     private FriendLinkDao friendLinkDao;
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 添加友情链接
@@ -86,20 +90,28 @@ public class FriendLinkServiceImpl extends BaseService implements FriendLinkServ
     /**
      * 获取友情链接列表
      *
-     * @param page
-     * @param size
      * @return
      */
     @Override
-    public ResponseResult listFriendLink(int page, int size) {
-        //参数检查
-        page = checkPage(page);
-        size = checkSize(size);
+    public ResponseResult listFriendLink() {
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<FriendLink> allFriendLink = friendLinkDao.findAll(pageable);
-        return ResponseResult.SUCCESS("友情链接列表获取成功").setData(allFriendLink);
+        List<FriendLink> allFriendLink;
+
+        BwsUser bwsUser = userService.checkBwsUser();
+        String roles = bwsUser.getRoles();
+        List<FriendLink> categories;
+        if (bwsUser == null || !Constants.User.ROLE_ADMIN.equals(roles)) {
+            // 用户未登录，或者是非管理员的正常用户，只能获取到正常状态的文章
+            categories = friendLinkDao.listFriendLinkByState("1");
+
+        }else{
+            categories = friendLinkDao.findAll(sort);
+        }
+
+        return ResponseResult.SUCCESS("友情链接列表获取成功").setData(categories);
     }
+
+
 
     /**
      * 删除友链，彻底的删除

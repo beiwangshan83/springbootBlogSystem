@@ -2,6 +2,9 @@ package com.beiwangshan.blog.controller.portal;
 
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.ICategoryService;
+import com.beiwangshan.blog.service.IFriendLinkService;
+import com.beiwangshan.blog.service.ILooperService;
+import com.beiwangshan.blog.service.IWebSiteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,15 @@ public class WebSiteInfoPortalApi {
     @Autowired
     private ICategoryService categoryService;
 
+    @Autowired
+    private IFriendLinkService friendLinkService;
+
+    @Autowired
+    private ILooperService looperService;
+
+    @Autowired
+    private IWebSiteInfoService webSiteInfoService;
+
     /**
      * 获取文章分类
      *
@@ -39,7 +51,7 @@ public class WebSiteInfoPortalApi {
     @GetMapping("/title")
     public ResponseResult getWebSiteTitle(){
 
-        return null;
+        return webSiteInfoService.getWebSiteTitle();
     }
 
     /**
@@ -49,7 +61,7 @@ public class WebSiteInfoPortalApi {
     @GetMapping("/view_count")
     public ResponseResult getWebSiteViewCount(){
 
-        return null;
+        return webSiteInfoService.getWebSiteViewCount();
     }
 
     /**
@@ -59,7 +71,7 @@ public class WebSiteInfoPortalApi {
      */
     @GetMapping("/seo")
     public ResponseResult getWebSiteSeoInfo(){
-        return null;
+        return webSiteInfoService.getSeoInfo();
     }
 
 
@@ -70,7 +82,7 @@ public class WebSiteInfoPortalApi {
      */
     @GetMapping("/loop")
     public ResponseResult getLoops(){
-        return null;
+        return looperService.listLooper() ;
     }
 
 //    获取友情链接列表 links
@@ -82,6 +94,6 @@ public class WebSiteInfoPortalApi {
      */
     @GetMapping("/friend_link")
     public ResponseResult getLinks(){
-        return null;
+        return friendLinkService.listFriendLink();
     }
 }

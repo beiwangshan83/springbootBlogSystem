@@ -72,14 +72,12 @@ public class LooperAdminApi {
 
     /**
      * 获取轮播图的列表
-     * @param page
-     * @param size
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list/{page}/{size}")
-    public ResponseResult listLooper(@PathVariable("page")int page, @PathVariable("size")int size){
+    @GetMapping("/list")
+    public ResponseResult listLooper(){
 
-        return looperService.listLooper(page,size);
+        return looperService.listLooper();
     }
 }
