@@ -2,6 +2,7 @@ package com.beiwangshan.blog.controller.portal;
 
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IArticleService;
+import com.beiwangshan.blog.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,12 +33,12 @@ public class ArticlePortalApi {
      */
     @GetMapping("/list/{page}/{size}")
     public ResponseResult listArticle(@PathVariable("page") int page, @PathVariable("size") int size) {
-        return null;
+        return articleService.listArticle(page,size,null,null, Constants.Article.STATE_PUBLISH);
     }
 
 
     /**
-     * 根据分类获取内容
+     * 根据分类获取 文章列表
      *
      * @param categoryId
      * @param page
@@ -48,7 +49,7 @@ public class ArticlePortalApi {
     public ResponseResult listArticleBycategoryId(@PathVariable("categoryId") String categoryId,
                                                   @PathVariable("page") int page,
                                                   @PathVariable("size") int size) {
-        return null;
+        return articleService.listArticle(page,size,null,categoryId, Constants.Article.STATE_PUBLISH);
     }
 
 
@@ -72,11 +73,10 @@ public class ArticlePortalApi {
     /**
      * 获取推荐文章
      *
-     * @param categoryId
      * @return
      */
-    @GetMapping("/recommend/{categoryId}")
-    public ResponseResult getRecommendArticleDetail(@PathVariable("categoryId") String categoryId) {
+    @GetMapping("/top")
+    public ResponseResult getRecommendArticleDetail() {
 
         return null;
     }
