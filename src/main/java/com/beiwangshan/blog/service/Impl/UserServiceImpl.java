@@ -3,7 +3,9 @@ package com.beiwangshan.blog.service.Impl;
 import com.beiwangshan.blog.dao.RefreshTokenDao;
 import com.beiwangshan.blog.dao.SettingsDao;
 import com.beiwangshan.blog.dao.UserDao;
+import com.beiwangshan.blog.dao.UserNoPasswordDao;
 import com.beiwangshan.blog.pojo.BwsUser;
+import com.beiwangshan.blog.pojo.BwsUserNoPassword;
 import com.beiwangshan.blog.pojo.RefreshToken;
 import com.beiwangshan.blog.pojo.Setting;
 import com.beiwangshan.blog.response.ResponseResult;
@@ -88,6 +90,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
 
     @Autowired
     private Gson gson;
+
+    @Autowired
+    private UserNoPasswordDao userNoPasswordDao;
 
     /**
      * 新增管理员
@@ -748,7 +753,7 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 //       TODO: 就这个地方错了！！！
-        Page<BwsUser> allUser = userDao.findAllUserNoPassword(pageable);
+        Page<BwsUserNoPassword> allUser = userNoPasswordDao.findAll(pageable);
 
         return ResponseResult.SUCCESS("查询成功").setData(allUser);
     }

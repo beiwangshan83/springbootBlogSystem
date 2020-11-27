@@ -14,45 +14,6 @@ import java.util.Date;
 @Table(name = "tb_user")
 public class BwsUserNoPassword {
 
-    /**
-     * 空的构造函数
-     */
-    public BwsUserNoPassword() {
-    }
-
-    /**
-     * 定义自己的构造方法 ，除了密码不需要，其他的都需要
-     *
-     * @param id
-     * @param userName
-     * @param roles
-     * @param avatar
-     * @param email
-     * @param sign
-     * @param state
-     * @param regIp
-     * @param loginIp
-     * @param createTime
-     * @param updateTime
-     */
-    public BwsUserNoPassword(String id, String userName,
-                             String roles, String avatar,
-                             String email, String sign,
-                             String state, String regIp,
-                             String loginIp, Date createTime,
-                             Date updateTime) {
-        this.id = id;
-        this.userName = userName;
-        this.roles = roles;
-        this.avatar = avatar;
-        this.email = email;
-        this.sign = sign;
-        this.state = state;
-        this.regIp = regIp;
-        this.loginIp = loginIp;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
 
     /**
      * 用户id
@@ -68,8 +29,7 @@ public class BwsUserNoPassword {
     /**
      * 用户密码
      */
-    @Column(name = "password")
-    private String password;
+
     /**
      * 用户角色
      */
@@ -130,14 +90,6 @@ public class BwsUserNoPassword {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getRoles() {

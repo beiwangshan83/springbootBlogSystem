@@ -1,7 +1,10 @@
 package com.beiwangshan.blog.pojo;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -37,7 +40,7 @@ public class Article {
   @Column(name= "summary")
   private String summary;
   @Column(name= "labels")
-  private String labels;
+  private String label;
   @Column(name= "view_count")
   private long viewCount;
   @Column(name= "create_time")
@@ -45,15 +48,27 @@ public class Article {
   @Column(name= "update_time")
   private Date updateTime;
 
-  @OneToOne(targetEntity = BwsUser.class)
+  @OneToOne(targetEntity = BwsUserNoPassword.class)
   @JoinColumn(name = "user_id",referencedColumnName = "id",insertable = false, updatable = false)
-  private BwsUser bwsUser;
+  private BwsUserNoPassword bwsUser;
 
-  public BwsUser getBwsUser() {
+
+  @Transient
+  private List<String> labels = new ArrayList<>();
+
+  public List<String> getLabels() {
+    return labels;
+  }
+
+  public void setLabels(List<String> labels) {
+    this.labels = labels;
+  }
+
+  public BwsUserNoPassword getBwsUser() {
     return bwsUser;
   }
 
-  public void setBwsUser(BwsUser bwsUser) {
+  public void setBwsUser(BwsUserNoPassword bwsUser) {
     this.bwsUser = bwsUser;
   }
 
@@ -129,12 +144,21 @@ public class Article {
     this.summary = summary;
   }
 
-  public String getLabels() {
-    return labels;
+  public String getLabel() {
+    //打散集合
+    this.labels.clear();
+    if (!this.label.contains("-")) {
+      this.labels.add(this.label);
+    }else {
+      String[] split = this.label.split("-");
+      List<String> strings = Arrays.asList(split);
+      this.labels.addAll(strings);
+    }
+    return label;
   }
 
-  public void setLabels(String labels) {
-    this.labels = labels;
+  public void setLabel(String label) {
+    this.label = label;
   }
 
   public long getViewCount() {

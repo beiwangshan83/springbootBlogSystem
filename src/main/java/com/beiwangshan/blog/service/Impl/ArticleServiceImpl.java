@@ -145,7 +145,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             if (summary.length() > Constants.Article.SUMMARY_MAX_LENGTH) {
                 return ResponseResult.FAILED("文章摘要不能超过" + Constants.Article.SUMMARY_MAX_LENGTH + "字");
             }
-            String labels = article.getLabels();
+            String labels = article.getLabel();
 //        存储格式 标签1-标签2-
             if (TextUtils.isEmpty(labels)) {
                 return ResponseResult.FAILED("文章标签不能为空");
