@@ -50,4 +50,18 @@ public interface IArticleService {
      * @return
      */
     ResponseResult deleteArticleById(String articleId);
+
+    /**
+     * 更新文章的状态，通过更新状态来删除文章
+     * @param articleId
+     * @return
+     */
+    ResponseResult deleteArticleByUpdateState(String articleId);
+
+    /**
+     * 更新文章的置顶状态
+     * @param articleId
+     * @return
+     */
+    ResponseResult topArticle(String articleId);
 }

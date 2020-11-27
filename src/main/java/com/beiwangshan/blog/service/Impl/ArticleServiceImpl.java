@@ -108,7 +108,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
         //        文章状态： 1表示发布 2表示草稿
         String state = article.getState();
-        if (!Constants.Article.STATE_PUBLIC.equals(state)
+        if (!Constants.Article.STATE_PUBLISH.equals(state)
                 && !Constants.Article.STATE_DRAFT.equals(state)) {
             return ResponseResult.FAILED("不支持此操作");
         }
@@ -124,7 +124,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         }
 
 //        以下是发布的检查，草稿不需要检查
-        if (Constants.Article.STATE_PUBLIC.equals(state)) {
+        if (Constants.Article.STATE_PUBLISH.equals(state)) {
             if (title.length() > Constants.Article.TITLE_MAX_LENGTH) {
                 return ResponseResult.FAILED("标题长度不能大于" + Constants.Article.TITLE_MAX_LENGTH + "个字符");
             }
@@ -161,7 +161,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         } else {
 //            否则就是更新内容，对状态进行处理，如果已经给发布了，就不能再发布和保存为草稿
             Article articleFromDb = articleDao.findOneById(articleId);
-            if (Constants.Article.STATE_PUBLIC.equals(articleFromDb.getState())
+            if (Constants.Article.STATE_PUBLISH.equals(articleFromDb.getState())
                     && Constants.Article.STATE_DRAFT.equals(articleFromDb.getState())) {
 //                如果已经发布，只能更新，不能保存为草稿
                 return ResponseResult.FAILED("已经发布的文章不能保存为草稿");
@@ -246,7 +246,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             return ResponseResult.FAILED("文章不存在");
         }
         String state = article.getState();
-        if (Constants.Article.STATE_PUBLIC.equals(state) ||
+        if (Constants.Article.STATE_PUBLISH.equals(state) ||
                 Constants.Article.STATE_TOP.equals(state)) {
             return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
         }
@@ -335,4 +335,51 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 //        返回结果
         return ResponseResult.SUCCESS("文章删除成功");
     }
+
+    /**
+     * 更新文章的状态，通过更新状态来删除文章
+     *
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ResponseResult deleteArticleByUpdateState(String articleId) {
+//        文章存在，更新状态
+        int result = articleDao.deleteArticleByState(articleId);
+        if (result == 0) {
+//            文章不存在，返回结果
+            return ResponseResult.FAILED("文章不存在，更新状态失败");
+        }
+        return ResponseResult.SUCCESS("文章状态更新成功");
+    }
+
+    /**
+     * 更新文章的置顶状态
+     *
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ResponseResult topArticle(String articleId) {
+//        判断文章的状态，必须是已经发布的才可以置顶，如果已经被置顶，那么就取消置顶
+        Article articleFromDb = articleDao.findOneById(articleId);
+        if (articleFromDb == null) {
+            return ResponseResult.FAILED("文章不存在");
+        }
+        String state = articleFromDb.getState();
+        if (Constants.Article.STATE_PUBLISH.equals(state)) {
+            articleFromDb.setState(Constants.Article.STATE_TOP);
+            articleDao.save(articleFromDb);
+            return ResponseResult.SUCCESS("文章置顶成功");
+        }
+
+        if (Constants.Article.STATE_TOP.equals(state)) {
+            articleFromDb.setState(Constants.Article.STATE_PUBLISH);
+            articleDao.save(articleFromDb);
+            return ResponseResult.SUCCESS("文章取消置顶成功");
+        }
+
+        return ResponseResult.FAILED("当前文章状态不支持此操作");
+    }
+
 }

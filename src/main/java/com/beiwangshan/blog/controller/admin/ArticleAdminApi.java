@@ -92,15 +92,15 @@ public class ArticleAdminApi {
     }
 
     /**
-     * 更新文章的状态
+     * 更新文章的状态，通过更新状态来删除文章
      * @param articleId
-     * @param state
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @PutMapping("/state/{articleId}/{state}")
-    public ResponseResult updateArticleState(@PathVariable("articleId")String articleId,@PathVariable("state")String state){
-        return null;
+    @DeleteMapping("/state/{articleId}")
+    public ResponseResult deleteArticleByUpdateState(@PathVariable("articleId")String articleId){
+
+        return articleService.deleteArticleByUpdateState(articleId);
     }
 
     /**
@@ -111,6 +111,7 @@ public class ArticleAdminApi {
     @PreAuthorize("@permission.admin()")
     @PutMapping("/top/{articleId}")
     public ResponseResult updateArticleState(@PathVariable("articleId")String articleId){
-        return null;
+
+        return articleService.topArticle(articleId);
     }
 }

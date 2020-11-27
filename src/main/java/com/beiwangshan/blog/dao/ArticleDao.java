@@ -4,6 +4,7 @@ import com.beiwangshan.blog.pojo.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @className: com.beiwangshan.blog.dao-> ArticleDao
@@ -21,10 +22,23 @@ public interface ArticleDao extends JpaRepository<Article,String>, JpaSpecificat
      */
     Article findOneById(String articleId);
 
+
     /**
      * 删除文章 通过文章的ID
      * @param articleId
+     * @return
      */
     @Modifying
     int deleteAllById(String articleId);
+
+    /**
+     * 通过更新文章的状态来删除文章的效果
+     * @param articleId
+     * @return
+     */
+    @Modifying
+    @Query(nativeQuery = true,value = "update `tb_article` set `state` = '0' where id = ?")
+    int deleteArticleByState(String articleId);
+
+
 }

@@ -121,7 +121,7 @@ public interface Constants {
        int LABELS_MAX_LENGTH = 50;
 //     文章状态 ： 0表示删除 1表示发布 2表示草稿 3表示置顶
         String STATE_DELETE = "0";
-        String STATE_PUBLIC = "1";
+        String STATE_PUBLISH = "1";
         String STATE_DRAFT = "2";
         String STATE_TOP = "3";
     }
