@@ -52,9 +52,10 @@ public class ArticleAdminApi {
      */
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{articleId}")
-    public ResponseResult updateArticle(@PathVariable("articleId")String articleId){
+    public ResponseResult updateArticle(@PathVariable("articleId")String articleId,
+                                        @RequestBody Article article){
 
-        return null;
+        return articleService.updateArticle(articleId,article);
     }
 
 

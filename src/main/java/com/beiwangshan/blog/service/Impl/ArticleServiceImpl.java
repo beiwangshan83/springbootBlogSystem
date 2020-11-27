@@ -162,7 +162,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 //            否则就是更新内容，对状态进行处理，如果已经给发布了，就不能再发布和保存为草稿
             Article articleFromDb = articleDao.findOneById(articleId);
             if (Constants.Article.STATE_PUBLIC.equals(articleFromDb.getState())
-            && Constants.Article.STATE_DRAFT.equals(articleFromDb.getState())) {
+                    && Constants.Article.STATE_DRAFT.equals(articleFromDb.getState())) {
 //                如果已经发布，只能更新，不能保存为草稿
                 return ResponseResult.FAILED("已经发布的文章不能保存为草稿");
             }
@@ -175,47 +175,47 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
 //        返回结果，只有一种情况使用到这个ID
 //        如果要做程序自动保存为草稿（每30秒保存一次，就需要加上个这个ID ，否则就会创建多个Item）
-        return Constants.Article.STATE_DRAFT.equals(state)?
+        return Constants.Article.STATE_DRAFT.equals(state) ?
                 ResponseResult.SUCCESS("草稿保存成功").setData(article.getId())
-                :ResponseResult.SUCCESS("文章发布成功").setData(article.getId());
+                : ResponseResult.SUCCESS("文章发布成功").setData(article.getId());
     }
 
     /**
      * 获取文章列表
      *
-     * @param page 页码
-     * @param size 没一页的数量
-     * @param keyword 标题关键词
+     * @param page       页码
+     * @param size       没一页的数量
+     * @param keyword    标题关键词
      * @param categoryId 分类ID
-     * @param state 文章状态
+     * @param state      文章状态
      * @return
      */
     @Override
-    public ResponseResult listArticle(int page, int size, String keyword, String categoryId,String state) {
+    public ResponseResult listArticle(int page, int size, String keyword, String categoryId, String state) {
         BwsUser bwsUser = userService.checkBwsUser();
         if (bwsUser == null) {
             return ResponseResult.ACCOUNT_NOT_LOGIN();
         }
         page = checkPage(page);
-        size=checkSize(size);
-        Sort sort = Sort.by(Sort.Direction.DESC,"createTime");
-        Pageable pageable = PageRequest.of(page-1,size,sort);
+        size = checkSize(size);
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<ArticleNoContent> all = articleNoContentDao.findAll(new Specification<ArticleNoContent>() {
             @Override
             public Predicate toPredicate(Root<ArticleNoContent> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (!TextUtils.isEmpty(state)) {
-                    Predicate statePre = cb.equal(root.get("state").as(String.class),state);
+                    Predicate statePre = cb.equal(root.get("state").as(String.class), state);
                     predicates.add(statePre);
                 }
 
                 if (!TextUtils.isEmpty(categoryId)) {
-                    Predicate categoryIdPre = cb.equal(root.get("categoryId").as(String.class),categoryId);
+                    Predicate categoryIdPre = cb.equal(root.get("categoryId").as(String.class), categoryId);
                     predicates.add(categoryIdPre);
                 }
 
                 if (!TextUtils.isEmpty(keyword)) {
-                    Predicate titlePre = cb.like(root.get("title").as(String.class),"%"+keyword+"%");
+                    Predicate titlePre = cb.like(root.get("title").as(String.class), "%" + keyword + "%");
                     predicates.add(titlePre);
                 }
                 Predicate[] preArray = new Predicate[predicates.size()];
@@ -230,7 +230,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
     /**
      * 获取文章的详情
-     *
+     * <p>
      * 如果有审核机制 --> 只有管理员和自己能查看
      * 有草稿、删除、置顶、已经发布的
      * 删除的不能获取，其他的都可以，这是管理员的权限下获取的情况
@@ -243,7 +243,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 //        查询文章
         Article article = articleDao.findOneById(articleId);
         if (article == null) {
-            return  ResponseResult.FAILED("文章不存在");
+            return ResponseResult.FAILED("文章不存在");
         }
         String state = article.getState();
         if (Constants.Article.STATE_PUBLIC.equals(state) ||
@@ -259,5 +259,63 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
 //        返回结果
         return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
+    }
+
+    /**
+     * 更新文章
+     * 该接口只支持修改内容:
+     * 标题,内容,标签,分类,摘要
+     *
+     * @param articleId
+     * @param article
+     * @return
+     */
+    @Override
+    public ResponseResult updateArticle(String articleId, Article article) {
+//        找出来
+        Article articleFronmDb = articleDao.findOneById(articleId);
+//        判断是否查询到
+        if (articleFronmDb == null) {
+            return ResponseResult.FAILED("文章修改失败，文章不存在");
+        }
+//        内容修改
+//        标题
+        String title = article.getTitle();
+        if (!TextUtils.isEmpty(title)) {
+            articleFronmDb.setTitle(title);
+        }
+//        内容
+        String content = article.getContent();
+        if (!TextUtils.isEmpty(content) ){
+            articleFronmDb.setContent(content);
+        }
+//        标签
+        String label = article.getLabel();
+        if (!TextUtils.isEmpty(label)) {
+            articleFronmDb.setLabel(label);
+        }
+//        分类
+        String categoryId = article.getCategoryId();
+        if (!TextUtils.isEmpty(categoryId)) {
+            articleFronmDb.setCategoryId(categoryId);
+        }
+//        摘要
+        String summary = article.getSummary();
+        if (!TextUtils.isEmpty(summary)) {
+            articleFronmDb.setSummary(summary);
+        }
+
+//        封面
+        String cover = article.getCover();
+        if (!TextUtils.isEmpty(cover)) {
+            articleFronmDb.setCover(cover);
+        }
+
+//        更新时间
+        articleFronmDb.setUpdateTime(new Date());
+//        保存结果
+        Article save = articleDao.save(articleFronmDb);
+//        返回结果
+        return ResponseResult.SUCCESS("文章更新成功").setData(save);
     }
 }

@@ -35,4 +35,12 @@ public interface IArticleService {
      * @return
      */
     ResponseResult getArticleById(String articleId);
+
+    /**
+     * 更新文章
+     * @param articleId
+     * @param article
+     * @return
+     */
+    ResponseResult updateArticle(String articleId, Article article);
 }
