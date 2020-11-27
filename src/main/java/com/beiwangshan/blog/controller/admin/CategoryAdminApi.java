@@ -89,15 +89,13 @@ public class CategoryAdminApi {
 
     /**
      * 获取分类的列表
-     * @param page
-     * @param size
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @GetMapping("/list/{page}/{size}")
-    public ResponseResult listCategories(@PathVariable("page")int page,@PathVariable("size")int size){
+    @GetMapping("/list")
+    public ResponseResult listCategories(){
 
-        return categoryService.listCategories(page,size);
+        return categoryService.listCategories();
     }
 
 }

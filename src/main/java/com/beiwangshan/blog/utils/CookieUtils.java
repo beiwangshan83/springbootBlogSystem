@@ -63,6 +63,7 @@ public class CookieUtils {
     public static String getCookie(HttpServletRequest request, String key) {
         Cookie[] cookies = request.getCookies();
         if (cookies == null){
+            log.info("cookies is null");
             return null;
         }
         for (Cookie cookie : cookies) {

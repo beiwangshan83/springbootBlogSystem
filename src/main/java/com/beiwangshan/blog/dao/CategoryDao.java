@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
+
 /**
  * @className: com.beiwangshan.blog.dao-> CategoryDao
  * @description: Category的Dao层
@@ -25,13 +27,6 @@ public interface CategoryDao extends JpaRepository<Category,String>, JpaSpecific
 
 
     /**
-     * 通过ID 删除 分类
-     * @return
-     */
-//    int deleteAllById();
-
-
-    /**
      * 删除分类，这里只是更新分类的状态
      * @param categoryId
      * @return
@@ -39,4 +34,9 @@ public interface CategoryDao extends JpaRepository<Category,String>, JpaSpecific
     @Modifying
     @Query(nativeQuery = true,value = "update `tb_categories` SET `status` = '0' WHERE id =  ?")
     int deleteCategoryByUpdateStatus(String categoryId);
+
+    @Modifying
+    @Query(nativeQuery = true,value = "select * from `tb_categories` where `status` = ? order by `create_time` DESC")
+    List<Category> listCategoriesByState(String status);
+
 }

@@ -40,7 +40,7 @@ public interface ICategoryService {
      * @param size
      * @return
      */
-    ResponseResult listCategories(int page, int size);
+    ResponseResult listCategories();
 
     /**
      * 更新分类信息

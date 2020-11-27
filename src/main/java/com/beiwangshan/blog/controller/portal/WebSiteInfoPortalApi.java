@@ -1,6 +1,8 @@
 package com.beiwangshan.blog.controller.portal;
 
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.ICategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/portal/web_site_info")
 public class WebSiteInfoPortalApi {
 
+    @Autowired
+    private ICategoryService categoryService;
+
     /**
      * 获取文章分类
      *
@@ -24,7 +29,7 @@ public class WebSiteInfoPortalApi {
      */
     @GetMapping("/categories")
     public ResponseResult getCategories(){
-        return null;
+        return categoryService.listCategories();
     }
 
     /**

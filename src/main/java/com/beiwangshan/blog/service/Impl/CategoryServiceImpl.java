@@ -1,21 +1,22 @@
 package com.beiwangshan.blog.service.Impl;
 
 import com.beiwangshan.blog.dao.CategoryDao;
+import com.beiwangshan.blog.pojo.BwsUser;
 import com.beiwangshan.blog.pojo.Category;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.ICategoryService;
+import com.beiwangshan.blog.service.IUserService;
+import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> CategoryServiceImpl
@@ -34,6 +35,9 @@ public class CategoryServiceImpl extends BaseService implements ICategoryService
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private IUserService userService;
 
     /**
      * 添加文章分类
@@ -108,20 +112,27 @@ public class CategoryServiceImpl extends BaseService implements ICategoryService
     /**
      * 获取分类的列表
      *
-     * @param page
-     * @param size
      * @return
      */
     @Override
-    public ResponseResult listCategories(int page, int size) {
+    public ResponseResult listCategories() {
         //参数检查
-        page = checkPage(page);
-        size = checkSize(size);
 //        创建条件
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime", "order");
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<Category> allCategory = categoryDao.findAll(pageable);
-        return ResponseResult.SUCCESS("获取分类列表成功").setData(allCategory);
+//        判断用户角色，普通用户/未登录用户，只能获取已经发布的文章（正常的文章），管理员账号可以拿到所有的
+        BwsUser bwsUser = userService.checkBwsUser();
+        String roles = bwsUser.getRoles();
+        List<Category> categories;
+        if (bwsUser == null || !Constants.User.ROLE_ADMIN.equals(roles)) {
+            // 用户未登录，或者是非管理员的正常用户，只能获取到正常状态的文章
+            categories = categoryDao.listCategoriesByState("1");
+
+        }else{
+            categories = categoryDao.findAll(sort);
+
+        }
+
+        return ResponseResult.SUCCESS("获取分类列表成功").setData(categories);
     }
 
     /**
