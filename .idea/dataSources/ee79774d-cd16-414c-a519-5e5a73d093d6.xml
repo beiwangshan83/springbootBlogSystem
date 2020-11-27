@@ -976,13 +976,11 @@ SELECT|sys.sys_config:null
       <Position>4</Position>
       <Comment>分类ID</Comment>
       <DataType>varchar(20)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="303" parent="288" name="content">
       <Position>5</Position>
       <Comment>文章内容</Comment>
       <DataType>mediumtext|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="304" parent="288" name="type">
       <Position>6</Position>
@@ -1005,13 +1003,11 @@ SELECT|sys.sys_config:null
       <Position>9</Position>
       <Comment>摘要</Comment>
       <DataType>text|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="308" parent="288" name="labels">
       <Position>10</Position>
       <Comment>标签</Comment>
       <DataType>varchar(128)|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
     <column id="309" parent="288" name="view_count">
       <Position>11</Position>

@@ -227,4 +227,37 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
         return ResponseResult.SUCCESS("文章列表查询成功").setData(all);
     }
+
+    /**
+     * 获取文章的详情
+     *
+     * 如果有审核机制 --> 只有管理员和自己能查看
+     * 有草稿、删除、置顶、已经发布的
+     * 删除的不能获取，其他的都可以，这是管理员的权限下获取的情况
+     *
+     * @param articleId
+     * @return
+     */
+    @Override
+    public ResponseResult getArticleById(String articleId) {
+//        查询文章
+        Article article = articleDao.findOneById(articleId);
+        if (article == null) {
+            return  ResponseResult.FAILED("文章不存在");
+        }
+        String state = article.getState();
+        if (Constants.Article.STATE_PUBLIC.equals(state) ||
+                Constants.Article.STATE_TOP.equals(state)) {
+            return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
+        }
+//        判断文章状态，如果是删除/草稿，需要管理员角色
+        BwsUser bwsUser = userService.checkBwsUser();
+        String roles = bwsUser.getRoles();
+        if (!Constants.User.ROLE_ADMIN.equals(roles)) {
+            return ResponseResult.PERMISSION_DENIAL();
+        }
+
+//        返回结果
+        return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
+    }
 }

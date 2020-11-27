@@ -1,9 +1,6 @@
 package com.beiwangshan.blog.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -17,36 +14,48 @@ public class Article {
 
   @Id
   private String id;
-  @Column(name= "`title`")
+  @Column(name= "title")
   private String title;
-  @Column(name= "`user_id`")
+  @Column(name= "user_id")
   private String userId;
-  @Column(name= "`category_id`")
+  @Column(name= "category_id")
   private String categoryId;
-  @Column(name= "`content`")
+  @Column(name= "content")
   private String content;
-  @Column(name= "`cover`")
+  @Column(name= "cover")
   private String cover;
   /**
    * 0表示删除 1表示发布 2表示草稿 3表示置顶
    */
-  @Column(name= "`state`")
+  @Column(name= "state")
   private String state = "1";
   /**
    * 0 表示 富文本 1表示Markdown
    */
-  @Column(name= "`type`")
+  @Column(name= "type")
   private String type;
-  @Column(name= "`summary`")
+  @Column(name= "summary")
   private String summary;
-  @Column(name= "`labels`")
+  @Column(name= "labels")
   private String labels;
-  @Column(name= "`view_count`")
+  @Column(name= "view_count")
   private long viewCount;
-  @Column(name= "`create_time`")
+  @Column(name= "create_time")
   private Date createTime;
-  @Column(name= "`update_time`")
+  @Column(name= "update_time")
   private Date updateTime;
+
+  @OneToOne(targetEntity = BwsUser.class)
+  @JoinColumn(name = "user_id",referencedColumnName = "id",insertable = false, updatable = false)
+  private BwsUser bwsUser;
+
+  public BwsUser getBwsUser() {
+    return bwsUser;
+  }
+
+  public void setBwsUser(BwsUser bwsUser) {
+    this.bwsUser = bwsUser;
+  }
 
   public String getId() {
     return id;

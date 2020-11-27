@@ -28,4 +28,11 @@ public interface IArticleService {
      * @return
      */
     ResponseResult listArticle(int page, int size, String keyword, String categoryId,String state);
+
+    /**
+     * 获取文章的详情
+     * @param articleId
+     * @return
+     */
+    ResponseResult getArticleById(String articleId);
 }
