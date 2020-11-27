@@ -252,8 +252,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         }
 //        判断文章状态，如果是删除/草稿，需要管理员角色
         BwsUser bwsUser = userService.checkBwsUser();
-        String roles = bwsUser.getRoles();
-        if (!Constants.User.ROLE_ADMIN.equals(roles)) {
+        if (bwsUser==null || !Constants.User.ROLE_ADMIN.equals(bwsUser.getRoles())) {
             return ResponseResult.PERMISSION_DENIAL();
         }
 

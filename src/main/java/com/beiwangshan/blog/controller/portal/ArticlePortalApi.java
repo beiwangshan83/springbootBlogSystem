@@ -1,6 +1,8 @@
 package com.beiwangshan.blog.controller.portal;
 
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.IArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/portal/article")
 public class ArticlePortalApi {
 
+    @Autowired
+    private IArticleService articleService;
+
     /**
      * 获取文章列表
      *
@@ -26,7 +31,7 @@ public class ArticlePortalApi {
      * @return
      */
     @GetMapping("/list/{page}/{size}")
-    public ResponseResult listArticle(@PathVariable("page")int page,@PathVariable("size")int size){
+    public ResponseResult listArticle(@PathVariable("page") int page, @PathVariable("size") int size) {
         return null;
     }
 
@@ -40,25 +45,28 @@ public class ArticlePortalApi {
      * @return
      */
     @GetMapping("/list/{categoryId}/{page}/{size}")
-    public ResponseResult listArticleBycategoryId(@PathVariable("categoryId")String categoryId,
-                                                  @PathVariable("page")int page,
-                                                  @PathVariable("size")int size){
+    public ResponseResult listArticleBycategoryId(@PathVariable("categoryId") String categoryId,
+                                                  @PathVariable("page") int page,
+                                                  @PathVariable("size") int size) {
         return null;
     }
 
 
     /**
      * 获取文章详情
+     * * 权限，任意用户
+     * * 内容过滤：
+     * * 只允许拿置顶的或者已经发布成功的
+     * * 其他的获取需要权限
      *
      * @param categoryId
      * @return
      */
     @GetMapping("/{categoryId}")
-    public ResponseResult getArticleDetail(@PathVariable("categoryId")String categoryId){
+    public ResponseResult getArticleDetail(@PathVariable("categoryId") String categoryId) {
+        return articleService.getArticleById(categoryId);
 
-        return null;
     }
-
 
 
     /**
@@ -68,7 +76,7 @@ public class ArticlePortalApi {
      * @return
      */
     @GetMapping("/recommend/{categoryId}")
-    public ResponseResult getRecommendArticleDetail(@PathVariable("categoryId")String categoryId){
+    public ResponseResult getRecommendArticleDetail(@PathVariable("categoryId") String categoryId) {
 
         return null;
     }
