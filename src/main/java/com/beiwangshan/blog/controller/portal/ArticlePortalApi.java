@@ -107,21 +107,21 @@ public class ArticlePortalApi {
      * @return
      */
     @GetMapping("/list/label/{label}/{page}/{size}")
-    public ResponseResult listArticleByLabel(@PathVariable("label") int label,@PathVariable("page")String page,@PathVariable("size")String size) {
-        return null;
+    public ResponseResult listArticleByLabel(@PathVariable("label") String label,@PathVariable("page")int  page,@PathVariable("size")int size) {
+        return articleService.listArticleByLable(page,size,label);
     }
 
 
     /**
      * 获取标签云
      * 用户点击标签，就会通过标签名，获取相关的文章列表
-     *
+     * 任意用户
      * @return
      */
     @GetMapping("/label/{size}")
-    public ResponseResult getLabels(@PathVariable("size")String size) {
+    public ResponseResult getLabels(@PathVariable("size")int size) {
 
-        return articleService.getTopArticles();
+        return articleService.listLabels(size);
     }
 
 

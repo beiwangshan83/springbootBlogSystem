@@ -78,4 +78,21 @@ public interface IArticleService {
      * @return
      */
     ResponseResult listRecommendArticle(String articleId, int size);
+
+    /**
+     * 通过标签查询文章
+     *
+     * @param page
+     * @param size
+     * @param label
+     * @return
+     */
+    ResponseResult listArticleByLable(int page, int size, String label);
+
+    /**
+     * 获取标签云
+     * @param size
+     * @return
+     */
+    ResponseResult listLabels(int size);
 }

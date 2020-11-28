@@ -4,6 +4,7 @@ import com.beiwangshan.blog.pojo.Label;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  * @className: com.beiwangshan.blog.dao-> LabelDao
@@ -29,4 +30,16 @@ public interface LabelDao extends JpaRepository<Label,String>, JpaSpecificationE
      * @return
      */
     Label findOneById(String Id);
+
+    /**
+     * 根据名字进行查询
+     * @param label
+     */
+    Label findOneByName(String label);
+
+    @Modifying
+    @Query(nativeQuery = true,value = "update `tb_labels` set `count` = `count` + 1 where `name` = ?")
+    int updateCountByName(String labelName);
+
+
 }

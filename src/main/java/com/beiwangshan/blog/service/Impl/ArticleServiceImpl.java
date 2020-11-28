@@ -2,9 +2,11 @@ package com.beiwangshan.blog.service.Impl;
 
 import com.beiwangshan.blog.dao.ArticleDao;
 import com.beiwangshan.blog.dao.ArticleNoContentDao;
+import com.beiwangshan.blog.dao.LabelDao;
 import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.pojo.ArticleNoContent;
 import com.beiwangshan.blog.pojo.BwsUser;
+import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IArticleService;
@@ -52,6 +54,9 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
     @Autowired
     private Random random;
+
+    @Autowired
+    private LabelDao labelDao;
 
     /**
      * 没有文章的内容
@@ -173,12 +178,53 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 //        保存数据
         articleDao.save(article);
 //        TODO:保存到搜索的数据库里
+//        打散标签,入库,统计
+        this.setupLabels(article.getLabel());
 
 //        返回结果，只有一种情况使用到这个ID
 //        如果要做程序自动保存为草稿（每30秒保存一次，就需要加上个这个ID ，否则就会创建多个Item）
         return Constants.Article.STATE_DRAFT.equals(state) ?
                 ResponseResult.SUCCESS("草稿保存成功").setData(article.getId())
                 : ResponseResult.SUCCESS("文章发布成功").setData(article.getId());
+    }
+
+    private void setupLabels(String labels) {
+        List<String> labelList = new ArrayList<>();
+//        分割打散
+        if (labels.contains("-")) {
+            labelList.addAll(Arrays.asList(labels.split("-")));
+        } else {
+            labelList.add(labels);
+        }
+//        入库，统计
+        for (String label : labelList){
+//            先从数据库找出来
+//            Label targetLabel = labelDao.findOneByName(label);
+//            if (targetLabel == null) {
+//                targetLabel = new Label();
+//                targetLabel.setId(snowflakeIdWorker.nextId()+"");
+//                targetLabel.setCount(0);
+//                targetLabel.setName(label);
+//                targetLabel.setCreateTime(new Date());
+//            }
+//            long count = targetLabel.getCount();
+//            targetLabel.setCount(++count);
+//            targetLabel.setUpdateTime(new Date());
+            int result = labelDao.updateCountByName(label);
+            if (result == 0) {
+                Label targetLabel = new Label();
+                targetLabel = new Label();
+                targetLabel.setId(snowflakeIdWorker.nextId()+"");
+                targetLabel.setCount(1);
+                targetLabel.setName(label);
+                targetLabel.setCreateTime(new Date());
+                targetLabel.setUpdateTime(new Date());
+                labelDao.save(targetLabel);
+            }
+
+
+        }
+
     }
 
     /**
@@ -422,16 +468,62 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 //        从列表中随机获取一个标签，查询相似的文章
         String targetLabel = labelList.get(random.nextInt(labelList.size()));
 //        查询数据库
-        List<ArticleNoContent> likeResultList = articleNoContentDao.listArticleByLikeLabel("%"+targetLabel+"%", articleId, size);
+        List<ArticleNoContent> likeResultList = articleNoContentDao.listArticleByLikeLabel("%" + targetLabel + "%", articleId, size);
 //        判断长度
-        if (likeResultList.size()<size) {
+        if (likeResultList.size() < size) {
 //            说明不够数量，获取最新的文章作为补充
-            int dxSize = size-likeResultList.size();
+            int dxSize = size - likeResultList.size();
 //            通过差值进行查找
-            List<ArticleNoContent> dxList = articleNoContentDao.listLastArticleBySize(articleId,dxSize);
+            List<ArticleNoContent> dxList = articleNoContentDao.listLastArticleBySize(articleId, dxSize);
             likeResultList.addAll(dxList);
         }
         return ResponseResult.SUCCESS("获取推荐文章成功").setData(likeResultList);
+    }
+
+    /**
+     * 通过标签查询文章
+     *
+     * @param page
+     * @param size
+     * @param label
+     * @return
+     */
+    @Override
+    public ResponseResult listArticleByLable(int page, int size, String label) {
+        page = checkPage(page);
+        size = checkSize(size);
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<ArticleNoContent> all = articleNoContentDao.findAll(new Specification<ArticleNoContent>() {
+            @Override
+            public Predicate toPredicate(Root<ArticleNoContent> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                Predicate labelPre = criteriaBuilder.like(root.get("labels").as(String.class), "%" + label + "%");
+                Predicate statePublish = criteriaBuilder.equal(root.get("state").as(String.class), Constants.Article.STATE_PUBLISH);
+                Predicate stateTop = criteriaBuilder.equal(root.get("state").as(String.class), Constants.Article.STATE_TOP);
+
+                Predicate or = criteriaBuilder.or(statePublish, stateTop);
+                return criteriaBuilder.and(or, labelPre);
+            }
+        }, pageable);
+
+
+        return ResponseResult.SUCCESS("获取文章列表成功").setData(all);
+    }
+
+    /**
+     * 获取标签云
+     *
+     * @param size
+     * @return
+     */
+    @Override
+    public ResponseResult listLabels(int size) {
+        size = this.checkSize(size);
+        Sort sort = Sort.by(Sort.Direction.DESC,"count");
+        Pageable pageable = PageRequest.of(0,size,sort);
+        Page<Label> all = labelDao.findAll(pageable);
+        return ResponseResult.SUCCESS("标签获取成功").setData(all);
     }
 
 }
