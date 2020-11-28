@@ -33,7 +33,7 @@ public class ArticlePortalApi {
      */
     @GetMapping("/list/{page}/{size}")
     public ResponseResult listArticle(@PathVariable("page") int page, @PathVariable("size") int size) {
-        return articleService.listArticle(page,size,null,null, Constants.Article.STATE_PUBLISH);
+        return articleService.listArticle(page, size, null, null, Constants.Article.STATE_PUBLISH);
     }
 
 
@@ -49,7 +49,7 @@ public class ArticlePortalApi {
     public ResponseResult listArticleBycategoryId(@PathVariable("categoryId") String categoryId,
                                                   @PathVariable("page") int page,
                                                   @PathVariable("size") int size) {
-        return articleService.listArticle(page,size,null,categoryId, Constants.Article.STATE_PUBLISH);
+        return articleService.listArticle(page, size, null, categoryId, Constants.Article.STATE_PUBLISH);
     }
 
 
@@ -71,14 +71,58 @@ public class ArticlePortalApi {
 
 
     /**
-     * 获取推荐文章
+     * 获取置顶文章 列表
      *
      * @return
      */
     @GetMapping("/top")
-    public ResponseResult getRecommendArticleDetail() {
+    public ResponseResult getTopArticles() {
 
+        return articleService.getTopArticles();
+    }
+
+    /**
+     * 获取推荐文章 列表
+     * TODO：推荐算法
+     * 简单做法：
+     * 通过标签来计算匹配度，文章一定有标签，一个或者多个（5个以内）
+     * 从里面随机拿一个标签 ---> 每次获取的推荐文章不那么雷同。
+     * 通过标签去查询类似的文章，所包含此标签的文章
+     * 如果没有相关文章，就获取最新的文章
+     *
+     * @return
+     */
+    @GetMapping("/recommend/{articleId}/{size}")
+    public ResponseResult getRecommendArticles(@PathVariable("articleId") String articleId,@PathVariable("size")int size) {
+
+        return articleService.listRecommendArticle(articleId,size);
+    }
+
+
+    /**
+     * 根据标签名 -- 获取文章列表
+     * @param label
+     * @param page
+     * @param size
+     * @return
+     */
+    @GetMapping("/list/label/{label}/{page}/{size}")
+    public ResponseResult listArticleByLabel(@PathVariable("label") int label,@PathVariable("page")String page,@PathVariable("size")String size) {
         return null;
     }
+
+
+    /**
+     * 获取标签云
+     * 用户点击标签，就会通过标签名，获取相关的文章列表
+     *
+     * @return
+     */
+    @GetMapping("/label/{size}")
+    public ResponseResult getLabels(@PathVariable("size")String size) {
+
+        return articleService.getTopArticles();
+    }
+
 
 }

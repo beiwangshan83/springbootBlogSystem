@@ -64,4 +64,18 @@ public interface IArticleService {
      * @return
      */
     ResponseResult topArticle(String articleId);
+
+    /**
+     * 获取指定文章列表
+     * @return
+     */
+    ResponseResult getTopArticles();
+
+    /**
+     * 获取相关推荐的文章
+     * @param articleId
+     * @param size
+     * @return
+     */
+    ResponseResult listRecommendArticle(String articleId, int size);
 }

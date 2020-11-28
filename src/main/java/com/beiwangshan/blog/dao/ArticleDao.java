@@ -41,4 +41,13 @@ public interface ArticleDao extends JpaRepository<Article,String>, JpaSpecificat
     int deleteArticleByState(String articleId);
 
 
+    /**
+     * 根据文章的ID 查询 标签
+     * @param articleId
+     * @return
+     */
+    @Query(nativeQuery = true,value = "select labels from `tb_article` where `id` = ?")
+    String listArticleLabelById(String articleId);
+
+
 }

@@ -26,9 +26,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> ArticleServiceImpl
@@ -51,6 +49,9 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
     @Autowired
     private ArticleDao articleDao;
+
+    @Autowired
+    private Random random;
 
     /**
      * 没有文章的内容
@@ -252,7 +253,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         }
 //        判断文章状态，如果是删除/草稿，需要管理员角色
         BwsUser bwsUser = userService.checkBwsUser();
-        if (bwsUser==null || !Constants.User.ROLE_ADMIN.equals(bwsUser.getRoles())) {
+        if (bwsUser == null || !Constants.User.ROLE_ADMIN.equals(bwsUser.getRoles())) {
             return ResponseResult.PERMISSION_DENIAL();
         }
 
@@ -379,6 +380,58 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         }
 
         return ResponseResult.FAILED("当前文章状态不支持此操作");
+    }
+
+    /**
+     * 获取指定文章列表
+     * 跟权限无关系，状态必须是置顶的
+     *
+     * @return
+     */
+    @Override
+    public ResponseResult getTopArticles() {
+        List<Article> result = articleDao.findAll(new Specification<Article>() {
+            @Override
+            public Predicate toPredicate(Root<Article> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                return criteriaBuilder.equal(root.get("state").as(String.class), Constants.Article.STATE_TOP);
+            }
+        });
+
+        return ResponseResult.SUCCESS("获取置顶文章列表成功").setData(result);
+    }
+
+    /**
+     * 获取相关推荐的文章
+     *
+     * @param articleId
+     * @param size
+     * @return
+     */
+    @Override
+    public ResponseResult listRecommendArticle(String articleId, int size) {
+//        查询文章，不需要文章内容，只需要标签
+
+        String labels = articleDao.listArticleLabelById(articleId);
+        //打散标签
+        List<String> labelList = new ArrayList<>();
+        if (!labels.contains("-")) {
+            labelList.add(labels);
+        } else {
+            labelList.addAll(Arrays.asList(labels.split("-")));
+        }
+//        从列表中随机获取一个标签，查询相似的文章
+        String targetLabel = labelList.get(random.nextInt(labelList.size()));
+//        查询数据库
+        List<ArticleNoContent> likeResultList = articleNoContentDao.listArticleByLikeLabel("%"+targetLabel+"%", articleId, size);
+//        判断长度
+        if (likeResultList.size()<size) {
+//            说明不够数量，获取最新的文章作为补充
+            int dxSize = size-likeResultList.size();
+//            通过差值进行查找
+            List<ArticleNoContent> dxList = articleNoContentDao.listLastArticleBySize(articleId,dxSize);
+            likeResultList.addAll(dxList);
+        }
+        return ResponseResult.SUCCESS("获取推荐文章成功").setData(likeResultList);
     }
 
 }
