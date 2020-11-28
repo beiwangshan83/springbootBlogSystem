@@ -314,6 +314,23 @@ public class EmailSender {
         return bodyPart;
     }
 
+
+    /**
+     *
+     * @param notifyContent
+     * @param emailAddress
+     * @throws Exception
+     */
+    public static void sendCommentMotify(String notifyContent,String emailAddress) throws Exception{
+        EmailSender.subject("空山不见鸟博客系统-评论通知")
+                .from("空山不见鸟博客系统")
+                .text(notifyContent)
+//                .html()
+                .to(emailAddress)
+                .send();
+    }
+
+
     public static void sendRegisterVerifyCode(String code,String emailAddress) throws Exception{
         EmailSender.subject("空山不见鸟博客系统注册验证码")
                 .from("空山不见鸟博客系统")
@@ -321,4 +338,5 @@ public class EmailSender {
                 .to(emailAddress)
                 .send();
     }
+
 }

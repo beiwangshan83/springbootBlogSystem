@@ -1,6 +1,5 @@
 package com.beiwangshan.blog.dao;
 
-import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.pojo.ArticleNoContent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -22,7 +21,7 @@ public interface ArticleNoContentDao extends JpaRepository<ArticleNoContent,Stri
      * @return
      * @param articleId
      */
-    Article findOneById(String articleId);
+    ArticleNoContent findOneById(String articleId);
 
 
     /**

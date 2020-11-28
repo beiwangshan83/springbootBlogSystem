@@ -2,6 +2,8 @@ package com.beiwangshan.blog.controller.portal;
 
 import com.beiwangshan.blog.pojo.Comment;
 import com.beiwangshan.blog.response.ResponseResult;
+import com.beiwangshan.blog.service.ICommentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/portal/comment")
 public class CommentPortalApi {
 
+    @Autowired
+    private ICommentService commentService;
+
     /**
      * 发表评论的api
      * @return
@@ -23,7 +28,7 @@ public class CommentPortalApi {
     @PostMapping
     public ResponseResult PostComment(@RequestBody Comment comment){
 
-        return null;
+        return commentService.postComment(comment);
     }
 
 
@@ -43,9 +48,11 @@ public class CommentPortalApi {
      * @param articleId
      * @return
      */
-    @GetMapping("/list/{articleId}")
-    public ResponseResult listComment(@PathVariable("articleId")String articleId){
+    @GetMapping("/list/{articleId}/{page}/{size}")
+    public ResponseResult listComment(@PathVariable("articleId")String articleId,
+                                      @PathVariable("page")int page,
+                                      @PathVariable("size")int size){
 
-        return null;
+        return commentService.listCommentByArticleId(articleId,page,size);
     }
 }
