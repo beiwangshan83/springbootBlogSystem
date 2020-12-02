@@ -9,6 +9,7 @@ import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.ICommentService;
 import com.beiwangshan.blog.service.IUserService;
+import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,7 @@ public class CommentServiceImpl extends BaseService implements ICommentService {
 
     @Autowired
     private CommentDao commentDao;
+
     /**
      * 上传评论 发表评论
      *
@@ -71,7 +73,7 @@ public class CommentServiceImpl extends BaseService implements ICommentService {
             return ResponseResult.FAILED("评论内容不能为空");
         }
 //        补全内容
-        comment.setId(snowflakeIdWorker.nextId()+"");
+        comment.setId(snowflakeIdWorker.nextId() + "");
         comment.setUpdateTime(new Date());
         comment.setCreateTime(new Date());
         comment.setUserAvatar(bwsUser.getAvatar());
@@ -89,9 +91,9 @@ public class CommentServiceImpl extends BaseService implements ICommentService {
      * 通过文章ID 来获取评论列表
      * 评论的排序策略：
      * 1.最基本的就是按照时间排序，新发布的放在最前面
-     *
+     * <p>
      * 2.置顶的，一定在最前面
-     *
+     * <p>
      * 3.后发表的，前单位时间会在前面排序，过了此时间，会按点赞量和发表的时间来排序。
      *
      * @param articleId
@@ -108,8 +110,38 @@ public class CommentServiceImpl extends BaseService implements ICommentService {
 
         page = checkPage(page);
         size = checkSize(size);
-        Pageable pageable = PageRequest.of(page-1,size);
+        Pageable pageable = PageRequest.of(page - 1, size);
         Page<Comment> all = commentDao.findAll(pageable);
         return ResponseResult.SUCCESS("文章评论列表获取成功").setData(all);
+    }
+
+    /**
+     * 通过评论的ID来删除评论
+     *
+     * @param commentId
+     * @return
+     */
+    @Override
+    public ResponseResult deleteCommentById(String commentId) {
+//        检查用户的角色
+        BwsUser bwsUser = userService.checkBwsUser();
+        if (bwsUser == null) {
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+//        把评论找出来，比对用户权限
+        Comment commentFromDb = commentDao.findOneById(commentId);
+        if (commentFromDb == null) {
+            return ResponseResult.FAILED("评论不存在");
+        }
+        //        登录了要判断角色
+        if (bwsUser.getId().equals(commentFromDb.getUserId()) || bwsUser.getRoles().equals(Constants.User.ROLE_ADMIN)) {
+            //            如果和当前操作用户的ID 一致，说明评论是当前用户的，可以删除
+            //            用户 ID 不一致，只有管理员可以删除
+            commentDao.deleteById(commentId);
+            return ResponseResult.SUCCESS("评论删除成功");
+        }else{
+            return ResponseResult.PERMISSION_DENIAL();
+        }
+
     }
 }

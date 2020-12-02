@@ -40,7 +40,7 @@ public class CommentPortalApi {
     @DeleteMapping("/{commentId}")
     public ResponseResult deleteComment(@PathVariable("commentId")String commentId){
 
-        return null;
+        return commentService.deleteCommentById(commentId);
     }
 
     /**

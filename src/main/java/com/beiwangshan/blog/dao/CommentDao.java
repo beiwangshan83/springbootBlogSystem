@@ -12,5 +12,12 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  * @version: 1.0
  * @todo:
  */
-public interface CommentDao extends JpaRepository<Comment,String>, JpaSpecificationExecutor<Comment> {
+public interface CommentDao extends JpaRepository<Comment, String>, JpaSpecificationExecutor<Comment> {
+    /**
+     * 根据ID 查询
+     *
+     * @param commentId
+     * @return
+     */
+    Comment findOneById(String commentId);
 }

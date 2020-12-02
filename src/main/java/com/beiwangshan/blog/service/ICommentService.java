@@ -28,4 +28,11 @@ public interface ICommentService {
      * @return
      */
     ResponseResult listCommentByArticleId(String articleId, int page, int size);
+
+    /**
+     * 通过评论的ID来删除评论
+     * @param commentId
+     * @return
+     */
+    ResponseResult deleteCommentById(String commentId);
 }
