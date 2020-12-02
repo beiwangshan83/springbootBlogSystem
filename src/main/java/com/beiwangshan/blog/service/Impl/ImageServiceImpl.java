@@ -92,6 +92,9 @@ public class ImageServiceImpl extends BaseService implements IImageService {
         log.info("file.getOriginalFilename() ==> " + originalFilename);
 //        图片类型
         String imageType = getType(contentType, originalFilename);
+        log.info("contentType==> " + contentType);
+        log.info("originalFilename==> " + originalFilename);
+        log.info("imageType==> " + imageType);
         if (imageType == null) {
             return ResponseResult.FAILED("不支持此图片类型");
         }
@@ -122,7 +125,7 @@ public class ImageServiceImpl extends BaseService implements IImageService {
         log.info("targetPath ==> " + targetPath);
 //        判断类型是否存在
         if (!targetFile.getParentFile().exists()) {
-            targetFile.mkdirs();
+            targetFile.getParentFile().mkdirs();
         }
 //        保存文件
         try {
@@ -253,7 +256,7 @@ public class ImageServiceImpl extends BaseService implements IImageService {
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 //        查询数据
-        final String userId =  bwsUser.getId();
+        final String userId = bwsUser.getId();
         Page<Image> allImages = imageDao.findAll(new Specification<Image>() {
             @Override
             public Predicate toPredicate(Root<Image> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
@@ -261,17 +264,17 @@ public class ImageServiceImpl extends BaseService implements IImageService {
                 Predicate userIdPre = cb.equal(root.get("userId").as(String.class), userId);
 //                根据状态 查询
                 Predicate statePre = cb.equal(root.get("state").as(String.class), "1");
-                return cb.and(userIdPre,statePre);
+                return cb.and(userIdPre, statePre);
             }
-        },pageable);
+        }, pageable);
 //        返回结果
         return ResponseResult.SUCCESS("图片列表查询成功").setData(allImages);
     }
 
     /**
      * 根据图片的ID 删除图片
-     *  只改变图片的状态
-     *  用户的ID 与 图片中的 userId 一致时才能删除
+     * 只改变图片的状态
+     * 用户的ID 与 图片中的 userId 一致时才能删除
      *
      * @param imageId
      * @return
@@ -279,7 +282,7 @@ public class ImageServiceImpl extends BaseService implements IImageService {
     @Override
     public ResponseResult deleteByImageId(String imageId) {
         int result = imageDao.deleteByUpdateState(imageId);
-        if (result == 0){
+        if (result == 0) {
             return ResponseResult.FAILED("图片不存在");
         }
         return ResponseResult.SUCCESS("图片删除成功");

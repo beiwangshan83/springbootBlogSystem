@@ -110,7 +110,7 @@ public interface Constants {
 
         String IMAGE_PNG_WITH_PREFIX = PREFIX + "png";
         String IMAGE_GIF_WITH_PREFIX = PREFIX + "gif";
-        String IMAGE_JPG_WITH_PREFIX = PREFIX + "jpg";
+        String IMAGE_JPG_WITH_PREFIX = PREFIX + "jpeg";
     }
 
     interface Article{
