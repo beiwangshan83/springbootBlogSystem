@@ -1,3 +1,11 @@
 [2020-12-06 17:55:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 22688 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
 [2020-12-06 17:55:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
 [2020-12-06 17:55:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.691 seconds (JVM running for 10.466)
+[2020-12-06 19:14:34] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 996 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-12-06 19:14:34] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-12-06 19:14:42] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.58 seconds (JVM running for 10.241)
+[2020-12-06 22:46:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 7112 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-12-06 22:46:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-12-06 22:46:38] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 15.812 seconds (JVM running for 17.253)
+[2020-12-06 22:47:21] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookies is null
+[2020-12-06 22:47:45] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> 3htm2

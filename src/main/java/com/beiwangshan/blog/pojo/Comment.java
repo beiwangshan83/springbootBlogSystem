@@ -1,5 +1,7 @@
 package com.beiwangshan.blog.pojo;
 
+import com.beiwangshan.blog.utils.Constants;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Id;
@@ -28,7 +30,7 @@ public class Comment {
     @Column(name = "`user_name`")
     private String userName;
     @Column(name = "`state`")
-    private String state = "1";
+    private String state = Constants.Comment.STATE_PUBLISH;
     @Column(name = "`create_time`")
     private Date createTime;
     @Column(name = "`update_time`")

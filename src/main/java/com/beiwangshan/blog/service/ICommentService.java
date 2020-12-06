@@ -35,4 +35,14 @@ public interface ICommentService {
      * @return
      */
     ResponseResult deleteCommentById(String commentId);
+
+    /**
+     * 获取评论列表
+     * @param page
+     * @param size
+     * @return
+     */
+    ResponseResult listComments(int page, int size);
+
+    ResponseResult TopComment(String commentId);
 }

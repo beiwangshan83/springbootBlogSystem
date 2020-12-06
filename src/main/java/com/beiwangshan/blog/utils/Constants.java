@@ -126,5 +126,16 @@ public interface Constants {
         String STATE_TOP = "3";
     }
 
+    /**
+     * 评论相关
+     */
+    interface Comment{
+        //     评论相关 ： 0表示删除 1表示发布 2表示草稿 3表示置顶
+        String STATE_DELETE = "0";
+        String STATE_PUBLISH = "1";
+        String STATE_DRAFT = "2";
+        String STATE_TOP = "3";
+    }
+
 
 }
