@@ -6,6 +6,7 @@ import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IWebSiteInfoService;
 import com.beiwangshan.blog.utils.Constants;
+import com.beiwangshan.blog.utils.RedisUtils;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,9 @@ public class WebSiteInfoServiceImpl extends BaseService implements IWebSiteInfoS
 
     @Autowired
     private SnowflakeIdWorker snowflakeIdWorker;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     /**
      * 获取网站的标题
@@ -139,18 +143,59 @@ public class WebSiteInfoServiceImpl extends BaseService implements IWebSiteInfoS
      */
     @Override
     public ResponseResult getWebSiteViewCount() {
+        //先从redis里面拿出来
+        String viewCountStr = (String) redisUtils.get(Constants.Settings.WEB_SITE_VIEW_COUNT);
         Setting viewCountFromDb = settingsDao.findOneByKey(Constants.Settings.WEB_SITE_VIEW_COUNT);
         if (viewCountFromDb == null) {
-            viewCountFromDb = new Setting();
-            viewCountFromDb.setId(snowflakeIdWorker.nextId() + "");
-            viewCountFromDb.setKey(Constants.Settings.WEB_SITE_VIEW_COUNT);
-            viewCountFromDb.setUpdateTime(new Date());
-            viewCountFromDb.setCreateTime(new Date());
-            viewCountFromDb.setValue("1");
+            viewCountFromDb = this.initViewCount();
+            settingsDao.save(viewCountFromDb);
+        }
+        if (TextUtils.isEmpty(viewCountStr)) {
+            viewCountStr = viewCountFromDb.getValue();
+            redisUtils.set(Constants.Settings.WEB_SITE_VIEW_COUNT, viewCountStr);
+        } else {
+            viewCountFromDb.setValue(viewCountStr);
             settingsDao.save(viewCountFromDb);
         }
         Map<String, Integer> result = new HashMap<>();
-        result.put(viewCountFromDb.getKey(),Integer.valueOf(viewCountFromDb.getValue()));
+        result.put(viewCountFromDb.getKey(), Integer.valueOf(viewCountFromDb.getValue()));
         return ResponseResult.SUCCESS("网站浏览量获取成功").setData(result);
+    }
+
+    private Setting initViewCount() {
+        Setting viewCount = new Setting();
+        viewCount.setId(snowflakeIdWorker.nextId() + "");
+        viewCount.setKey(Constants.Settings.WEB_SITE_VIEW_COUNT);
+        viewCount.setUpdateTime(new Date());
+        viewCount.setCreateTime(new Date());
+        viewCount.setValue("1");
+        return viewCount;
+    }
+
+    /**
+     * 1.并发量
+     * 2.过滤相同的ip、id
+     * 3.防止攻击，比如太平凡的访问，就提示稍后重试。
+     */
+
+    /**
+     * 统计网站的访问数量 PV -->  page view
+     */
+    @Override
+    public void updateViewCount() {
+        Object viewCount = redisUtils.get(Constants.Settings.WEB_SITE_VIEW_COUNT);
+        if (viewCount == null) {
+            Setting setting = settingsDao.findOneByKey(Constants.Settings.WEB_SITE_VIEW_COUNT);
+            if (setting == null) {
+                setting = this.initViewCount();
+                settingsDao.save(setting);
+            }
+            redisUtils.set(Constants.Settings.WEB_SITE_VIEW_COUNT, setting.getValue());
+        }else{
+            //数字自增
+            redisUtils.incr(Constants.Settings.WEB_SITE_VIEW_COUNT, 1);
+        }
+
+
     }
 }

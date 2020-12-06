@@ -43,4 +43,9 @@ public interface IWebSiteInfoService {
      * @return
      */
     ResponseResult getWebSiteViewCount();
+
+    /**
+     * 统计网站的访问数量 PV -->  page view
+     */
+    void updateViewCount();
 }
