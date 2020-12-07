@@ -7,9 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-
 /**
  * @className: com.beiwangshan.blog.controller.admin-> ImageApi
  * @description: 图片相关的API
@@ -49,21 +46,6 @@ public class ImageAdminApi {
         return imageService.deleteByImageId(imageId);
     }
 
-
-    /**
-     * 获取图片的 api
-     * @param imageId
-     * @return
-     */
-    @PreAuthorize("@permission.admin()")
-    @GetMapping("/{imageId}")
-    public void getImage(HttpServletResponse response, @PathVariable("imageId")String imageId){
-        try {
-            imageService.viewImage(response,imageId);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 获取图片的列表

@@ -7,6 +7,7 @@ import com.beiwangshan.blog.pojo.Comment;
 import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IUserService;
+import com.beiwangshan.blog.service.Impl.TestSolrService;
 import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.CookieUtils;
 import com.beiwangshan.blog.utils.RedisUtils;
@@ -263,5 +264,15 @@ public class TestController {
         comment.setId(String.valueOf(snowflakeIdWorker.nextId()));
         commentDao.save(comment);
         return ResponseResult.SUCCESS("评论成功");
+    }
+
+    @Autowired
+    private TestSolrService solrService;
+
+    @PostMapping("/solr")
+    public ResponseResult solrAdd(){
+        solrService.add();
+        return ResponseResult.SUCCESS("solr添加成功");
+
     }
 }
