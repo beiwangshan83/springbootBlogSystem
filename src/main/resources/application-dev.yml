@@ -4,10 +4,12 @@ spring:
   application:
     name: bws_blog
   datasource:
-    url:  jdbc:mysql://localhost:3306/bws_blog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#    url:  jdbc:mysql://localhost:3306/bws_blog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    url:  jdbc:mysql://192.168.0.125:3306/bws_blog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: 1234
+    password: 123456
   jpa:
     show-sql: true
   redis:
@@ -20,7 +22,7 @@ spring:
       max-request-size: 10MB
   data:
     solr:
-      host: http://10.231.159.101:8983/solr/Ik_core
+      host: http://192.168.0.125:8983/solr/Ik_core
 
 bws.blog.image.save-Path: E:\javaProjects\blog\code\images
 #图片上传的大小 5MB

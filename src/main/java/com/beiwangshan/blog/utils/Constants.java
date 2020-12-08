@@ -124,6 +124,9 @@ public interface Constants {
         String STATE_PUBLISH = "1";
         String STATE_DRAFT = "2";
         String STATE_TOP = "3";
+
+        String TYPE_MARKDOWN = "1";
+        String TYPE_RICH_TEXT = "0";
     }
 
     /**

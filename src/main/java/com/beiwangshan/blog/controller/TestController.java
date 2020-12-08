@@ -275,4 +275,33 @@ public class TestController {
         return ResponseResult.SUCCESS("solr添加成功");
 
     }
+
+
+    @PostMapping("/solr/all")
+    public ResponseResult solrAddAll(){
+        solrService.importAll();
+        return ResponseResult.SUCCESS("solr添加全部成功");
+
+    }
+
+    @PutMapping("/solr")
+    public ResponseResult solrUpdateAdd(){
+        solrService.update();
+        return ResponseResult.SUCCESS("solr更新成功");
+
+    }
+
+    @DeleteMapping("/solr")
+    public ResponseResult solrDeleteAdd(){
+        solrService.delete();
+        return ResponseResult.SUCCESS("solr删除成功");
+
+    }
+
+    @DeleteMapping("/solr/all")
+    public ResponseResult solrDeleteAll(){
+        solrService.deleteAll();
+        return ResponseResult.SUCCESS("solr删除全部成功");
+
+    }
 }
