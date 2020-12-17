@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.service;
 
+import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.response.ResponseResult;
 
 /**
@@ -21,4 +22,10 @@ public interface ISolrService {
      * @return
      */
     ResponseResult doSearch(String keyword, int page, int size, String categoryId, Integer sort);
+
+    /**
+     * 添加文章到solr
+     * @param article
+     */
+    void addArticle(Article article);
 }

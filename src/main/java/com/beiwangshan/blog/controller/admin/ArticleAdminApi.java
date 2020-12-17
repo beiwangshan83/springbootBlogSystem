@@ -27,7 +27,7 @@ public class ArticleAdminApi {
      * @return
      */
     @PreAuthorize("@permission.admin()")
-    @PostMapping
+    @PostMapping()
     public ResponseResult addArticle(@RequestBody Article article){
 
         return articleService.addArticle(article);

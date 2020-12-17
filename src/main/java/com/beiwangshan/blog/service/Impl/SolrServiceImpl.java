@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.service.Impl;
 
+import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.pojo.PageList;
 import com.beiwangshan.blog.pojo.SearchResult;
 import com.beiwangshan.blog.response.ResponseResult;
@@ -7,13 +8,24 @@ import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.ISolrService;
 import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.TextUtils;
+import com.vladsch.flexmark.ext.jekyll.tag.JekyllTagExtension;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.ext.toc.SimTocExtension;
+import com.vladsch.flexmark.ext.toc.TocExtension;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.util.ast.Node;
+import com.vladsch.flexmark.util.data.MutableDataSet;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrInputDocument;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -116,5 +128,57 @@ public class SolrServiceImpl extends BaseService implements ISolrService {
         }
 
         return ResponseResult.FAILED("搜索失败，请稍后重试。");
+    }
+
+    @Override
+    public void addArticle(Article article){
+        SolrInputDocument doc = new SolrInputDocument();
+        doc.addField("id", article.getId());
+        doc.addField("blog_view_count", article.getViewCount());
+        doc.addField("blog_title", article.getTitle());
+        /**
+         * 对内容进行处理：
+         *  第一种是Markdown写的 type = 1
+         *  第二种是HTML写的 type = 0
+         *
+         *  如果是 type = 1 转成 HTML
+         *  再由 HTML 转换为 纯文本
+         *
+         *  如果 type = 0
+         *  提取纯文本
+         */
+        String type = article.getType();
+        String html;
+        if (Constants.Article.TYPE_MARKDOWN.equals(type)) {
+            // markdown to html
+            MutableDataSet options = new MutableDataSet().set(Parser.EXTENSIONS, Arrays.asList(
+                    TablesExtension.create(),
+                    JekyllTagExtension.create(),
+                    TocExtension.create(),
+                    SimTocExtension.create()
+            ));
+            Parser parser = Parser.builder(options).build();
+            HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+
+            Node document = parser.parse(article.getContent());
+            html = renderer.render(document);
+        } else {
+            html = article.getContent();
+        }
+        //到这，不管是什么都会是HTML了
+        //HTML转text
+        String text = Jsoup.parse(html).text();
+
+        doc.addField("blog_content", text);
+        doc.addField("blog_create_time", article.getCreateTime());
+        doc.addField("blog_labels", article.getLabel());
+        doc.addField("blog_url", "url");
+        doc.addField("blog_category_id", article.getCategoryId());
+        try {
+            solrClient.add(doc);
+            solrClient.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

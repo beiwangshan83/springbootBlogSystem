@@ -23,6 +23,10 @@ spring:
   data:
     solr:
       host: http://192.168.25.130:8983/solr/Ik_core
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
 
 bws.blog.image.save-Path: E:\javaProjects\blog\code\images
 #图片上传的大小 5MB

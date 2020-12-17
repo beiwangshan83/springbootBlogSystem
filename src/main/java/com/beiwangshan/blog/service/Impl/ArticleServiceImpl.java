@@ -10,6 +10,7 @@ import com.beiwangshan.blog.pojo.Label;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IArticleService;
+import com.beiwangshan.blog.service.ISolrService;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.Constants;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
@@ -64,6 +65,9 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
     @Autowired
     private ArticleNoContentDao articleNoContentDao;
 
+    @Autowired
+    private ISolrService solrService;
+
     /**
      * 添加文章
      * 后期可以做定时提交的功能，多人博客的审核功能
@@ -102,6 +106,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
     public ResponseResult addArticle(Article article) {
 //        检查用户，获取到用户对象
         BwsUser bwsUser = userService.checkBwsUser();
+        log.info("checkBwsUser == > "+ bwsUser);
         if (bwsUser == null) {
             return ResponseResult.ACCOUNT_NOT_LOGIN();
         }
@@ -177,7 +182,8 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         article.setUserId(bwsUser.getId());
 //        保存数据
         articleDao.save(article);
-//        TODO:保存到搜索的数据库里
+//      保存到搜索的数据库里
+        solrService.addArticle(article);
 //        打散标签,入库,统计
         this.setupLabels(article.getLabel());
 
