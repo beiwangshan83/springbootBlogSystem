@@ -301,7 +301,7 @@ public class TestController {
     @DeleteMapping("/solr/all")
     public ResponseResult solrDeleteAll(){
         solrService.deleteAll();
-        return ResponseResult.SUCCESS("solr删除全部成功");
 
+        return ResponseResult.SUCCESS("solr删除全部成功");
     }
 }

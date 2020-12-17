@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,12 +37,13 @@ public class TestSolrService {
     public void add() {
         SolrInputDocument doc = new SolrInputDocument();
         doc.addField("id", "111222333444");
-        doc.addField("blog_view_count", "标题内容");
+        doc.addField("blog_view_count", 222);
         doc.addField("blog_title", "标题内容");
         doc.addField("blog_content", "搜索内容");
-        doc.addField("blog_create_time", "创建时间");
+        doc.addField("blog_create_time", new Date());
         doc.addField("blog_labels", "标签");
         doc.addField("blog_url", "文章url");
+        doc.addField("blog_category_id", "111222");
         try {
             client.add(doc);
             client.commit();
@@ -53,7 +55,7 @@ public class TestSolrService {
     public void update() {
         SolrInputDocument doc = new SolrInputDocument();
         doc.addField("id", "111222333444");
-        doc.addField("blog_view_count", "修改的标题内容");
+        doc.addField("blog_view_count", 20);
         doc.addField("blog_title", "标题内容");
         doc.addField("blog_content", "搜索内容");
         doc.addField("blog_create_time", "创建时间");

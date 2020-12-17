@@ -1,5 +1,7 @@
 package com.beiwangshan.blog.pojo;
 
+import org.apache.solr.client.solrj.beans.Field;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -13,70 +15,87 @@ import java.util.Date;
  */
 public class SearchResult implements Serializable {
     //blog_content,blog_create_time,blog_labels,blog_url,blog_title,blog_view_count
-    private String blog_content;
-    private Date blog_create_time;
-    private String blog_labels;
-    private String blog_url;
-    private String blog_title;
-    private String blog_view_count;
 
-    public String getBlog_content() {
-        return blog_content;
+    @Field("id")
+    private String id;
+    @Field("blog_content")
+    private String blogContent;
+    @Field("blog_create_time")
+    private Date blogCreateTime;
+    @Field("blog_labels")
+    private String blogLabels;
+    @Field("blog_url")
+    private String blogUrl;
+    @Field("blog_title")
+    private String blogTitle;
+    @Field("blog_view_count")
+    private int blogViewCount;
+
+    public String getId() {
+        return id;
     }
 
-    public void setBlog_content(String blog_content) {
-        this.blog_content = blog_content;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Date getBlog_create_time() {
-        return blog_create_time;
+    public String getBlogContent() {
+        return blogContent;
     }
 
-    public void setBlog_create_time(Date blog_create_time) {
-        this.blog_create_time = blog_create_time;
+    public void setBlogContent(String blogContent) {
+        this.blogContent = blogContent;
     }
 
-    public String getBlog_labels() {
-        return blog_labels;
+    public Date getBlogCreateTime() {
+        return blogCreateTime;
     }
 
-    public void setBlog_labels(String blog_labels) {
-        this.blog_labels = blog_labels;
+    public void setBlogCreateTime(Date blogCreateTime) {
+        this.blogCreateTime = blogCreateTime;
     }
 
-    public String getBlog_url() {
-        return blog_url;
+    public String getBlogLabels() {
+        return blogLabels;
     }
 
-    public void setBlog_url(String blog_url) {
-        this.blog_url = blog_url;
+    public void setBlogLabels(String blogLabels) {
+        this.blogLabels = blogLabels;
     }
 
-    public String getBlog_title() {
-        return blog_title;
+    public String getBlogUrl() {
+        return blogUrl;
     }
 
-    public void setBlog_title(String blog_title) {
-        this.blog_title = blog_title;
+    public void setBlogUrl(String blogUrl) {
+        this.blogUrl = blogUrl;
     }
 
-    public String getBlog_view_count() {
-        return blog_view_count;
+    public String getBlogTitle() {
+        return blogTitle;
     }
 
-    public void setBlog_view_count(String blog_view_count) {
-        this.blog_view_count = blog_view_count;
+    public void setBlogTitle(String blogTitle) {
+        this.blogTitle = blogTitle;
+    }
+
+    public int getBlogViewCount() {
+        return blogViewCount;
+    }
+
+    public void setBlogViewCount(int blogViewCount) {
+        this.blogViewCount = blogViewCount;
     }
 
     @Override
     public String toString() {
         return "SearchResult{" +
-                "blog_content='" + blog_content + '\'' +
-                ", blog_create_time=" + blog_create_time +
-                ", blog_labels='" + blog_labels + '\'' +
-                ", blog_url='" + blog_url + '\'' +
-                ", blog_title='" + blog_title + '\'' +
-                ", blog_view_count='" + blog_view_count + '\'' +
+                "blogContent='" + blogContent + '\'' +
+                ", blogCreateTime=" + blogCreateTime +
+                ", blogLabels='" + blogLabels + '\'' +
+                ", blogUrl='" + blogUrl + '\'' +
+                ", blogTitle='" + blogTitle + '\'' +
+                ", blogViewCount='" + blogViewCount + '\'' +
                 '}';
     }
 }

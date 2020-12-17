@@ -12,6 +12,21 @@ import java.util.List;
  * @todo:
  */
 public class PageList<T> implements Serializable {
+    public PageList(long currentPages, long totalCount, long pageSize) {
+        this.currentPages = currentPages;
+        this.totalCount = totalCount;
+        this.pageSize = pageSize;
+        //计算总的页数
+        this.totalPage = (this.totalCount / this.pageSize);
+        //是否第一页/是否最后一页
+        //第一页为 0 最后一页为 总的页码
+        //如果当前的页码为 0 ， 我们认为是第一页
+         this.isFirst = this.currentPages == 1;
+        // 10，每一页有10 ==》 1
+        // 100，每一页有10 ==》 10
+       this.isLast = this.currentPages == totalPage;
+    }
+
     //做分页要多少数据
     /**
      * 当前页码

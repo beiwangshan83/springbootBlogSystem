@@ -96,7 +96,7 @@ public interface Constants {
         //较小的分页大小
         int MIN_SIZE = 10;
         //默认大小
-        int DEFAULT_SIZE = 20;
+        int DEFAULT_SIZE = 5;
     }
 
     /**
@@ -138,6 +138,17 @@ public interface Constants {
         String STATE_PUBLISH = "1";
         String STATE_DRAFT = "2";
         String STATE_TOP = "3";
+    }
+
+    /**
+     * search相关的sort的值
+     * 排序有四个：根据时间==》 升序（1） 降序（2）；根据浏览量==》 升序（3） 降序（4）
+     */
+    interface SearchSort{
+        int TIME_ORDER_ASC = 1;
+        int TIME_ORDER_DESC = 2;
+        int VIEW_COUNT_ASC = 3;
+        int VIEW_COUNT_DESC = 4;
     }
 
 
