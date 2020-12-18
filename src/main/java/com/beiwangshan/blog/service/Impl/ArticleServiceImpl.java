@@ -440,6 +440,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         //        删除文章
         int result = articleDao.deleteAllById(articleId);
         if (result == 0) {
+            redisUtils.del(Constants.Article.KEY_ARTICLE_CACHE + articleId);
             //删除 solr中的 文章
             solrService.delArticle(articleId);
             return ResponseResult.FAILED("文章不存在，删除失败");
@@ -459,6 +460,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 //        文章存在，更新状态
         int result = articleDao.deleteArticleByState(articleId);
         if (result > 0) {
+            redisUtils.del(Constants.Article.KEY_ARTICLE_CACHE + articleId);
             //删除 solr中的 文章
             solrService.delArticle(articleId);
             return ResponseResult.SUCCESS("文章状态更新成功");
