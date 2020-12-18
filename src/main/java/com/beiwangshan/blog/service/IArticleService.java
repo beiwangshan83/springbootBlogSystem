@@ -87,7 +87,7 @@ public interface IArticleService {
      * @param label
      * @return
      */
-    ResponseResult listArticleByLable(int page, int size, String label);
+    ResponseResult listArticleByLabel(int page, int size, String label);
 
     /**
      * 获取标签云

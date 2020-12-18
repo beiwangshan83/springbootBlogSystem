@@ -108,7 +108,7 @@ public class ArticlePortalApi {
      */
     @GetMapping("/list/label/{label}/{page}/{size}")
     public ResponseResult listArticleByLabel(@PathVariable("label") String label,@PathVariable("page")int  page,@PathVariable("size")int size) {
-        return articleService.listArticleByLable(page,size,label);
+        return articleService.listArticleByLabel(page,size,label);
     }
 
 

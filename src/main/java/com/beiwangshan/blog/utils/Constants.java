@@ -134,6 +134,8 @@ public interface Constants {
         //文章阅读数量
         String KEY_ARTICLE_VIEW_COUNT = "key_article_view_count_";
 
+        String KEY_ARTICLE_LIST_FIRST_PAGE = "key_article_list_first_page";
+
     }
 
     /**
@@ -145,6 +147,9 @@ public interface Constants {
         String STATE_PUBLISH = "1";
         String STATE_DRAFT = "2";
         String STATE_TOP = "3";
+
+        //评论的第一页缓存
+        String KEY_COMMENT_FIRST_PAGE_CACHE = "key_comment_first_page_cache_";
     }
 
     /**

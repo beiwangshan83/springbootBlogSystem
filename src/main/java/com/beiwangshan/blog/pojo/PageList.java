@@ -1,5 +1,7 @@
 package com.beiwangshan.blog.pojo;
 
+import org.springframework.data.domain.Page;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -55,6 +57,10 @@ public class PageList<T> implements Serializable {
 
     private List<T> contents;
 
+    public PageList() {
+
+    }
+
     public long getCurrentPages() {
         return currentPages;
     }
@@ -109,5 +115,15 @@ public class PageList<T> implements Serializable {
 
     public void setContents(List<T> contents) {
         this.contents = contents;
+    }
+
+    public void parsePage(Page<T> all) {
+        setContents(all.getContent());
+        setFirst(all.isFirst());
+        setLast(all.isLast());
+        setCurrentPages(all.getNumber()+1);
+        setTotalPage(all.getTotalElements());
+        setTotalPage(all.getTotalPages());
+        setPageSize(all.getSize());
     }
 }

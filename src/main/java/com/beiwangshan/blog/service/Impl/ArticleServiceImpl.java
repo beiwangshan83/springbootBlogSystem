@@ -4,10 +4,7 @@ import com.beiwangshan.blog.dao.ArticleDao;
 import com.beiwangshan.blog.dao.ArticleNoContentDao;
 import com.beiwangshan.blog.dao.CommentDao;
 import com.beiwangshan.blog.dao.LabelDao;
-import com.beiwangshan.blog.pojo.Article;
-import com.beiwangshan.blog.pojo.ArticleNoContent;
-import com.beiwangshan.blog.pojo.BwsUser;
-import com.beiwangshan.blog.pojo.Label;
+import com.beiwangshan.blog.pojo.*;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IArticleService;
@@ -559,9 +556,15 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
      * @return
      */
     @Override
-    public ResponseResult listArticleByLable(int page, int size, String label) {
+    public ResponseResult listArticleByLabel(int page, int size, String label) {
         page = checkPage(page);
         size = checkSize(size);
+        //缓存处理，缓存到solr和redis里。只缓存第一页的数据
+        if (page == 1){
+            String articleListJson = (String) redisUtils.get(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE);
+
+        }
+
 
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
@@ -577,6 +580,10 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             }
         }, pageable);
 
+        PageList<ArticleNoContent> result = new PageList<>();
+        //解析page
+//    result.parsePage(all);
+        //保存在redis里面
 
         return ResponseResult.SUCCESS("获取文章列表成功").setData(all);
     }
