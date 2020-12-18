@@ -60,12 +60,12 @@ public class ArticlePortalApi {
      * * 只允许拿置顶的或者已经发布成功的
      * * 其他的获取需要权限
      *
-     * @param categoryId
+     * @param articleId
      * @return
      */
-    @GetMapping("/{categoryId}")
-    public ResponseResult getArticleDetail(@PathVariable("categoryId") String categoryId) {
-        return articleService.getArticleById(categoryId);
+    @GetMapping("/{articleId}")
+    public ResponseResult getArticleDetail(@PathVariable("articleId") String articleId) {
+        return articleService.getArticleById(articleId);
 
     }
 

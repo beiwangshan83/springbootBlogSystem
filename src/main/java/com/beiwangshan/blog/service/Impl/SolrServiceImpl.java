@@ -181,4 +181,32 @@ public class SolrServiceImpl extends BaseService implements ISolrService {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 从solr删除文章
+     *
+     * @param articleId
+     * @return
+     */
+    @Override
+    public void delArticle(String articleId) {
+        try {
+//            单独删除一条记录
+            solrClient.deleteById(articleId);
+            solrClient.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 更新solr里面的文章
+     *
+     * @param article
+     */
+    @Override
+    public void updateArticle(String articleId,Article article) {
+        article.setId(articleId);
+        this.addArticle(article);
+    }
 }

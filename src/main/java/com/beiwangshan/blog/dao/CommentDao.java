@@ -20,4 +20,11 @@ public interface CommentDao extends JpaRepository<Comment, String>, JpaSpecifica
      * @return
      */
     Comment findOneById(String commentId);
+
+    /**
+     * 通过文章Id 删除 评论
+     * @param articleId
+     * @return
+     */
+    int deleteAllByArticleId(String articleId);
 }

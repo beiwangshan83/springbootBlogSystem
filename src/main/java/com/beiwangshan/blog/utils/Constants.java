@@ -125,8 +125,15 @@ public interface Constants {
         String STATE_DRAFT = "2";
         String STATE_TOP = "3";
 
+        //文章类型，Markdown 和 富文本
         String TYPE_MARKDOWN = "1";
         String TYPE_RICH_TEXT = "0";
+
+        //文章缓存
+        String KEY_ARTICLE_CACHE = "key_article_cache_";
+        //文章阅读数量
+        String KEY_ARTICLE_VIEW_COUNT = "key_article_view_count_";
+
     }
 
     /**

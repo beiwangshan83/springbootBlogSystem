@@ -2,6 +2,7 @@ package com.beiwangshan.blog.service.Impl;
 
 import com.beiwangshan.blog.dao.ArticleDao;
 import com.beiwangshan.blog.dao.ArticleNoContentDao;
+import com.beiwangshan.blog.dao.CommentDao;
 import com.beiwangshan.blog.dao.LabelDao;
 import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.pojo.ArticleNoContent;
@@ -13,8 +14,10 @@ import com.beiwangshan.blog.service.IArticleService;
 import com.beiwangshan.blog.service.ISolrService;
 import com.beiwangshan.blog.service.IUserService;
 import com.beiwangshan.blog.utils.Constants;
+import com.beiwangshan.blog.utils.RedisUtils;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -106,7 +109,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
     public ResponseResult addArticle(Article article) {
 //        检查用户，获取到用户对象
         BwsUser bwsUser = userService.checkBwsUser();
-        log.info("checkBwsUser == > "+ bwsUser);
+        log.info("checkBwsUser == > " + bwsUser);
         if (bwsUser == null) {
             return ResponseResult.ACCOUNT_NOT_LOGIN();
         }
@@ -203,7 +206,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             labelList.add(labels);
         }
 //        入库，统计
-        for (String label : labelList){
+        for (String label : labelList) {
 //            先从数据库找出来
 //            Label targetLabel = labelDao.findOneByName(label);
 //            if (targetLabel == null) {
@@ -220,7 +223,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             if (result == 0) {
                 Label targetLabel = new Label();
                 targetLabel = new Label();
-                targetLabel.setId(snowflakeIdWorker.nextId()+"");
+                targetLabel.setId(snowflakeIdWorker.nextId() + "");
                 targetLabel.setCount(1);
                 targetLabel.setName(label);
                 targetLabel.setCreateTime(new Date());
@@ -281,29 +284,79 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         return ResponseResult.SUCCESS("文章列表查询成功").setData(all);
     }
 
+    @Autowired
+    private RedisUtils redisUtils;
+
+    @Autowired
+    private Gson gson;
+
     /**
      * 获取文章的详情
      * <p>
      * 如果有审核机制 --> 只有管理员和自己能查看
      * 有草稿、删除、置顶、已经发布的
      * 删除的不能获取，其他的都可以，这是管理员的权限下获取的情况
+     * <p>
+     * 统计文章的阅读量：
+     * 要精确一点的话需要对 ip 地址进行处理，如果是同一个ip ，则不作保存
+     * <p>
+     * 先把阅读量保存在redis里面，文章也会在redis里面缓存一份，比如说 10 分钟
+     * 当文章没有的时候，就从mysql里面获取，同时更新阅读数量
+     * 10分钟以后，在下一次访问的时候更新一次阅读量
+     * TODO:按照ip精确匹配阅读量
      *
      * @param articleId
      * @return
      */
     @Override
     public ResponseResult getArticleById(String articleId) {
+        //先从redis里面获取文章
+        // 如果没有，再去mysql里面获取
+        String artilceJson = (String) redisUtils.get(Constants.Article.KEY_ARTICLE_CACHE + articleId);
+        if (!TextUtils.isEmpty(artilceJson)) {
+            log.info("从redis里面拿文章、、、");
+            Article article = gson.fromJson(artilceJson, Article.class);
+            //增加阅读数量
+            redisUtils.incr(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, 1);
+
+            //返回结果
+            return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
+        }
+
 //        查询文章
         Article article = articleDao.findOneById(articleId);
         if (article == null) {
             return ResponseResult.FAILED("文章不存在");
         }
+//        判断文章状态
         String state = article.getState();
         if (Constants.Article.STATE_PUBLISH.equals(state) ||
                 Constants.Article.STATE_TOP.equals(state)) {
+            //正常发布的状态，才可以增加阅读量
+            redisUtils.set(Constants.Article.KEY_ARTICLE_CACHE + articleId,
+                    gson.toJson(article),
+                    Constants.TimeValueInMillions.MIN_5);
+
+            //设置阅读量的key , 先从redis里拿，如果redis里面没有，就从 mysql里面拿去，并且添加到redis里面
+            String viewCount = (String) redisUtils.get(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId);
+            if (TextUtils.isEmpty(viewCount)) {
+                //没有，我们就加进去
+
+                long newViewCount = article.getViewCount()+1;
+                log.info("newViewCount==> "+newViewCount);
+                redisUtils.set(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId,String.valueOf(newViewCount),Constants.TimeValueInMillions.MIN_5);
+            }else{
+                // 有，我们就更新到 mysql
+                long newViewCount  =  redisUtils.incr(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, 1);
+                article.setViewCount(newViewCount);
+                articleDao.save(article);
+                //更新solr里面的阅读量
+                solrService.updateArticle(articleId,article);
+            }
+
             return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
         }
-//        判断文章状态，如果是删除/草稿，需要管理员角色
+//        如果是删除/草稿，需要管理员角色
         BwsUser bwsUser = userService.checkBwsUser();
         if (bwsUser == null || !Constants.User.ROLE_ADMIN.equals(bwsUser.getRoles())) {
             return ResponseResult.PERMISSION_DENIAL();
@@ -371,6 +424,9 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         return ResponseResult.SUCCESS("文章更新成功").setData(save);
     }
 
+    @Autowired
+    private CommentDao commentDao;
+
     /**
      * 删除文章
      *
@@ -379,9 +435,13 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
      */
     @Override
     public ResponseResult deleteArticleById(String articleId) {
+        //先删除评论，因为表之间有关联
+        commentDao.deleteAllByArticleId(articleId);
         //        删除文章
         int result = articleDao.deleteAllById(articleId);
         if (result == 0) {
+            //删除 solr中的 文章
+            solrService.delArticle(articleId);
             return ResponseResult.FAILED("文章不存在，删除失败");
         }
 //        返回结果
@@ -398,11 +458,13 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
     public ResponseResult deleteArticleByUpdateState(String articleId) {
 //        文章存在，更新状态
         int result = articleDao.deleteArticleByState(articleId);
-        if (result == 0) {
-//            文章不存在，返回结果
-            return ResponseResult.FAILED("文章不存在，更新状态失败");
+        if (result > 0) {
+            //删除 solr中的 文章
+            solrService.delArticle(articleId);
+            return ResponseResult.SUCCESS("文章状态更新成功");
         }
-        return ResponseResult.SUCCESS("文章状态更新成功");
+        //文章不存在，返回结果
+        return ResponseResult.FAILED("文章不存在，更新状态失败");
     }
 
     /**
@@ -526,8 +588,8 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
     @Override
     public ResponseResult listLabels(int size) {
         size = this.checkSize(size);
-        Sort sort = Sort.by(Sort.Direction.DESC,"count");
-        Pageable pageable = PageRequest.of(0,size,sort);
+        Sort sort = Sort.by(Sort.Direction.DESC, "count");
+        Pageable pageable = PageRequest.of(0, size, sort);
         Page<Label> all = labelDao.findAll(pageable);
         return ResponseResult.SUCCESS("标签获取成功").setData(all);
     }

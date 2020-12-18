@@ -28,4 +28,16 @@ public interface ISolrService {
      * @param article
      */
     void addArticle(Article article);
+
+    /**
+     * 从solr删除文章
+     * @param articleId
+     * @return
+     */
+    void delArticle(String articleId);
+
+    /**
+     * 更新solr里面的文章
+     */
+    void updateArticle(String articleId,Article article);
 }
