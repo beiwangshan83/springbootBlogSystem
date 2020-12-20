@@ -2,6 +2,7 @@ package com.beiwangshan.blog.controller.portal;
 
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IArticleService;
+import com.beiwangshan.blog.service.ICategoryService;
 import com.beiwangshan.blog.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,9 @@ public class ArticlePortalApi {
 
     @Autowired
     private IArticleService articleService;
+
+    @Autowired
+    private ICategoryService categoryService;
 
     /**
      * 获取文章列表
@@ -93,22 +97,23 @@ public class ArticlePortalApi {
      * @return
      */
     @GetMapping("/recommend/{articleId}/{size}")
-    public ResponseResult getRecommendArticles(@PathVariable("articleId") String articleId,@PathVariable("size")int size) {
+    public ResponseResult getRecommendArticles(@PathVariable("articleId") String articleId, @PathVariable("size") int size) {
 
-        return articleService.listRecommendArticle(articleId,size);
+        return articleService.listRecommendArticle(articleId, size);
     }
 
 
     /**
      * 根据标签名 -- 获取文章列表
+     *
      * @param label
      * @param page
      * @param size
      * @return
      */
     @GetMapping("/list/label/{label}/{page}/{size}")
-    public ResponseResult listArticleByLabel(@PathVariable("label") String label,@PathVariable("page")int  page,@PathVariable("size")int size) {
-        return articleService.listArticleByLabel(page,size,label);
+    public ResponseResult listArticleByLabel(@PathVariable("label") String label, @PathVariable("page") int page, @PathVariable("size") int size) {
+        return articleService.listArticleByLabel(page, size, label);
     }
 
 
@@ -116,12 +121,23 @@ public class ArticlePortalApi {
      * 获取标签云
      * 用户点击标签，就会通过标签名，获取相关的文章列表
      * 任意用户
+     *
      * @return
      */
     @GetMapping("/label/{size}")
-    public ResponseResult getLabels(@PathVariable("size")int size) {
+    public ResponseResult getLabels(@PathVariable("size") int size) {
 
         return articleService.listLabels(size);
+    }
+
+    /**
+     * 获取文章分类
+     *
+     * @return
+     */
+    @GetMapping("/categories")
+    public ResponseResult getCategories() {
+        return categoryService.listCategories();
     }
 
 

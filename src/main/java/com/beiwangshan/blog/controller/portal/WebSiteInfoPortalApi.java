@@ -23,8 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/portal/web_site_info")
 public class WebSiteInfoPortalApi {
 
-    @Autowired
-    private ICategoryService categoryService;
+
 
     @Autowired
     private IFriendLinkService friendLinkService;
@@ -35,15 +34,7 @@ public class WebSiteInfoPortalApi {
     @Autowired
     private IWebSiteInfoService webSiteInfoService;
 
-    /**
-     * 获取文章分类
-     *
-     * @return
-     */
-    @GetMapping("/categories")
-    public ResponseResult getCategories(){
-        return categoryService.listCategories();
-    }
+
 
     /**
      * 获取网站标题
