@@ -79,6 +79,7 @@ public interface Constants {
         long MIN = 60 * 1000;//一分钟
         long MIN_5 = MIN * 5;// 5 分钟
         long MIN_10 = MIN * 10;// 10 分钟
+        long MIN_15 = MIN * 15;// 15 分钟
         long HOUR_1 = MIN * 60;//一小时
         long HOUR_2 = HOUR_1 * 2;//两小时
         long DAY = HOUR_1 * 2;//一天

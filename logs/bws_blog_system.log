@@ -1,50 +1,10 @@
-[2020-12-18 09:48:05] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16400 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 09:48:05] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 09:48:15] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 10.974 seconds (JVM running for 13.31)
-[2020-12-18 09:51:26] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 8288 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 09:51:26] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 09:51:32] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.511 seconds (JVM running for 7.802)
-[2020-12-18 09:55:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 948 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 09:55:16] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 09:55:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.888 seconds (JVM running for 8.14)
-[2020-12-18 09:58:42] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16020 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 09:58:42] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 09:58:48] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.442 seconds (JVM running for 7.591)
-[2020-12-18 10:15:40] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 12040 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 10:15:40] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 10:15:46] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.274 seconds (JVM running for 7.72)
-[2020-12-18 10:17:14] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 4216 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 10:17:14] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 10:17:23] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 10.393 seconds (JVM running for 12.409)
-[2020-12-18 10:20:06] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从redis里面拿文章、、、
-[2020-12-18 10:20:07] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从redis里面拿文章、、、
-[2020-12-18 10:20:08] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从redis里面拿文章、、、
-[2020-12-18 10:20:09] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从redis里面拿文章、、、
-[2020-12-18 10:20:10] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从redis里面拿文章、、、
-[2020-12-18 10:22:21] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从redis里面拿文章、、、
-[2020-12-18 10:25:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13060 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 10:25:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 10:25:43] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.861 seconds (JVM running for 8.007)
-[2020-12-18 10:26:09] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - newViewCount==> 3
-[2020-12-18 16:13:51] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 4164 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 16:13:51] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 16:14:00] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 9.637 seconds (JVM running for 11.409)
-[2020-12-18 16:18:02] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.CommentServiceImpl] - 这是从cache里面获取的。。。
-[2020-12-18 16:19:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 6028 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 16:19:12] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 16:19:20] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.525 seconds (JVM running for 10.191)
-[2020-12-18 16:20:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 16880 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 16:20:58] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 16:21:06] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.406 seconds (JVM running for 10.124)
-[2020-12-18 16:22:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13064 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 16:22:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 16:22:57] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.511 seconds (JVM running for 10.217)
-[2020-12-18 16:25:33] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 13276 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 16:25:33] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 16:25:41] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 8.824 seconds (JVM running for 10.54)
-[2020-12-18 16:25:50] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.CommentServiceImpl] - 这是从cache里面获取的。。。
-[2020-12-18 16:30:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 18064 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
-[2020-12-18 16:30:17] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2020-12-18 16:30:25] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 9.408 seconds (JVM running for 11.11)
-[2020-12-18 16:33:35] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookies is null
-[2020-12-18 16:34:14] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> bzkwv
+[2020-12-20 11:39:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 18824 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-12-20 11:39:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-12-20 11:39:48] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 12.1 seconds (JVM running for 15.303)
+[2020-12-20 11:40:10] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 6176 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-12-20 11:40:10] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-12-20 11:40:15] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 6.495 seconds (JVM running for 7.851)
+[2020-12-20 11:48:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-P6BS21O3 with PID 14476 (E:\javaProjects\blog\code\bws_blog\target\classes started by 14333 in E:\javaProjects\blog\code\bws_blog)
+[2020-12-20 11:48:44] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2020-12-20 11:48:51] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 7.011 seconds (JVM running for 8.64)
+[2020-12-20 11:49:10] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.ArticleServiceImpl] - 从缓存里面拿了文章

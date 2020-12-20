@@ -15,6 +15,7 @@ import com.beiwangshan.blog.utils.RedisUtils;
 import com.beiwangshan.blog.utils.SnowflakeIdWorker;
 import com.beiwangshan.blog.utils.TextUtils;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -186,6 +187,8 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         solrService.addArticle(article);
 //        打散标签,入库,统计
         this.setupLabels(article.getLabel());
+        //删除文章列表
+        redisUtils.del(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE);
 
 //        返回结果，只有一种情况使用到这个ID
 //        如果要做程序自动保存为草稿（每30秒保存一次，就需要加上个这个ID ，否则就会创建多个Item）
@@ -251,6 +254,14 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         }
         page = checkPage(page);
         size = checkSize(size);
+        //缓存处理，缓存到solr和redis里。只缓存第一页的数据
+        String articleListJson = (String) redisUtils.get(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE);
+        if (!TextUtils.isEmpty(articleListJson) && page == 1) {
+            PageList<ArticleNoContent> result = gson.fromJson(articleListJson, new TypeToken<PageList<ArticleNoContent>>() {
+            }.getType());
+            log.info("从缓存里面拿了文章");
+            return ResponseResult.SUCCESS("获取文章列表成功").setData(result);
+        }
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<ArticleNoContent> all = articleNoContentDao.findAll(new Specification<ArticleNoContent>() {
@@ -277,8 +288,14 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             }
         }, pageable);
 
-
-        return ResponseResult.SUCCESS("文章列表查询成功").setData(all);
+        PageList<ArticleNoContent> result = new PageList<>();
+        //解析page
+        result.parsePage(all);
+        if (page == 1) {
+            //保存在redis里面
+            redisUtils.set(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE, gson.toJson(result), Constants.TimeValueInMillions.MIN_15);
+        }
+        return ResponseResult.SUCCESS("文章列表查询成功").setData(result);
     }
 
     @Autowired
@@ -339,16 +356,16 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             if (TextUtils.isEmpty(viewCount)) {
                 //没有，我们就加进去
 
-                long newViewCount = article.getViewCount()+1;
-                log.info("newViewCount==> "+newViewCount);
-                redisUtils.set(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId,String.valueOf(newViewCount),Constants.TimeValueInMillions.MIN_5);
-            }else{
+                long newViewCount = article.getViewCount() + 1;
+                log.info("newViewCount==> " + newViewCount);
+                redisUtils.set(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, String.valueOf(newViewCount), Constants.TimeValueInMillions.MIN_5);
+            } else {
                 // 有，我们就更新到 mysql
-                long newViewCount  =  redisUtils.incr(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, 1);
+                long newViewCount = redisUtils.incr(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, 1);
                 article.setViewCount(newViewCount);
                 articleDao.save(article);
                 //更新solr里面的阅读量
-                solrService.updateArticle(articleId,article);
+                solrService.updateArticle(articleId, article);
             }
 
             return ResponseResult.SUCCESS("查询文章详情成功").setData(article);
@@ -438,6 +455,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         int result = articleDao.deleteAllById(articleId);
         if (result == 0) {
             redisUtils.del(Constants.Article.KEY_ARTICLE_CACHE + articleId);
+            redisUtils.del(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE);
             //删除 solr中的 文章
             solrService.delArticle(articleId);
             return ResponseResult.FAILED("文章不存在，删除失败");
@@ -458,6 +476,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         int result = articleDao.deleteArticleByState(articleId);
         if (result > 0) {
             redisUtils.del(Constants.Article.KEY_ARTICLE_CACHE + articleId);
+            redisUtils.del(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE);
             //删除 solr中的 文章
             solrService.delArticle(articleId);
             return ResponseResult.SUCCESS("文章状态更新成功");
@@ -559,12 +578,6 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
     public ResponseResult listArticleByLabel(int page, int size, String label) {
         page = checkPage(page);
         size = checkSize(size);
-        //缓存处理，缓存到solr和redis里。只缓存第一页的数据
-        if (page == 1){
-            String articleListJson = (String) redisUtils.get(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE);
-
-        }
-
 
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
@@ -580,10 +593,6 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             }
         }, pageable);
 
-        PageList<ArticleNoContent> result = new PageList<>();
-        //解析page
-//    result.parsePage(all);
-        //保存在redis里面
 
         return ResponseResult.SUCCESS("获取文章列表成功").setData(all);
     }
