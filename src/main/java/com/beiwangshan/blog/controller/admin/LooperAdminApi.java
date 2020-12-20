@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.controller.admin;
 
+import com.beiwangshan.blog.interceptor.CheckTooFrequentCommit;
 import com.beiwangshan.blog.pojo.Looper;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.ILooperService;
@@ -26,6 +27,7 @@ public class LooperAdminApi {
      * 上传轮播图的api
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PostMapping
     public ResponseResult addLoop(@RequestBody Looper looper){
@@ -50,6 +52,7 @@ public class LooperAdminApi {
      * @param loopId
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{loopId}")
     public ResponseResult updateLooper(@PathVariable("loopId")String loopId,@RequestBody Looper looper){

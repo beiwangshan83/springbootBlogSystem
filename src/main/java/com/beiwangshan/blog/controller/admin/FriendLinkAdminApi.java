@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.controller.admin;
 
+import com.beiwangshan.blog.interceptor.CheckTooFrequentCommit;
 import com.beiwangshan.blog.pojo.FriendLink;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IFriendLinkService;
@@ -26,6 +27,7 @@ public class FriendLinkAdminApi {
      * 上传友情链接的api
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PostMapping
     public ResponseResult addFriendLink(@RequestBody FriendLink friendLink){
@@ -55,6 +57,7 @@ public class FriendLinkAdminApi {
      * @param friendLinkId
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{friendLinkId}")
     public ResponseResult updateFriendLink(@PathVariable("friendLinkId")String friendLinkId,

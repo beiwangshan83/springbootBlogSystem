@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.controller.portal;
 
+import com.beiwangshan.blog.interceptor.CheckTooFrequentCommit;
 import com.beiwangshan.blog.pojo.Comment;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.ICommentService;
@@ -25,6 +26,7 @@ public class CommentPortalApi {
      * 发表评论的api
      * @return
      */
+    @CheckTooFrequentCommit
     @PostMapping
     public ResponseResult PostComment(@RequestBody Comment comment){
 

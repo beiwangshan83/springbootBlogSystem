@@ -37,6 +37,9 @@ public interface Constants {
         //token秘钥
         String COOKIE_TOKEN_KEY = "bws_blog_token";
 
+        String KEY_COMMIT_TOKEN_RECORD = "key_commit_token_record_";
+
+
 
         /**
          * 注册(register)：如果已经存在，提示该邮箱已经注册
@@ -61,6 +64,8 @@ public interface Constants {
      * 单位是 s
      */
     interface TimeValueInSecond {
+        int SECOND_10 = 10;//10秒
+        int HALF_MIN = 30; // 半分钟
         int MIN = 60;//一分钟
         int MIN_5 = MIN * 5;// 5 分钟
         int MIN_10 = MIN * 10;// 10 分钟

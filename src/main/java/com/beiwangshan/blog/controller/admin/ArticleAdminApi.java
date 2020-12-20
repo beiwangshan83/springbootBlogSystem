@@ -1,5 +1,6 @@
 package com.beiwangshan.blog.controller.admin;
 
+import com.beiwangshan.blog.interceptor.CheckTooFrequentCommit;
 import com.beiwangshan.blog.pojo.Article;
 import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.IArticleService;
@@ -26,6 +27,7 @@ public class ArticleAdminApi {
      * 上传文章的api
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PostMapping()
     public ResponseResult addArticle(@RequestBody Article article){
@@ -53,6 +55,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PutMapping("/{articleId}")
     public ResponseResult updateArticle(@PathVariable("articleId")String articleId,
@@ -96,6 +99,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @DeleteMapping("/state/{articleId}")
     public ResponseResult deleteArticleByUpdateState(@PathVariable("articleId")String articleId){
@@ -108,6 +112,7 @@ public class ArticleAdminApi {
      * @param articleId
      * @return
      */
+    @CheckTooFrequentCommit
     @PreAuthorize("@permission.admin()")
     @PutMapping("/top/{articleId}")
     public ResponseResult updateArticleState(@PathVariable("articleId")String articleId){

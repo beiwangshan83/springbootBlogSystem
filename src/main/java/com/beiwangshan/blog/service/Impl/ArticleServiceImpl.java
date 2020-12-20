@@ -293,7 +293,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
         result.parsePage(all);
         if (page == 1) {
             //保存在redis里面
-            redisUtils.set(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE, gson.toJson(result), Constants.TimeValueInMillions.MIN_15);
+            redisUtils.set(Constants.Article.KEY_ARTICLE_LIST_FIRST_PAGE, gson.toJson(result), Constants.TimeValueInSecond.MIN_5);
         }
         return ResponseResult.SUCCESS("文章列表查询成功").setData(result);
     }
@@ -349,7 +349,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
             //正常发布的状态，才可以增加阅读量
             redisUtils.set(Constants.Article.KEY_ARTICLE_CACHE + articleId,
                     gson.toJson(article),
-                    Constants.TimeValueInMillions.MIN_5);
+                    Constants.TimeValueInSecond.MIN_5);
 
             //设置阅读量的key , 先从redis里拿，如果redis里面没有，就从 mysql里面拿去，并且添加到redis里面
             String viewCount = (String) redisUtils.get(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId);
@@ -358,7 +358,7 @@ public class ArticleServiceImpl extends BaseService implements IArticleService {
 
                 long newViewCount = article.getViewCount() + 1;
                 log.info("newViewCount==> " + newViewCount);
-                redisUtils.set(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, String.valueOf(newViewCount), Constants.TimeValueInMillions.MIN_5);
+                redisUtils.set(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, String.valueOf(newViewCount), Constants.TimeValueInSecond.MIN_5);
             } else {
                 // 有，我们就更新到 mysql
                 long newViewCount = redisUtils.incr(Constants.Article.KEY_ARTICLE_VIEW_COUNT + articleId, 1);
