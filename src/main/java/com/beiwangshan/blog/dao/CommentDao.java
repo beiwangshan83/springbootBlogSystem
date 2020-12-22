@@ -1,6 +1,8 @@
 package com.beiwangshan.blog.dao;
 
 import com.beiwangshan.blog.pojo.Comment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
@@ -27,4 +29,12 @@ public interface CommentDao extends JpaRepository<Comment, String>, JpaSpecifica
      * @return
      */
     int deleteAllByArticleId(String articleId);
+
+    /**
+     * 通过文章ID 查询评论
+     * @param ArticleId
+     * @param pageable
+     * @return
+     */
+    Page<Comment> findAllByArticleId(String ArticleId, Pageable pageable);
 }

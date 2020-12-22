@@ -10,6 +10,11 @@ package com.beiwangshan.blog.utils;
  */
 public interface Constants {
 
+    //PC端
+    String FROM_PC = "p_";
+    //移动端
+    String FROM_MOBILE = "m_";
+
 
     interface User {
         //管理员默认角色

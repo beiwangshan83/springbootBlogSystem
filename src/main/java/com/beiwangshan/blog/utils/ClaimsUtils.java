@@ -24,8 +24,9 @@ public class ClaimsUtils {
     public static final String AVATAR = "avatar";
     public static final String EMAIL = "email";
     public static final String SIGN = "sign";
+    public static final String FROM = "from";
 
-    public static Map<String, Object> bwsUser2Claims(BwsUser bwsUser) {
+    public static Map<String, Object> bwsUser2Claims(BwsUser bwsUser,String from) {
         Map<String, Object> claims = new HashMap<>();
         //放入数据
         claims.put(ID, bwsUser.getId());
@@ -34,6 +35,7 @@ public class ClaimsUtils {
         claims.put(AVATAR, bwsUser.getAvatar());
         claims.put(EMAIL, bwsUser.getEmail());
         claims.put(SIGN, bwsUser.getSign());
+        claims.put(FROM,from);
         return claims;
     }
 
@@ -54,5 +56,9 @@ public class ClaimsUtils {
 
         return bwsUser;
 
+    }
+
+    public static String getFrom(Claims claims) {
+        return (String) claims.get(FROM);
     }
 }

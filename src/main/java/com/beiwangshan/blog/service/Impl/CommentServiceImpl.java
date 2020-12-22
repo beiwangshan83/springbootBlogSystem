@@ -129,7 +129,7 @@ public class CommentServiceImpl extends BaseService implements ICommentService {
         //如果有就直接返回
         //如果没有就直接向下继续
         String cacheJson = (String) redisUtils.get(Constants.Comment.KEY_COMMENT_FIRST_PAGE_CACHE + articleId);
-        if (!TextUtils.isEmpty(cacheJson) && page ==1) {
+        if (!TextUtils.isEmpty(cacheJson) && page == 1) {
             PageList<Comment> result = gson.fromJson(cacheJson, new TypeToken<PageList<Comment>>() {
             }.getType());
             log.info("这是从cache里面获取的。。。");
@@ -138,7 +138,7 @@ public class CommentServiceImpl extends BaseService implements ICommentService {
 
         Sort sort = Sort.by(Sort.Direction.DESC, "state", "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-        Page<Comment> all = commentDao.findAll(pageable);
+        Page<Comment> all = commentDao.findAllByArticleId(articleId, pageable);
         //把结果转成pageList
         PageList<Comment> result = new PageList<>();
         result.parsePage(all);

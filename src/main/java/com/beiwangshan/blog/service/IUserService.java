@@ -68,13 +68,10 @@ public interface IUserService {
      * @param captcha
      * @param captchaKey
      * @param bwsUser
-     * @param request
-     * @param response
      * @return
      */
     ResponseResult doLogin(String captcha, String captchaKey,
-                           BwsUser bwsUser, HttpServletRequest request,
-                           HttpServletResponse response);
+                           BwsUser bwsUser,String from);
 
     /**
      * 检查用户登录状态

@@ -31,7 +31,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
@@ -393,12 +392,12 @@ public class UserServiceImpl extends BaseService implements IUserService {
 
         if (!emailVerifyCode.equals(emailCode)) {
             return ResponseResult.FAILED("邮箱验证码不正确");
-        }else{
+        } else {
             redisUtils.del(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddr);
         }
 //        5.检查图灵验证码是否正确 拿到验证码
         String captchaVerifyCode = (String) redisUtils.get(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
-log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
+        log.info("注册时候拿到的 人类验证码" + captchaVerifyCode);
         if (TextUtils.isEmpty(captchaVerifyCode)) {
             return ResponseResult.FAILED("人类验证码已经过期");
         }
@@ -438,29 +437,31 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
 
     /**
      * 用户登录
+     * <p>
+     * 用户登录 captcha 图灵验证码
+     * 需要提交的数据：
+     * 1、用户账号 ==> 用户名+用户邮箱 ==> 做了唯一的处理
+     * 2、用户密码
+     * 3、图灵验证码
+     * 4、图灵验证码的key
      *
      * @param captcha
      * @param captchaKey
      * @param bwsUser
-     * @param request
-     * @param response
      * @return
      */
     @Override
     public ResponseResult doLogin(String captcha,
                                   String captchaKey,
                                   BwsUser bwsUser,
-                                  HttpServletRequest request,
-                                  HttpServletResponse response) {
-        /**
-         *  用户登录 captcha 图灵验证码
-         *    需要提交的数据：
-         *       1、用户账号 ==> 用户名+用户邮箱 ==> 做了唯一的处理
-         *       2、用户密码
-         *       3、图灵验证码
-         *       4、图灵验证码的key
-         */
-
+                                  String from) {
+        //form可能没有值，如果没有值，需要给一个默认值
+        if (TextUtils.isEmpty(from) ||
+                (!Constants.FROM_MOBILE.equals(from) && !Constants.FROM_PC.equals(from))) {
+            from = Constants.FROM_MOBILE;
+        }
+        HttpServletRequest request = getRequest();
+        HttpServletResponse response = getResponse();
         //对数据进行判空处理
         if (captcha == "" || captcha == null) {
             return ResponseResult.FAILED("验证码不能为空");
@@ -503,7 +504,10 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
         }
         //        图灵验证码正确，删除它
         redisUtils.del(Constants.User.KEY_CAPTCHA_CONTENT + captchaKey);
-        createToken(response, userFromDb);
+        //修改更新时间和登录ip
+        userFromDb.setLoginIp(request.getRemoteAddr());
+        userFromDb.setUpdateTime(new Date());
+        createToken(response, userFromDb, from);
         return ResponseResult.GET_STATE(ResponseState.LOGIN_SUCCESS);
     }
 
@@ -512,48 +516,77 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
      *
      * @param response
      * @param userFromDb
+     * @param from
      * @return token_key
      */
-    private String createToken(HttpServletResponse response, BwsUser userFromDb) {
-        int deleteResult = refreshTokenDao.deleteAllByUserId(userFromDb.getId());
-        //生成token
-        Map<String, Object> claims = ClaimsUtils.bwsUser2Claims(userFromDb);
+    private String createToken(HttpServletResponse response, BwsUser userFromDb, String from) {
+        String oldTokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
+        //干掉redis里面的token，保证单端登录
+        RefreshToken oldRefreshToken = refreshTokenDao.findOneByUserId(userFromDb.getId());
+        //不能干掉
+        if (Constants.FROM_MOBILE.equals(from)) {
+            if (oldRefreshToken != null) {
+                //删掉redis里的token，保证单端登录
+                redisUtils.del(Constants.User.KEY_TOKEN + oldRefreshToken.getMobileTokenKey());
+            }
+            //根据来源来源删除refreshed中对应的token_key
+            refreshTokenDao.deleteMobileTokenKey(oldTokenKey);
+        } else if (Constants.FROM_PC.equals(from)) {
+            if (oldRefreshToken != null) {
+                //删掉redis里的token，保证单端登录
+                redisUtils.del(Constants.User.KEY_TOKEN + oldRefreshToken.getTokenKey());
+            }
+            refreshTokenDao.deletePcTokenKey(oldTokenKey);
+        }
+
+        //生成token,claims 已经包含from了
+        Map<String, Object> claims = ClaimsUtils.bwsUser2Claims(userFromDb, from);
 
         //生成 token 默认有效期是两个小时
         String token = JwtUtils.createToken(claims);
 
         // 返回token的md5值，token会保存在redis里面，前端访问的时候，携带token的md5 key
         //从redis中，获取即可
-        String tokenKey = DigestUtils.md5DigestAsHex(token.getBytes());
+        String tokenKey = from + DigestUtils.md5DigestAsHex(token.getBytes());
         //保存token 到 redis里，有效期是两个小时，key是tokenKey
-        redisUtils.set(Constants.User.KEY_TOKEN + tokenKey, token, Constants.TimeValueInMillions.HOUR_2);
+        redisUtils.set(Constants.User.KEY_TOKEN + tokenKey, token, Constants.TimeValueInSecond.HOUR_2);
         //创建一个cookies
-        Cookie cookie = new Cookie(Constants.User.COOKIE_TOKEN_KEY, tokenKey);
         //需要动态获取，可以从request里获取
-        //工具类实现
-        cookie.setDomain("localhost");
-        cookie.setPath("/");
-        //设置时间,这里默认设置的是一个月
-        cookie.setMaxAge(Constants.TimeValueInSecond.MONTH);
-        // 把 tokenKey 写到 cookies里
-        response.addCookie(cookie);
+        CookieUtils.setUpCookie(response, Constants.User.COOKIE_TOKEN_KEY, tokenKey);
 
-        // 生成refreshToken
-        String refreshTokenValue = JwtUtils.createRefreshToken(userFromDb.getId(), Constants.TimeValueInSecond.MONTH);
-        //保存到数据库
+//        //工具类实现
+//        cookie.setDomain("localhost");
+//        cookie.setPath("/");
+//        //设置时间,这里默认设置的是一个月
+//        cookie.setMaxAge(Constants.TimeValueInSecond.MONTH);
+//        // 把 tokenKey 写到 cookies里
+//        response.addCookie(cookie);
+
+        //先判断数据库里面有没有refreshToken，如果有的话就更新，如果没有就新创建
+        RefreshToken refreshToken = refreshTokenDao.findOneByUserId(userFromDb.getId());
+        if (refreshToken == null) {
+            refreshToken = new RefreshToken();
+            refreshToken.setId(snowflakeIdWorker.nextId() + "");
+            refreshToken.setCreateTime(new Date());
+            refreshToken.setUserId(userFromDb.getId());
+        }
+
         /**
          * refreshToken，tokenKey,用户ID，创建时间，更新时间
          */
-        RefreshToken refreshToken = new RefreshToken();
-        refreshToken.setId(snowflakeIdWorker.nextId() + "");
+        // 不管是过期了，还是新登录，都会更新或者生成refreshToken
+        String refreshTokenValue = JwtUtils.createRefreshToken(userFromDb.getId(), Constants.TimeValueInMillions.MONTH);
+
         refreshToken.setRefreshToken(refreshTokenValue);
-        refreshToken.setUserId(userFromDb.getId());
-        refreshToken.setTokenKey(tokenKey);
-        refreshToken.setCreateTime(new Date());
+        //要判断来源，如果是移动端的，就设置到移动端那里去，如果是PC端的，就设置在默认的那个位置。
+        if (Constants.FROM_MOBILE.equals(from)) {
+            refreshToken.setMobileTokenKey(tokenKey);
+        } else {
+            refreshToken.setTokenKey(tokenKey);
+        }
         refreshToken.setUpdateTime(new Date());
-
-        this.refreshTokenDao.save(refreshToken);
-
+        //保存到数据库
+        refreshTokenDao.save(refreshToken);
         return tokenKey;
     }
 
@@ -565,22 +598,34 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
      */
     @Override
     public BwsUser checkBwsUser() {
-
         //1.拿到token_key
         String tokenKey = CookieUtils.getCookie(getRequest(), Constants.User.COOKIE_TOKEN_KEY);
-        // 从redis中取得 token
-        String redisToken = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
+        if (TextUtils.isEmpty(tokenKey)) {
+            return null;
+        }
+
         BwsUser bwsUser = parseByTokenKey(tokenKey);
+        //从token中解析出此请求是什么端的。
+        //from可能为空的，2小时没有更新，被redis删除了
+        String from = tokenKey.startsWith(Constants.FROM_PC) ? Constants.FROM_PC : Constants.FROM_MOBILE;
         if (bwsUser == null) {
             // 说明解析出错，过期了，
             // - 去数据库查询，根据 refreshToken，
-            RefreshToken refreshToken = refreshTokenDao.findOneByTokenKey(tokenKey);
+            //如果是从PC，我们就以PC的token_key去查
+            //如果是mobile的，我们就以 mobile_key去查。
+            RefreshToken refreshToken = null;
+            if (Constants.FROM_PC.equals(from)) {
+                refreshToken = refreshTokenDao.findOneByTokenKey(tokenKey);
+            } else {
+                refreshToken = refreshTokenDao.findOneByMobileTokenKey(tokenKey);
+            }
             // - 如果不存在，就是没登录
             if (refreshToken == null) {
                 return null;
             }
             // - 如果存在就解析 refreshToken
             try {
+                //解析有可能出错，就是过期了
                 JwtUtils.parseJWT(refreshToken.getRefreshToken());
                 // - 如果有效，就创建新的token，并更新 refreshToken
                 String userId = refreshToken.getUserId();
@@ -588,7 +633,7 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
                 // 删掉之前的 refreshToken 记录
 
                 // 创建新的，并且存入数据库
-                String newTokenKey = createToken(getResponse(), bwsUserById);
+                String newTokenKey = createToken(getResponse(), bwsUserById, from);
                 // 返回 token
                 return parseByTokenKey(newTokenKey);
             } catch (Exception exception) {
@@ -825,13 +870,42 @@ log.info("注册时候拿到的 人类验证码"+captchaVerifyCode);
 //            用户没有登录
             return ResponseResult.ACCOUNT_NOT_LOGIN();
         }
-//        删除redis里面的token
-        redisUtils.del(Constants.User.KEY_TOKEN+tokenKey);
+//        删除redis里面的token，因为各端是独立的，所以可以删除。
+        redisUtils.del(Constants.User.KEY_TOKEN + tokenKey);
 //        删除MySQL里面的refreshToken
-        refreshTokenDao.deleteAllByTokenKey(tokenKey);
+//        refreshTokenDao.deleteAllByTokenKey(tokenKey);这个不做删除，只做更新
+
+        if (Constants.FROM_PC.startsWith(tokenKey)) {
+            refreshTokenDao.deletePcTokenKey(tokenKey);
+        } else {
+            refreshTokenDao.deleteMobileTokenKey(tokenKey);
+        }
 //        删除cookies
-        CookieUtils.deleteCookie(getResponse(),Constants.User.COOKIE_TOKEN_KEY);
+        CookieUtils.deleteCookie(getResponse(), Constants.User.COOKIE_TOKEN_KEY);
         return ResponseResult.SUCCESS("退出登录成功");
+    }
+
+
+    /**
+     * 解析此 token 是从 PC端来的，还是移动端来的。使用要判空
+     *
+     * @param tokenKey
+     * @return
+     */
+    private String parseFrom(String tokenKey) {
+        String token = (String) redisUtils.get(Constants.User.KEY_TOKEN + tokenKey);
+        if (token != null) {
+            try {
+                //解析token
+                Claims claims = JwtUtils.parseJWT(token);
+                //解析token为 User 实体类
+                return ClaimsUtils.getFrom(claims);
+            } catch (Exception e) {
+                log.info("parseByTokenKey  ==> " + token + "过期了");
+                return null;
+            }
+        }
+        return null;
     }
 
 

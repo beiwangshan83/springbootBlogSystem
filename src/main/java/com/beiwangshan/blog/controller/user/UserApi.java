@@ -83,11 +83,9 @@ public class UserApi {
     @PostMapping("/login/{captcha}/{captcha_key}")
     public ResponseResult login(@PathVariable("captcha") String captcha,
                                 @PathVariable("captcha_key") String captchaKey,
-                                @RequestBody BwsUser bwsUser,
-                                HttpServletRequest request,
-                                HttpServletResponse response
+                                @RequestBody BwsUser bwsUser,@RequestParam(value = "from",required = false)String from
     ) {
-        return userService.doLogin(captcha, captchaKey, bwsUser, request, response);
+        return userService.doLogin(captcha, captchaKey, bwsUser,from);
     }
 
 
