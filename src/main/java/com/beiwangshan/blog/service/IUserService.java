@@ -153,4 +153,10 @@ public interface IUserService {
      * @return
      */
     ResponseResult doLogout();
+
+    /**
+     * 获取登录的二维码
+     * @return
+     */
+    ResponseResult getPcLoginQrCodeInfo();
 }

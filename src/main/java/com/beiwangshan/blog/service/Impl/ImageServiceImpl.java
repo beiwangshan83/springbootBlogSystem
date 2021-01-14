@@ -7,9 +7,7 @@ import com.beiwangshan.blog.response.ResponseResult;
 import com.beiwangshan.blog.service.BaseService;
 import com.beiwangshan.blog.service.IImageService;
 import com.beiwangshan.blog.service.IUserService;
-import com.beiwangshan.blog.utils.Constants;
-import com.beiwangshan.blog.utils.SnowflakeIdWorker;
-import com.beiwangshan.blog.utils.TextUtils;
+import com.beiwangshan.blog.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +23,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.File;
@@ -286,5 +286,51 @@ public class ImageServiceImpl extends BaseService implements IImageService {
             return ResponseResult.FAILED("图片不存在");
         }
         return ResponseResult.SUCCESS("图片删除成功");
+    }
+
+    @Autowired
+    private RedisUtils redisUtils;
+
+    /**
+     * 生成二维码
+     * 生成二维码
+     * 二维码的内容：
+     * 1、可以简单的是一个code，也就是传进来这个
+     * 这个情况，如果是我们自己写的app来扫描，就能识别并解析，请求对应的接口
+     * 如果是第三方的应用扫描，可以识别但是没有用，只能显示。
+     * 我们应该一个 app 下载地址 + code，如果我们自己的app扫描到，切割后面的内容拿到code进行解析
+     * 请求对应的接口，如果是第三方的 app扫描到，他是一个地址，就会访问下载app的地址，去下载我们的app
+     * APP_DOWNLOAD_PATH / code
+     * <p>
+     * === 是一个特殊的标识符，方便前端的切割。
+     *
+     * @param code
+     * @param response
+     */
+    @Override
+    public void createQrCode(String code, HttpServletResponse response, HttpServletRequest request) {
+        //检查是否过期，从redis里面去取
+        String loginState = (String) redisUtils.get(Constants.User.KEY_PC_LOGIN_ID + code);
+        if (TextUtils.isEmpty(loginState)) {
+            //TODO:返回一张图片，显示已经过期的
+            return;
+        }
+        StringBuffer requestURL = request.getRequestURL();
+        String servletPath = request.getServletPath();
+        String originalDomain = requestURL.toString().replace(servletPath,"");
+        log.info("originalDomain == 》 "+ originalDomain);
+        String content =originalDomain + Constants.APP_DOWNLOAD_PATH + "===" + code;
+        log.info("qrQrcode content ===> "+ content);
+        byte[] result = QrCodeUtils.encodeQRCode(content);
+        //设置返回值类型
+        response.setContentType(QrCodeUtils.RESPONSE_CONTENT_TYPE);
+        try {
+            ServletOutputStream outputStream = response.getOutputStream();
+            outputStream.write(result);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

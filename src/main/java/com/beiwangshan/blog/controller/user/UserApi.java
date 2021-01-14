@@ -304,4 +304,16 @@ public class UserApi {
         return userService.doLogout();
     }
 
+    /**
+     * 获取二维码：
+     * 二维码的图片路径
+     * 二维码的内容字符串
+     * @return
+     */
+    @GetMapping("/pc-login-qr-code")
+    public ResponseResult getPcLoginQrcode(){
+
+        return userService.getPcLoginQrCodeInfo();
+    }
+
 }

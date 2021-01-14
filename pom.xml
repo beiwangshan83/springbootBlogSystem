@@ -149,7 +149,12 @@
             <version>1.12.1</version>
         </dependency>
 
-
+        <!--QrCode 二维码-->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.3.0</version>
+        </dependency>
     </dependencies>
 
     <build>

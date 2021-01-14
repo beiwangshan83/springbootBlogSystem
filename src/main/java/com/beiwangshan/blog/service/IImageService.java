@@ -3,6 +3,7 @@ package com.beiwangshan.blog.service;
 import com.beiwangshan.blog.response.ResponseResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -46,4 +47,11 @@ public interface IImageService {
      * @return
      */
     ResponseResult deleteByImageId(String imageId);
+
+    /**
+     * 生成二维码
+     * @param code
+     * @param response
+     */
+    void createQrCode(String code, HttpServletResponse response, HttpServletRequest request);
 }

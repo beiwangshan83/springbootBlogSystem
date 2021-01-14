@@ -28,7 +28,7 @@ spring:
 #      filter:
 #        enabled: true
 
-bws.blog.image.save-Path: E:\javaProjects\blog\code\images
+bws.blog.image.save-Path: G:\毕业设计\blog\code\images
 #图片上传的大小 5MB
 bws.blog.image-max-size: 5242880
 

@@ -10,10 +10,20 @@ package com.beiwangshan.blog.utils;
  */
 public interface Constants {
 
-    //PC端
+    /**
+     * PC端
+     */
     String FROM_PC = "p_";
-    //移动端
+
+    /**
+     * 移动端
+     */
     String FROM_MOBILE = "m_";
+
+    /**
+     * app的下载地址
+     */
+    String APP_DOWNLOAD_PATH="/portal/app/";
 
 
     interface User {
@@ -41,8 +51,12 @@ public interface Constants {
         String KEY_TOKEN = "key_token_";
         //token秘钥
         String COOKIE_TOKEN_KEY = "bws_blog_token";
-
+        //反复提交的redis key
         String KEY_COMMIT_TOKEN_RECORD = "key_commit_token_record_";
+        //登录的qrcode的key
+        String KEY_PC_LOGIN_ID = "key_pc_login_id_";
+        //登录的qrcode的key的状态，false为未成功登录
+        String KEY_PC_LOGIN_STATE_FALSE = "false";
 
 
 

@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -883,6 +884,26 @@ public class UserServiceImpl extends BaseService implements IUserService {
 //        删除cookies
         CookieUtils.deleteCookie(getResponse(), Constants.User.COOKIE_TOKEN_KEY);
         return ResponseResult.SUCCESS("退出登录成功");
+    }
+
+    /**
+     * 获取登录的二维码
+     *
+     * @return
+     */
+    @Override
+    public ResponseResult getPcLoginQrCodeInfo() {
+        // 1、生成一个唯一的id
+        long code = snowflakeIdWorker.nextId();
+        // 2、保存到redis里面，值为false，时间为 5 分钟（二维码的有效期）
+        redisUtils.set(Constants.User.KEY_PC_LOGIN_ID + code,
+                Constants.User.KEY_PC_LOGIN_STATE_FALSE,
+                Constants.TimeValueInSecond.MIN_5);
+        Map<String,Object> result = new HashMap<>();
+        result.put("code",code);
+        result.put("url","/portal/image/qr-code/"+code);
+        // 3、返回结果
+        return ResponseResult.SUCCESS("获取成功.").setData(result);
     }
 
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -27,15 +28,26 @@ public class ImagePortalApi {
 
     /**
      * 获取图片的 api
+     *
      * @param imageId
      * @return
      */
     @GetMapping("/{imageId}")
-    public void getImage(HttpServletResponse response, @PathVariable("imageId")String imageId){
+    public void getImage(HttpServletResponse response, @PathVariable("imageId") String imageId) {
         try {
-            imageService.viewImage(response,imageId);
+            imageService.viewImage(response, imageId);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 获取登录的图片，显示出来
+     *
+     * @param code
+     */
+    @GetMapping("/qr-code/{code}")
+    public void getQrCodeImage(@PathVariable("code") String code, HttpServletResponse response, HttpServletRequest request) {
+        imageService.createQrCode(code,response,request);
     }
 }
