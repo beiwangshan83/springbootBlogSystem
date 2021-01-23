@@ -316,4 +316,13 @@ public class UserApi {
         return userService.getPcLoginQrCodeInfo();
     }
 
+    /**
+     * 根据token来获取用户信息
+     * @return
+     */
+    @GetMapping("/check-token")
+    public ResponseResult parseToken(){
+        return userService.parseToken();
+    }
+
 }

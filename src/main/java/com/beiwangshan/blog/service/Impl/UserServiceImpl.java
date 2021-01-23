@@ -217,7 +217,7 @@ public class UserServiceImpl extends BaseService implements IUserService {
             targetCaptcha = new GifCaptcha(200, 60);
         } else {
             // 算术类型
-            targetCaptcha = new ArithmeticCaptcha(200, 60);
+            targetCaptcha = new ArithmeticCaptcha(Constants.GifCaptcha.WIDTH, Constants.GifCaptcha.HEIGHT);
             // 几位数运算，默认是两位
             targetCaptcha.setLen(2);
             targetCaptcha.text();  // 获取运算的结果：
@@ -904,6 +904,19 @@ public class UserServiceImpl extends BaseService implements IUserService {
         result.put("url","/portal/image/qr-code/"+code);
         // 3、返回结果
         return ResponseResult.SUCCESS("获取成功.").setData(result);
+    }
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    @Override
+    public ResponseResult parseToken() {
+        BwsUser bwsUser = checkBwsUser();
+        if (bwsUser == null){
+            return ResponseResult.ACCOUNT_NOT_LOGIN();
+        }
+        return ResponseResult.SUCCESS("获取用户成功。").setData(bwsUser);
     }
 
 

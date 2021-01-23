@@ -159,4 +159,10 @@ public interface IUserService {
      * @return
      */
     ResponseResult getPcLoginQrCodeInfo();
+
+    /**
+     * 获取用户信息
+     * @return
+     */
+    ResponseResult parseToken();
 }

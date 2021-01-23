@@ -1,5 +1,10 @@
-[2021-01-15 00:22:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-GHAK0NFR with PID 4544 (G:\毕业设计\blog\code\bws_blog\target\classes started by beiwangshan in G:\毕业设计\blog\code\bws_blog)
-[2021-01-15 00:22:37] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2021-01-15 00:22:52] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 16.125 seconds (JVM running for 18.946)
-[2021-01-15 00:23:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > getCaptcha
-[2021-01-15 00:23:11] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 图灵验证码 ==> wynzq
+[2021-01-23 16:04:15] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-GHAK0NFR with PID 11840 (G:\毕业设计\blog\code\bws_blog\target\classes started by beiwangshan in G:\毕业设计\blog\code\bws_blog)
+[2021-01-23 16:04:15] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2021-01-23 16:04:24] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > uiConfiguration
+[2021-01-23 16:04:24] [http-nio-2020-exec-9] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > securityConfiguration
+[2021-01-23 16:04:24] [http-nio-2020-exec-10] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > swaggerResources
+[2021-01-23 16:04:24] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > page404
+[2021-01-23 16:04:24] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > page404
+[2021-01-23 16:04:24] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 10.096 seconds (JVM running for 11.74)
+[2021-01-23 16:04:54] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.interceptor.ApiInterceptor] - method name == > parseToken
+[2021-01-23 16:04:54] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.utils.CookieUtils] - cookies is null

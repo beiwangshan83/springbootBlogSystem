@@ -188,5 +188,13 @@ public interface Constants {
         int VIEW_COUNT_DESC = 4;
     }
 
+    /**
+     * 设置验证码的图片的大小
+     */
+    interface GifCaptcha{
+        int WIDTH = 130;
+        int HEIGHT = 40;
+    }
+
 
 }
