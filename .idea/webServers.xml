@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="57b7e220-cae9-4b63-b7f7-f99c24eaeffc" name="北忘山的博客" url="http://182.92.166.160">
+        <fileTransfer rootFolder="/webProject/bwsBlog" accessType="SFTP" host="182.92.166.160" port="22" sshConfigId="22982a76-e7b4-4f89-99f9-4753cdea8d1f" sshConfig="root@182.92.166.160:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

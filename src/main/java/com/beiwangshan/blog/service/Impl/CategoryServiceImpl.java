@@ -143,6 +143,7 @@ public class CategoryServiceImpl extends BaseService implements ICategoryService
      */
     @Override
     public ResponseResult updateCategory(String categoryId, Category category) {
+        System.out.println("状态 ==> "+ category.getStatus());
 //        第一步是找出来
         Category categoryFromDb = categoryDao.findOneById(categoryId);
         if (categoryFromDb == null) {
@@ -165,9 +166,10 @@ public class CategoryServiceImpl extends BaseService implements ICategoryService
         }
         categoryFromDb.setOrder(category.getOrder());
         categoryFromDb.setUpdateTime(new Date());
+        categoryFromDb.setStatus(category.getStatus());
 //        第三步是保存数据
-        categoryDao.save(categoryFromDb);
+        Category save = categoryDao.save(categoryFromDb);
 //        第四步返回结果
-        return ResponseResult.SUCCESS("更新成功");
+        return ResponseResult.SUCCESS("更新成功").setData(save);
     }
 }

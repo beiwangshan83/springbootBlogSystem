@@ -15,7 +15,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
 
 /**
  * @className: com.beiwangshan.blog.interceptor-> ApiInterceptor
@@ -41,11 +40,12 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
         if (handler instanceof HandlerMethod) {
             //某一些提交需要拦截
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Method method = handlerMethod.getMethod();
-            String name = method.getName();
-            log.info("method name == > " + name);
+//            Method method = handlerMethod.getMethod();
+//            String name = method.getName();
+//            log.info("method name == > " + name);
             CheckTooFrequentCommit methodAnnotation = handlerMethod.getMethodAnnotation(CheckTooFrequentCommit.class);
             if (methodAnnotation != null) {
+                String methodName = handlerMethod.getMethod().getName();
                 //所有提交内容的方法，必须是用户登录的。所以使用token作为可以来记录请求的频率
                 String tokenKey = CookieUtils.getCookie(request, Constants.User.COOKIE_TOKEN_KEY);
                 log.info("tokenKey ==> || =" + tokenKey);
@@ -63,7 +63,7 @@ public class ApiInterceptor extends HandlerInterceptorAdapter {
 
                     } else {
                         //如果不存在，说明可以提交，并且记录此次提交，有效期为30秒
-                        redisUtils.set(Constants.User.KEY_COMMIT_TOKEN_RECORD + tokenKey, "true", Constants.TimeValueInSecond.SECOND_10);
+                        redisUtils.set(Constants.User.KEY_COMMIT_TOKEN_RECORD + tokenKey + methodName, "true", Constants.TimeValueInSecond.SECOND_10);
                     }
 
                 }

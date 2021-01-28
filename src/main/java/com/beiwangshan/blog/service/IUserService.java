@@ -130,7 +130,7 @@ public interface IUserService {
      * @param size
      * @return
      */
-    ResponseResult listUser(int page, int size);
+    ResponseResult listUser(int page, int size,String userName,String email);
 
     /**
      * 更新用户的密码

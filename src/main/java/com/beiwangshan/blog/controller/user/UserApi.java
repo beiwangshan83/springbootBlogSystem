@@ -200,9 +200,11 @@ public class UserApi {
     @PreAuthorize("@permission.admin()")
     @GetMapping("/list")
     public ResponseResult listUser(@RequestParam("page") int page,
-                                   @RequestParam("size") int size) {
+                                   @RequestParam("size") int size,
+                                   @RequestParam(value = "userName",required = false)String userName,
+                                   @RequestParam(value = "email",required = false)String email) {
 
-        return userService.listUser(page, size);
+        return userService.listUser(page, size,userName,email);
     }
 
 

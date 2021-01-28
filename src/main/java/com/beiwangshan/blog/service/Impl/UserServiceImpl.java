@@ -25,19 +25,21 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @className: com.beiwangshan.blog.service.Impl-> UserServiceImpl
@@ -789,7 +791,7 @@ public class UserServiceImpl extends BaseService implements IUserService {
      * @return
      */
     @Override
-    public ResponseResult listUser(int page, int size) {
+    public ResponseResult listUser(int page, int size,String userName,String email) {
 //        判断page大小，分页查询
         page = checkPage(page);
         size = checkSize(size);
@@ -799,7 +801,24 @@ public class UserServiceImpl extends BaseService implements IUserService {
         Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 //       TODO: 就这个地方错了！！！
-        Page<BwsUserNoPassword> allUser = userNoPasswordDao.findAll(pageable);
+        Page<BwsUserNoPassword> allUser = userNoPasswordDao.findAll(new Specification<BwsUserNoPassword>() {
+            @Override
+            public Predicate toPredicate(Root<BwsUserNoPassword> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = new ArrayList<>();
+                //判断关键字是否为空
+                if (!TextUtils.isEmpty(userName)) {
+                    Predicate preUser = criteriaBuilder.like(root.get("userName").as(String.class), "%" + userName + "%");
+                    predicates.add(preUser);
+                }
+                if (!TextUtils.isEmpty(email)) {
+                    Predicate preEmail = criteriaBuilder.equal(root.get("email").as(String.class),  email);
+                    predicates.add(preEmail);
+                }
+                Predicate[] preArray = new Predicate[predicates.size()];
+                predicates.toArray(preArray);
+                return criteriaBuilder.and(preArray);
+            }
+        }, pageable);
 
         return ResponseResult.SUCCESS("查询成功").setData(allUser);
     }
