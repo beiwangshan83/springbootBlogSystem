@@ -165,4 +165,12 @@ public interface IUserService {
      * @return
      */
     ResponseResult parseToken();
+
+    /**
+     * 管理员修改用户密码
+     * @param userId
+     * @param password
+     * @return
+     */
+    ResponseResult resetPassword(String userId, String password);
 }

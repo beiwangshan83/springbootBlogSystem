@@ -327,4 +327,10 @@ public class UserApi {
         return userService.parseToken();
     }
 
+    @PreAuthorize("@permission.admin()")
+    @PutMapping("/reset-password/{userId}")
+    public ResponseResult resetPassword(@PathVariable("userId")String userId,@RequestParam("password")String password){
+        return userService.resetPassword(userId,password);
+    }
+
 }

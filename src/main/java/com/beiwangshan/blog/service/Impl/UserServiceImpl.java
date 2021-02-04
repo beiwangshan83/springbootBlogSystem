@@ -938,6 +938,28 @@ public class UserServiceImpl extends BaseService implements IUserService {
         return ResponseResult.SUCCESS("获取用户成功。").setData(bwsUser);
     }
 
+    /**
+     * 管理员修改用户密码
+     *
+     * @param userId
+     * @param password
+     * @return
+     */
+    @Override
+    public ResponseResult resetPassword(String userId, String password) {
+        //查询出用户
+        BwsUser user = userDao.findOneById(userId);
+        //判断用户是否存在
+        if (user == null) {
+            return ResponseResult.FAILED("用户不存在");
+        }
+        //密码进行加密
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        //保存结果
+        userDao.save(user);
+        return ResponseResult.SUCCESS("密码重置成功");
+    }
+
 
     /**
      * 解析此 token 是从 PC端来的，还是移动端来的。使用要判空
