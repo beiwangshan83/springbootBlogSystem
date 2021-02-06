@@ -1,3 +1,26 @@
-[2021-02-03 21:06:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-GHAK0NFR with PID 10236 (G:\毕业设计\blog\code\bws_blog\target\classes started by beiwangshan in G:\毕业设计\blog\code\bws_blog)
-[2021-02-03 21:06:49] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
-[2021-02-03 21:07:01] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 12.235 seconds (JVM running for 13.684)
+[2021-02-05 00:05:18] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Starting BlogApplication on LAPTOP-GHAK0NFR with PID 7532 (G:\毕业设计\blog\code\bws_blog\target\classes started by beiwangshan in G:\毕业设计\blog\code\bws_blog)
+[2021-02-05 00:05:18] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - The following profiles are active: dev
+[2021-02-05 00:05:27] [main] - [INFO ] [ com.beiwangshan.blog.BlogApplication] - Started BlogApplication in 9.091 seconds (JVM running for 10.566)
+[2021-02-05 00:11:48] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 1797007941@qq.com
+[2021-02-05 00:11:48] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>1
+[2021-02-05 00:11:48] [http-nio-2020-exec-1] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>545729
+[2021-02-05 00:11:54] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 1797007941@qq.com
+[2021-02-05 00:11:54] [http-nio-2020-exec-3] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>2
+[2021-02-05 00:12:29] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 1797007941@qq.com
+[2021-02-05 00:12:29] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>2
+[2021-02-05 00:12:29] [http-nio-2020-exec-4] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>627873
+[2021-02-05 00:13:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 2872979827@qq.com
+[2021-02-05 00:13:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>3
+[2021-02-05 00:13:18] [http-nio-2020-exec-2] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>242022
+[2021-02-05 00:14:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 4546@bei.com
+[2021-02-05 00:14:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>4
+[2021-02-05 00:14:39] [http-nio-2020-exec-5] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>782120
+[2021-02-05 00:16:28] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 22@qq.com
+[2021-02-05 00:16:28] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>5
+[2021-02-05 00:16:28] [http-nio-2020-exec-7] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>389631
+[2021-02-05 00:20:27] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 22@22.com
+[2021-02-05 00:20:27] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>6
+[2021-02-05 00:20:27] [http-nio-2020-exec-6] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>404179
+[2021-02-05 00:49:37] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.controller.user.UserApi] - emailAddress ==> 22@qq.com
+[2021-02-05 00:49:37] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - ipSendTimes ==>7
+[2021-02-05 00:49:37] [http-nio-2020-exec-8] - [INFO ] [ com.beiwangshan.blog.service.Impl.UserServiceImpl] - 邮箱验证码===>300409

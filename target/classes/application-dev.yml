@@ -1,0 +1,35 @@
+server:
+  port: 2020
+spring:
+  application:
+    name: bws_blog
+  datasource:
+    url:  jdbc:mysql://localhost:3306/bws_blog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    #url:  jdbc:mysql://192.168.0.125:3306/bws_blog?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 1234
+  jpa:
+    show-sql: true
+  redis:
+    host: 127.0.0.1 # Redis服务器地址
+    port: 6379 # Redis服务器连接端口
+    password: 123456 # Redis服务器连接密码
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  data:
+    solr:
+      host: http://192.168.25.130:8983/solr/Ik_core
+#  mvc:
+#    hiddenmethod:
+#      filter:
+#        enabled: true
+
+bws.blog.image.save-Path: G:\毕业设计\blog\code\images
+#图片上传的大小 5MB
+bws.blog.image-max-size: 5242880
+
+

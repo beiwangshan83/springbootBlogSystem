@@ -298,9 +298,15 @@ public class UserServiceImpl extends BaseService implements IUserService {
 
         //1.防止暴力发送，就是不断的发送，同一个邮箱，间隔需要超过1分钟，一小时内同一个IP，最多只能10次，短信最多是 3 次
 //        获取邮箱发送IP的次数，如果没有 ==> 继续；如果有 ==> 判断次数 ==> 操作
-        Integer ipSendTimes = (Integer) redisUtils.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress);
-
-        if (ipSendTimes != null && ipSendTimes > 10) {
+        String ipSendTimeValue = (String) redisUtils.get(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress);
+        Integer ipSendTimes;
+        if (ipSendTimeValue != null) {
+            ipSendTimes = Integer.parseInt(ipSendTimeValue);
+        }else{
+            ipSendTimes=1;
+        }
+        log.info("ipSendTimes ==>"+ ipSendTimes);
+        if (ipSendTimes > 10) {
             return ResponseResult.FAILED("发送过于频繁，请稍后再试！");
         }
 
@@ -334,9 +340,9 @@ public class UserServiceImpl extends BaseService implements IUserService {
         if (ipSendTimes == null) {
             ipSendTimes = 0;
         }
-
+        ipSendTimes ++ ;
 //        设置IP 和 邮箱地址 一小时有效期 和 30 秒
-        redisUtils.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress, ipSendTimes, 60 * 60);
+        redisUtils.set(Constants.User.KEY_EMAIL_SEND_IP + remoteAddress, String.valueOf(ipSendTimes), 60 * 60);
         redisUtils.set(Constants.User.KEY_EMAIL_SEND_ADDRESS + emailAddress, "true", 30);
 //        保存code，10分钟内有效
         redisUtils.set(Constants.User.KEY_EMAIL_CODE_CONTENT + emailAddress, String.valueOf(code), 60 * 10);
